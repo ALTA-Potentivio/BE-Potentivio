@@ -56,7 +56,30 @@ paths:
               schema:
                 $ref: '#/components/schemas/artist_login_succes'
         "400":
-          description: failed to login
+          description: failed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/400'
+        "401":
+          description: failed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/401'
+        "403":
+          description: failed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/403'
+        "500":
+          description: failed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/500'
+
   /login/cafe-owner:
     post:
       tags:
@@ -78,7 +101,29 @@ paths:
               schema:
                 $ref: '#/components/schemas/cafe_login_succes'
         "400":
-          description: failed to login
+          description: failed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/400'
+        "401":
+          description: failed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/401'
+        "403":
+          description: failed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/403'
+        "500":
+          description: failed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/500'
   /artist:
     post:
       tags:
@@ -87,14 +132,36 @@ paths:
       requestBody:
         description: required request body for create user artist
         content:
-          multipart/form-data:
+          application/json:
             schema:
               $ref: '#/components/schemas/post_artist'
       responses:
         '200':
           description: succes to create user artist
-        '400':
-          description: failed to create user artist
+        "400":
+          description: failed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/400'
+        "401":
+          description: failed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/401'
+        "403":
+          description: failed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/403'
+        "500":
+          description: failed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/500'
     get:
       tags:
         - artist
@@ -107,16 +174,38 @@ paths:
               schema:
                 type: object
                 properties:
-                  massage:
-                    type: string
-                    example: succes
                   status:
                     type: string
-                    example: succes to login
+                    example: succes
+                  message:
+                    type: string
+                    example: succes to get all artist
                   data:
                     $ref: '#/components/schemas/get_all_artist'
         "400":
-          description: failed to get all user artist
+          description: failed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/400'
+        "401":
+          description: failed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/401'
+        "403":
+          description: failed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/403'
+        "500":
+          description: failed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/500'
   /artist/profile:
     get:
       tags:
@@ -130,16 +219,38 @@ paths:
               schema:
                 type: object
                 properties:
-                  massage:
-                    type: string
-                    example: succes
                   status:
                     type: string
-                    example: succes to login
+                    example: succes
+                  message:
+                    type: string
+                    example: succes to get profile artist
                   data:
                     $ref: '#/components/schemas/get_artist'
         "400":
-          description: failed to get user artist
+          description: failed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/400'
+        "401":
+          description: failed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/401'
+        "403":
+          description: failed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/403'
+        "500":
+          description: failed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/500'
   /artist/{id}:
     get:
       tags:
@@ -162,12 +273,12 @@ paths:
               schema:
                 type: object
                 properties:
-                  massage:
-                    type: string
-                    example: succes
                   status:
                     type: string
-                    example: succes to login
+                    example: succes
+                  message:
+                    type: string
+                    example: succes to get detail artist
                   data:
                     $ref: '#/components/schemas/get_artist'
         "400":
@@ -193,9 +304,42 @@ paths:
               $ref: '#/components/schemas/get_artist'
       responses:
         "200":
-          description: succes to update artist
+          description: succes
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: succes
+                  message:
+                    type: string
+                    example: succes to edit artist
         "400":
-          description: failed to update artist
+          description: failed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/400'
+        "401":
+          description: failed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/401'
+        "403":
+          description: failed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/403'
+        "500":
+          description: failed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/500'
     delete:
       tags:
         - artist
@@ -212,9 +356,42 @@ paths:
             example: 1
       responses:
         "200":
-          description: succes to delete artist
+          description: succes
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: succes
+                  message:
+                    type: string
+                    example: succes to delete artist
         "400":
-          description: failed to delete artist
+          description: failed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/400'
+        "401":
+          description: failed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/401'
+        "403":
+          description: failed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/403'
+        "500":
+          description: failed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/500'
   /cafe/profile:
     get:
       tags:
@@ -228,16 +405,38 @@ paths:
               schema:
                 type: object
                 properties:
-                  massage:
-                    type: string
-                    example: succes
                   status:
                     type: string
-                    example: succes to login
+                    example: succes
+                  message:
+                    type: string
+                    example: succes to get profile cafe
                   data:
                     $ref: '#/components/schemas/get_cafe'
         "400":
-          description: failed to get profile cafe-owner
+          description: failed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/400'
+        "401":
+          description: failed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/401'
+        "403":
+          description: failed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/403'
+        "500":
+          description: failed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/500'
   /cafe:
     post:
       tags:
@@ -251,9 +450,42 @@ paths:
               $ref: '#/components/schemas/post_cafe'
       responses:
         "200":
-          description: succes to create user cafe-owner
+          description: succes
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: succes
+                  message:
+                    type: string
+                    example: succes to create user cafe-owner
         "400":
-          description: failed to create user cafe-owner
+          description: failed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/400'
+        "401":
+          description: failed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/401'
+        "403":
+          description: failed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/403'
+        "500":
+          description: failed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/500'
     get:
       tags:
         - cafe
@@ -266,16 +498,38 @@ paths:
               schema:
                 type: object
                 properties:
-                  massage:
-                    type: string
-                    example: succes
                   status:
                     type: string
-                    example: succes to login
+                    example: succes
+                  message:
+                    type: string
+                    example: succes to get all cafe ownner
                   data:
                     $ref: '#/components/schemas/get_all_cafe'
         "400":
-          description: failed to get all user cafe-owner
+          description: failed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/400'
+        "401":
+          description: failed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/401'
+        "403":
+          description: failed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/403'
+        "500":
+          description: failed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/500'
   /cafe/{id}:
     get:
       tags:
@@ -298,16 +552,38 @@ paths:
               schema:
                 type: object
                 properties:
-                  massage:
-                    type: string
-                    example: succes
                   status:
                     type: string
-                    example: succes to login
+                    example: succes
+                  message:
+                    type: string
+                    example: succes to get detail cafe
                   data:
                    $ref: '#/components/schemas/get_cafe'
         "400":
-          description: failed to get detail cafe
+          description: failed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/400'
+        "401":
+          description: failed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/401'
+        "403":
+          description: failed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/403'
+        "500":
+          description: failed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/500'
     put:
       tags:
         - cafe
@@ -329,9 +605,42 @@ paths:
               $ref: '#/components/schemas/get_cafe'
       responses:
         "200":
-          description: succes to update cafe
+          description: succes
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: succes
+                  message:
+                    type: string
+                    example: succes to update cafe
         "400":
-          description: failed to update cafe
+          description: failed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/400'
+        "401":
+          description: failed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/401'
+        "403":
+          description: failed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/403'
+        "500":
+          description: failed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/500'
     delete:
       tags:
         - cafe
@@ -347,9 +656,42 @@ paths:
             example: 1
       responses:
         "200":
-          description: succes to delete cafe
+          description: succes
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: succes
+                  message:
+                    type: string
+                    example: succes to delete cafe
         "400":
-          description: failed to delete cafe
+          description: failed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/400'
+        "401":
+          description: failed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/401'
+        "403":
+          description: failed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/403'
+        "500":
+          description: failed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/500'
   /offer:
     post:
       tags:
@@ -357,9 +699,42 @@ paths:
       summary: notification for offer to artist from cafe
       responses:
         "200":
-          description: succes to offer artist
+          description: succes
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: succes
+                  message:
+                    type: string
+                    example: succes to offer artist
         "400":
-          description: failed to offer artist
+          description: failed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/400'
+        "401":
+          description: failed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/401'
+        "403":
+          description: failed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/403'
+        "500":
+          description: failed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/500'
   /hire/{id}:
     post:
       tags:
@@ -385,9 +760,42 @@ paths:
                   example: 2022-04-30T15:00:00Z0700
       responses:
         "200":
-          description: succes to hire artist
+          description: succes
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: succes
+                  message:
+                    type: string
+                    example: succes to hire artist
         "400":
-          description: failed to hire artist
+          description: failed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/400'
+        "401":
+          description: failed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/401'
+        "403":
+          description: failed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/403'
+        "500":
+          description: failed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/500'
   /hire/artist:
     get:
       tags:
@@ -399,9 +807,40 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/all_hire_artist'
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: succes
+                  message:
+                    type: string
+                    example: succes to get all hiring 
+                  data:  
+                    $ref: '#/components/schemas/all_hire_artist'
         "400":
-          description: failed get all hire cafe
+          description: failed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/400'
+        "401":
+          description: failed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/401'
+        "403":
+          description: failed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/403'
+        "500":
+          description: failed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/500'
   /hire/cafe:
     get:
       tags:
@@ -413,9 +852,40 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/all_hire_cafe'
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: succes
+                  message:
+                    type: string
+                    example: succes to get all hiring 
+                  data:  
+                    $ref: '#/components/schemas/all_hire_cafe'
         "400":
-          description: failed get all hire artist
+          description: failed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/400'
+        "401":
+          description: failed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/401'
+        "403":
+          description: failed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/403'
+        "500":
+          description: failed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/500'
   /accept/{id}:
     put:
       tags:
@@ -433,9 +903,42 @@ paths:
             example: 1
       responses:
         "200":
-          description: succes accepted job
+          description: succes
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: succes
+                  message:
+                    type: string
+                    example: succes accepted job
         "400":
-          description: failed accepted job
+          description: failed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/400'
+        "401":
+          description: failed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/401'
+        "403":
+          description: failed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/403'
+        "500":
+          description: failed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/500'
   /reject/{id}:
     put:
       tags:
@@ -453,9 +956,42 @@ paths:
             example: 1
       responses:
         "200":
-          description: succes get all hire artist
+          description: succes
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: succes
+                  message:
+                    type: string
+                    example: succes get all hire artist
         "400":
-          description: failed get all hire artist
+          description: failed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/400'
+        "401":
+          description: failed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/401'
+        "403":
+          description: failed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/403'
+        "500":
+          description: failed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/500'
   /cancel/{id}:
     put:
       tags: 
@@ -473,9 +1009,42 @@ paths:
             example: 1
       responses:
         "200":
-          description: succes to cancel job
+          description: succes
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: succes
+                  message:
+                    type: string
+                    example: succes to cancel job
         "400":
-          description: failed to cancel job
+          description: failed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/400'
+        "401":
+          description: failed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/401'
+        "403":
+          description: failed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/403'
+        "500":
+          description: failed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/500'
   /rating/{id}:
      put:
       tags:
@@ -493,9 +1062,42 @@ paths:
             example: 1
       responses:
         "200":
-          description: succes to give rate artist
+          description: succes
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: succes
+                  message:
+                    type: string
+                    example: succes to give rate artist
         "400":
-          description: failed to give rate artist
+          description: failed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/400'
+        "401":
+          description: failed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/401'
+        "403":
+          description: failed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/403'
+        "500":
+          description: failed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/500'
   /payment/{id}:
     post:
       tags:
@@ -513,9 +1115,42 @@ paths:
             example: 1
       responses:
         "200":
-          description: succes to pay
+          description: succes
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: succes
+                  message:
+                    type: string
+                    example: succes to pay
         "400":
-          description: failed to pay
+          description: failed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/400'
+        "401":
+          description: failed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/401'
+        "403":
+          description: failed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/403'
+        "500":
+          description: failed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/500'
   /category:
     post:
       tags:
@@ -529,9 +1164,42 @@ paths:
               $ref: '#/components/schemas/category'
       responses:
         "200":
-          description: succes to create category
+          description: succes
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: succes
+                  message:
+                    type: string
+                    example: succes to create category
         "400":
-          description: failed to create category 
+          description: failed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/400'
+        "401":
+          description: failed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/401'
+        "403":
+          description: failed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/403'
+        "500":
+          description: failed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/500'
     get:
       tags:
         - category
@@ -542,9 +1210,40 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/category'
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: succes
+                  message:
+                    type: string
+                    example: succes to get all category
+                  data:
+                    $ref: '#/components/schemas/category'
         "400":
-          description: failed get all category
+          description: failed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/400'
+        "401":
+          description: failed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/401'
+        "403":
+          description: failed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/403'
+        "500":
+          description: failed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/500'
   /genre:
     post:
       tags:
@@ -558,9 +1257,42 @@ paths:
               $ref: '#/components/schemas/genre'
       responses:
         "200":
-          description: succes get all hire artist
+          description: succes
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: succes
+                  message:
+                    type: string
+                    example: succes get all hire artist
         "400":
-          description: failed get all hire artist
+          description: failed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/400'
+        "401":
+          description: failed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/401'
+        "403":
+          description: failed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/403'
+        "500":
+          description: failed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/500'
     get:
       tags:
         - genre
@@ -571,9 +1303,40 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/genre'
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: succes
+                  message:
+                    type: string
+                    example: succes to get all genre
+                  data:
+                    $ref: '#/components/schemas/genre'
         "400":
-          description: failed get all genre
+          description: failed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/400'
+        "401":
+          description: failed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/401'
+        "403":
+          description: failed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/403'
+        "500":
+          description: failed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/500'
   /image/artist:
     post:
       tags:
@@ -586,9 +1349,42 @@ paths:
               $ref: '#/components/schemas/post_image_artist'
       responses:
         "200":
-          description: succes to upload image artist
+          description: succes
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: succes
+                  message:
+                    type: string
+                    example: succes to upload image artist
         "400":
-          description: failed to upload image artist
+          description: failed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/400'
+        "401":
+          description: failed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/401'
+        "403":
+          description: failed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/403'
+        "500":
+          description: failed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/500'
   /image/artist/{id}: 
     delete:
       tags:
@@ -606,9 +1402,42 @@ paths:
             example: 1
       responses:
         "200":
-          description: succes to delete image artist
+          description: succes
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: succes
+                  message:
+                    type: string
+                    example: succes to delete image artist
         "400":
-          description: failed to delete image artist
+          description: failed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/400'
+        "401":
+          description: failed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/401'
+        "403":
+          description: failed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/403'
+        "500":
+          description: failed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/500'
   /video/artist:
     post:
       tags:
@@ -622,9 +1451,42 @@ paths:
               $ref: '#/components/schemas/link_video'
       responses:
         "200":
-          description: succes to upload link video artist
+          description: succes
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: succes
+                  message:
+                    type: string
+                    example: succes to upload link video artist
         "400":
-          description: failed to upload link video artist   
+          description: failed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/400'
+        "401":
+          description: failed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/401'
+        "403":
+          description: failed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/403'
+        "500":
+          description: failed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/500'  
   /video/artist/{id}:
     delete:
       tags:
@@ -642,9 +1504,42 @@ paths:
             example: 1
       responses:
         "200":
-          description: succes to delete link video artist
+          description: succes
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: succes
+                  message:
+                    type: string
+                    example: succes to delete link video artist
         "400":
-          description: failed to delete link video artist    
+          description: failed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/400'
+        "401":
+          description: failed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/401'
+        "403":
+          description: failed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/403'
+        "500":
+          description: failed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/500'    
   /image/cafe:
     post:
       tags:
@@ -658,9 +1553,42 @@ paths:
               $ref: '#/components/schemas/post_image_cafe'
       responses:
         "200":
-          description: succes to upload image cafe
+          description: succes
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: succes
+                  message:
+                    type: string
+                    example: succes to upload image cafe
         "400":
-          description: failed to upload image cafe
+          description: failed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/400'
+        "401":
+          description: failed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/401'
+        "403":
+          description: failed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/403'
+        "500":
+          description: failed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/500'
   /image/cafe/{id}:
     delete:
       tags:
@@ -678,9 +1606,42 @@ paths:
             example: 1
       responses:
         "200":
-          description: succes to delete image cafe
+          description: succes
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: succes
+                  message:
+                    type: string
+                    example: succes to delete image cafe
         "400":
-          description: failed to delete image cafe
+          description: failed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/400'
+        "401":
+          description: failed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/401'
+        "403":
+          description: failed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/403'
+        "500":
+          description: failed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/500'
 
 
 components:
@@ -741,10 +1702,9 @@ components:
           type: integer
           format: uint
           example: 88774-73286-4343
-        avatar:          # <-- image embedded into JSON
+        avatar:          
           type: string
           format: byte
-          description: Base64-encoded contents of the avatar image
           example: avatar.png
     post_cafe:
       type: object
@@ -787,11 +1747,10 @@ components:
           example: caffee semesta adalah caffee anak muda
         opening_hours:
           type: string
-          example: 16:00
-        avatar:          # <-- image embedded into JSON
+          example: 16:00 - 22:00
+        avatar:
           type: string
           format: byte
-          description: Base64-encoded contents of the avatar image
           example: avatar.png
         account_number:
           type: string
@@ -876,10 +1835,10 @@ components:
     artist_login_succes:
       type: object
       properties:
-        massage:
+        status:
           type: string
           example: succes
-        status:
+        message:
           type: string
           example: succes to login
         data:
@@ -895,10 +1854,10 @@ components:
     cafe_login_succes:
       type: object
       properties:
-        massage:
+        status:
           type: string
           example: succes
-        status:
+        message:
           type: string
           example: succes to login
         data:
@@ -939,5 +1898,43 @@ components:
       properties:
         image_url:
           type: string
-          example: image.png        
-
+          example: image.png
+    "400":
+      type: object
+      properties:
+        status:
+          type: string
+          example: failed
+        message:
+          type: string
+          example: bad request
+    "401":
+      description: if user does not have access
+      type: object
+      properties:
+        status:
+          type: string
+          example: failed
+        message:
+          type: string
+          example: Unauthorized
+    "403":
+      description: if user not login
+      type: object
+      properties:
+        status:
+          type: string
+          example: failed
+        message:
+          type: string
+          example: Access to that resource is forbidden   
+    "500":
+      description: error in internal server
+      type: object
+      properties:
+        status:
+          type: string
+          example: failed
+        message:
+          type: string
+          example: internal server error
