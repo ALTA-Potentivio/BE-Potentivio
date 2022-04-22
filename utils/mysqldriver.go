@@ -36,7 +36,6 @@ func InitialMigration(db *gorm.DB) {
 	db.AutoMigrate(&entities.Genre{})
 	db.AutoMigrate(&entities.Artist{})
 	db.AutoMigrate(&entities.Cafe{})
-	db.AutoMigrate(&entities.ImageArtist{})
 	db.AutoMigrate(&entities.ImageCafe{})
 	db.AutoMigrate(&entities.VideoArtist{})
 	db.AutoMigrate(&entities.Hire{})
