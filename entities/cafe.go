@@ -18,8 +18,8 @@ type Cafe struct {
 	OpeningHours  *time.Time     `json:"opening_hours" form:"opening_hours"`
 	AccountNumber *string        `json:"account_number" form:"account_number"`
 	Avatar        *string        `json:"avatar" form:"avatar"`
-	Longitude     *string        `json:"longitude" form:"longitude"`
-	Latitude      *string        `json:"latitude" form:"latitude"`
+	Longitude     *float64       `json:"longitude" form:"longitude"`
+	Latitude      *float64       `json:"latitude" form:"latitude"`
 	ImageCafe     []ImageCafe    `gorm:"foreignKey:IdCafe;references:ID"`
 	Hire          []Hire         `gorm:"foreignKey:IdCafe;references:ID"`
 	Notification  []Notification `gorm:"foreignKey:IdCafe;references:ID"`
