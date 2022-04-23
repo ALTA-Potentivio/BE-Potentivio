@@ -38,6 +38,11 @@ func (auc *ArtistUseCase) CreateArtist(artist _entities.Artist) (_entities.Artis
 	return createArtist, err
 }
 
+func (auc *ArtistUseCase) GetAllArtist() ([]_entities.Artist, uint, error) {
+	artists, rows, err := auc.artistRepository.GetAllArtist()
+	return artists, rows, err
+}
+
 func (auc *ArtistUseCase) GetArtistById(id uint) (_entities.Artist, []_entities.Hire, []_entities.Hire, int, error) {
 	artist, hireNotAvailable, hireHistory, rows, err := auc.artistRepository.GetArtistById(id)
 	return artist, hireNotAvailable, hireHistory, rows, err

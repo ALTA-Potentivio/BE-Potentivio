@@ -24,6 +24,18 @@ func (ar *ArtistRepository) CreateArtist(artist _entities.Artist) (_entities.Art
 	return artist, nil
 }
 
+func (ar *ArtistRepository) GetAllArtist() ([]_entities.Artist, uint, error) {
+	var artists []_entities.Artist
+	tx := ar.database.Order("Name ASC").Preload("Catagory").Preload("Genre").Find(&artists)
+	if tx.Error != nil {
+		return artists, 0, tx.Error
+	}
+	if tx.RowsAffected == 0 {
+		return artists, 0, nil
+	}
+	return artists, uint(tx.RowsAffected), nil
+}
+
 func (ar *ArtistRepository) GetArtistById(id uint) (_entities.Artist, []_entities.Hire, []_entities.Hire, int, error) {
 	var artists _entities.Artist
 	var hireNotAvailable []_entities.Hire
