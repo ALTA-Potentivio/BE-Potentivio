@@ -1603,11 +1603,13 @@ components:
           type: string
           example: satria@gmail.com
         id_category:
-          type: string
-          example: solo
+          type: integer
+          format: uint
+          example: 1
         id_genre:
-          type: string
-          example: jazz
+          type: integer
+          format: uint
+          example: 1
         phone_number:
           type: string
           example: 0877880098700
@@ -1643,11 +1645,13 @@ components:
           type: string
           example: satria@gmail.com
         id_category:
-          type: string
-          example: solo
+          type: integer
+          format: uint
+          example: 1
         id_genre:
-          type: string
-          example: jazz
+          type: integer
+          format: uint
+          example: 1
         phone_number:
           type: string
           example: 0877880098700
@@ -1722,11 +1726,13 @@ components:
           type: string
           example: satria the star
         id_category:
-          type: string
-          example: solo
+          type: integer
+          format: uint
+          example: 1
         id_genre:
-          type: string
-          example: jazz
+          type: integer
+          format: uint
+          example: 1
         price:
           type: integer
           format: uint
@@ -1772,11 +1778,13 @@ components:
           type: string
           example: satria@gmail.com
         id_category:
-          type: string
-          example: solo
+          type: integer
+          format: uint
+          example: 1
         id_genre:
-          type: string
-          example: jazz
+          type: integer
+          format: uint
+          example: 1
         phone_number:
           type: string
           example: 0877880098700
