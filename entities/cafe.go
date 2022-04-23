@@ -24,3 +24,19 @@ type Cafe struct {
 	Hire          []Hire         `gorm:"foreignKey:IdCafe;references:ID"`
 	Notification  []Notification `gorm:"foreignKey:IdCafe;references:ID"`
 }
+
+type GetCafe struct {
+	ID            uint        `json:"id" form:"id"`
+	Name          string      `json:"cafe_name" form:"cafe_name"`
+	Owner         string      `json:"owner" form:"owner"`
+	Email         string      `json:"email" form:"email"`
+	PhoneNumber   *string     `json:"phone_number" form:"phone_number"`
+	Address       string      `gorm:"not null" json:"address" form:"address"`
+	Description   *string     `json:"description" form:"description"`
+	OpeningHours  *time.Time  `json:"opening_hours" form:"opening_hours"`
+	Avatar        *string     `json:"avatar" form:"avatar"`
+	AccountNumber *string     `json:"account_number" form:"account_number"`
+	Longitude     *float64    `json:"longitude" form:"longitude"`
+	Latitude      *float64    `json:"latitude" form:"latitude"`
+	ImageCafe     []ImageCafe `gorm:"foreignKey:IdCafe;references:ID"`
+}
