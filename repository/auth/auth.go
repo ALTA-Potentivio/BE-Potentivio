@@ -32,7 +32,7 @@ func (ar *AuthRepository) LoginArtist(email string, password string) (string, ui
 		return "artist not found", artist.ID, errors.New("artist not found")
 	}
 
-	if helper.CheckPassHash(password, artist.Password) {
+	if !helper.CheckPassHash(password, artist.Password) {
 		return "password incorrect", artist.ID, errors.New("password incorrect")
 	}
 
@@ -57,7 +57,7 @@ func (ar *AuthRepository) LoginCafe(email string, password string) (string, uint
 		return "cafe not found", cafe.ID, errors.New("cafe not found")
 	}
 
-	if helper.CheckPassHash(password, cafe.Password) {
+	if !helper.CheckPassHash(password, cafe.Password) {
 		return "password incorrect", cafe.ID, errors.New("password incorrect")
 	}
 
