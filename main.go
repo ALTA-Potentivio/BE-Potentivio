@@ -17,6 +17,10 @@ import (
 	_cafeRepository "potentivio-app/repository/cafe"
 	_cafeUseCase "potentivio-app/usecase/cafe"
 
+	_artistHandler "potentivio-app/delivery/handler/artist"
+	_artistRepository "potentivio-app/repository/artist"
+	_artistUseCase "potentivio-app/usecase/artist"
+
 	_routes "potentivio-app/delivery/routes"
 	_utils "potentivio-app/utils"
 )
@@ -33,6 +37,10 @@ func main() {
 	cafeUseCase := _cafeUseCase.NewCafeUseCase(cafeRepo)
 	cafeHandler := _cafeHandler.NewCafeHandler(cafeUseCase)
 
+	artistRepo := _artistRepository.NewArtistRepository(db)
+	artistUseCase := _artistUseCase.NewArtistUseCase(artistRepo)
+	artistHandler := _artistHandler.NewArtistHandler(artistUseCase)
+
 	e := echo.New()
 	e.Use(middleware.CORS())
 	e.Pre(middleware.RemoveTrailingSlash())
@@ -43,5 +51,7 @@ func main() {
 
 	_routes.RegisterAuthPath(e, authHandler)
 	_routes.RegisterCafePath(e, cafeHandler)
+	_routes.RegisterArtistPath(e, artistHandler)
+
 	log.Fatal(e.Start(fmt.Sprintf(":%v", config.Port)))
 }
