@@ -695,11 +695,21 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/500'
-  /offer:
+  /offer/{id}:
     post:
       tags:
         - notification
       summary: notification for offer to artist from cafe
+      parameters:
+        - name: id
+          description: required id cafe for offer
+          in: path
+          required: true
+          style: simple
+          schema:
+            type: integer
+            format: uint
+            example: 1
       responses:
         "200":
           description: succes
@@ -1954,7 +1964,7 @@ components:
           example: 1
         artist_name:
           type: string
-          example: coffee semesta
+          example: charly
         date: 
           type: string
           format: time.Time
