@@ -13,6 +13,10 @@ import (
 	_authRepository "potentivio-app/repository/auth"
 	_authUseCase "potentivio-app/usecase/auth"
 
+	_cafeHandler "potentivio-app/delivery/handler/cafe"
+	_cafeRepository "potentivio-app/repository/cafe"
+	_cafeUseCase "potentivio-app/usecase/cafe"
+
 	_artistHandler "potentivio-app/delivery/handler/artist"
 	_artistRepository "potentivio-app/repository/artist"
 	_artistUseCase "potentivio-app/usecase/artist"
@@ -29,6 +33,10 @@ func main() {
 	authUseCase := _authUseCase.NewAuthUseCase(authRepo)
 	authHandler := _authHandler.NewAuthHandler(authUseCase)
 
+	cafeRepo := _cafeRepository.NewCafeRepository(db)
+	cafeUseCase := _cafeUseCase.NewCafeUseCase(cafeRepo)
+	cafeHandler := _cafeHandler.NewCafeHandler(cafeUseCase)
+
 	artistRepo := _artistRepository.NewArtistRepository(db)
 	artistUseCase := _artistUseCase.NewArtistUseCase(artistRepo)
 	artistHandler := _artistHandler.NewArtistHandler(artistUseCase)
@@ -42,6 +50,7 @@ func main() {
 	}))
 
 	_routes.RegisterAuthPath(e, authHandler)
+	_routes.RegisterCafePath(e, cafeHandler)
 	_routes.RegisterArtistPath(e, artistHandler)
 
 	log.Fatal(e.Start(fmt.Sprintf(":%v", config.Port)))

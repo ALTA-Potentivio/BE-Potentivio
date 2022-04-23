@@ -444,6 +444,16 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/403'
+        "404":
+          description: if request url not exist
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: not found
         "500":
           description: failed
           content:
@@ -591,12 +601,27 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/403'
+        "404":
+          description: if request url not exist
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: not found     
         "500":
           description: failed
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/500'
+                type: object
+                properties:
+                  message: 
+                    type: string
+                    example: failed to convert id param
+                 
     put:
       tags:
         - cafe
@@ -624,9 +649,6 @@ paths:
               schema:
                 type: object
                 properties:
-                  status:
-                    type: string
-                    example: succes
                   message:
                     type: string
                     example: succes to update cafe
@@ -675,9 +697,6 @@ paths:
               schema:
                 type: object
                 properties:
-                  status:
-                    type: string
-                    example: succes
                   message:
                     type: string
                     example: succes to delete cafe
@@ -728,9 +747,6 @@ paths:
               schema:
                 type: object
                 properties:
-                  status:
-                    type: string
-                    example: succes
                   message:
                     type: string
                     example: succes to offer artist
@@ -789,9 +805,6 @@ paths:
               schema:
                 type: object
                 properties:
-                  status:
-                    type: string
-                    example: succes
                   message:
                     type: string
                     example: succes to hire artist
@@ -832,9 +845,6 @@ paths:
               schema:
                 type: object
                 properties:
-                  status:
-                    type: string
-                    example: succes
                   message:
                     type: string
                     example: succes to get all hiring 
@@ -877,9 +887,6 @@ paths:
               schema:
                 type: object
                 properties:
-                  status:
-                    type: string
-                    example: succes
                   message:
                     type: string
                     example: succes to get all hiring 
@@ -932,9 +939,6 @@ paths:
               schema:
                 type: object
                 properties:
-                  status:
-                    type: string
-                    example: succes
                   message:
                     type: string
                     example: succes accepted job
@@ -985,9 +989,6 @@ paths:
               schema:
                 type: object
                 properties:
-                  status:
-                    type: string
-                    example: succes
                   message:
                     type: string
                     example: succes reject hire
@@ -1038,9 +1039,6 @@ paths:
               schema:
                 type: object
                 properties:
-                  status:
-                    type: string
-                    example: succes
                   message:
                     type: string
                     example: succes to cancel job
@@ -1104,9 +1102,6 @@ paths:
               schema:
                 type: object
                 properties:
-                  status:
-                    type: string
-                    example: succes
                   message:
                     type: string
                     example: succes to give rate artist
@@ -1157,9 +1152,6 @@ paths:
               schema:
                 type: object
                 properties:
-                  status:
-                    type: string
-                    example: succes
                   message:
                     type: string
                     example: succes to pay
@@ -1210,9 +1202,6 @@ paths:
               schema:
                 type: object
                 properties:
-                  status:
-                    type: string
-                    example: succes
                   message:
                     type: string
                     example: succes to create category
@@ -1252,9 +1241,6 @@ paths:
               schema:
                 type: object
                 properties:
-                  status:
-                    type: string
-                    example: succes
                   message:
                     type: string
                     example: succes to get all category
@@ -1307,9 +1293,6 @@ paths:
               schema:
                 type: object
                 properties:
-                  status:
-                    type: string
-                    example: succes
                   message:
                     type: string
                     example: succes to post genre
@@ -1349,9 +1332,6 @@ paths:
               schema:
                 type: object
                 properties:
-                  status:
-                    type: string
-                    example: succes
                   message:
                     type: string
                     example: succes to get all genre
@@ -1400,9 +1380,6 @@ paths:
               schema:
                 type: object
                 properties:
-                  status:
-                    type: string
-                    example: succes
                   message:
                     type: string
                     example: succes to upload link video artist
@@ -1453,9 +1430,6 @@ paths:
               schema:
                 type: object
                 properties:
-                  status:
-                    type: string
-                    example: succes
                   message:
                     type: string
                     example: succes to delete link video artist
@@ -1502,9 +1476,6 @@ paths:
               schema:
                 type: object
                 properties:
-                  status:
-                    type: string
-                    example: succes
                   message:
                     type: string
                     example: succes to upload image cafe
@@ -1555,9 +1526,6 @@ paths:
               schema:
                 type: object
                 properties:
-                  status:
-                    type: string
-                    example: succes
                   message:
                     type: string
                     example: succes to delete image cafe
@@ -2013,9 +1981,6 @@ components:
     artist_login_succes:
       type: object
       properties:
-        status:
-          type: string
-          example: succes
         message:
           type: string
           example: succes to login
@@ -2074,7 +2039,7 @@ components:
           example: failed
         message:
           type: string
-          example: bad request
+          example: missing or malformed jwt
     "401":
       description: if user does not have access
       type: object
