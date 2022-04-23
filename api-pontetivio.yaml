@@ -38,6 +38,8 @@ tags:
     description: Operation for create and get genre
   - name: image-artist
     description: Operation about history
+  - name: image-cafe
+    description: operation about image cafe
 paths:
   /login/artist:
     post:
@@ -82,7 +84,6 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/500'
-
   /login/cafe-owner:
     post:
       tags:
@@ -139,8 +140,19 @@ paths:
             schema:
               $ref: '#/components/schemas/post_artist'
       responses:
-        '200':
-          description: succes to create user artist
+        "200":
+          description: succes
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: succes
+                  message:
+                    type: string
+                    example: succes to create user artist
         "400":
           description: failed
           content:
@@ -970,7 +982,7 @@ paths:
                     example: succes
                   message:
                     type: string
-                    example: succes get all hire artist
+                    example: succes reject hire
         "400":
           description: failed
           content:
@@ -1292,7 +1304,7 @@ paths:
                     example: succes
                   message:
                     type: string
-                    example: succes get all hire artist
+                    example: succes to post genre
         "400":
           description: failed
           content:
