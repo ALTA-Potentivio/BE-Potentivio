@@ -36,8 +36,6 @@ tags:
     description: Operation for create and get category
   - name: genre
     description: Operation for create and get genre
-  - name: image-artist
-    description: Operation about history
   - name: image-cafe
     description: operation about image cafe
 paths:
