@@ -73,15 +73,8 @@ func (ar *ArtistRepository) GetArtistById(id uint) (_entities.Artist, []_entitie
 	var hireNotAvailable []_entities.Hire
 	var hireHistory []_entities.Hire
 
-	txNotAvailable := ar.database.Where("StatusCafe = ?", "accepted").Find(&hireNotAvailable)
-	if txNotAvailable.Error != nil {
-		return artists, hireNotAvailable, hireNotAvailable, 0, txNotAvailable.Error
-	}
-
-	txHireHistory := ar.database.Preload("Cafe").Where("StatusCafe = ?", "done").Find(&hireHistory)
-	if txHireHistory.Error != nil {
-		return artists, hireNotAvailable, hireHistory, 0, txHireHistory.Error
-	}
+	ar.database.Where("StatusCafe = ?", "accepted").Find(&hireNotAvailable)
+	ar.database.Preload("Cafe").Where("StatusCafe = ?", "done").Find(&hireHistory)
 
 	tx := ar.database.Preload("VideoArtist").Find(&artists, id)
 	if tx.Error != nil {
