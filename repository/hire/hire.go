@@ -40,7 +40,7 @@ func (hr *HireRepository) GetHireByIdArtis(IdArtist int) ([]entities.Hire, error
 
 func (hr *HireRepository) GetHireByIdCafe(IdCafe int) ([]entities.Hire, error) {
 	var hire []entities.Hire
-	tx := hr.database.Where("id_cafe = ?", IdCafe).Preload("Cafe").Find(&hire)
+	tx := hr.database.Where("id_cafe = ?", IdCafe).Preload("Artist").Find(&hire)
 	if tx.Error != nil {
 		return hire, tx.Error
 	}
