@@ -74,6 +74,7 @@ func (ar *ArtistRepository) GetArtistById(id uint) (_entities.Artist, []_entitie
 	var hireHistory []_entities.Hire
 
 	// mengambil data jadwal manggung dan history manggung (jika ada)
+
 	ar.database.Where("StatusCafe = ?", "accepted").Find(&hireNotAvailable)
 	ar.database.Preload("Cafe").Where("StatusCafe = ?", "done").Find(&hireHistory)
 

@@ -2,11 +2,11 @@ package main
 
 import (
 	"fmt"
+	"github.com/labstack/echo/v4"
 	"log"
 	"net/http"
 	"potentivio-app/configs"
 
-	"github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"
 
 	_authHandler "potentivio-app/delivery/handler/auth"
@@ -20,6 +20,10 @@ import (
 	_artistHandler "potentivio-app/delivery/handler/artist"
 	_artistRepository "potentivio-app/repository/artist"
 	_artistUseCase "potentivio-app/usecase/artist"
+
+	_hireHandler "potentivio-app/delivery/handler/hire"
+	_hireRepository "potentivio-app/repository/hire"
+	_hireUseCase "potentivio-app/usecase/hire"
 
 	_catagoryHandler "potentivio-app/delivery/handler/catagory"
 	_catagoryRepository "potentivio-app/repository/catagory"
@@ -49,6 +53,10 @@ func main() {
 	artistUseCase := _artistUseCase.NewArtistUseCase(artistRepo)
 	artistHandler := _artistHandler.NewArtistHandler(artistUseCase)
 
+	hireRepo := _hireRepository.NewHireRepository(db)
+	hireUseCase := _hireUseCase.NewHireUseCase(hireRepo, artistRepo, cafeRepo)
+	hireHandler := _hireHandler.NewHireHandler(hireUseCase)
+
 	catagoryRepo := _catagoryRepository.NewCatagoryRepository(db)
 	catagoryUseCase := _catagoryUseCase.NewCatagoryUseCase(catagoryRepo)
 	catagoryHandler := _catagoryHandler.NewCatagoryHandler(catagoryUseCase)
@@ -68,6 +76,11 @@ func main() {
 	_routes.RegisterAuthPath(e, authHandler)
 	_routes.RegisterCafePath(e, cafeHandler)
 	_routes.RegisterArtistPath(e, artistHandler)
+	_routes.RegisterCatagoryPath(e, &catagoryHandler)
+	_routes.RegisterImageCafePath(e, imageCafeHandler)
+
+	_routes.HireArtistPath(e, hireHandler)
+
 	_routes.RegisterCatagoryPath(e, &catagoryHandler)
 	_routes.RegisterImageCafePath(e, imageCafeHandler)
 

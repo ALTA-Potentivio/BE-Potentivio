@@ -1,14 +1,16 @@
 package routes
 
 import (
+	"github.com/labstack/echo/v4"
 	_artistHandler "potentivio-app/delivery/handler/artist"
 	_authHandler "potentivio-app/delivery/handler/auth"
 	_cafeHandler "potentivio-app/delivery/handler/cafe"
+	_hirehandler "potentivio-app/delivery/handler/hire"
+
 	_catagoryHandler "potentivio-app/delivery/handler/catagory"
 	_imageCafeHandler "potentivio-app/delivery/handler/imageCafe"
-	_middlewares "potentivio-app/delivery/middlewares"
 
-	"github.com/labstack/echo/v4"
+	_middlewares "potentivio-app/delivery/middlewares"
 )
 
 func RegisterAuthPath(e *echo.Echo, ah *_authHandler.AuthHandler) {
@@ -38,4 +40,11 @@ func RegisterCatagoryPath(e *echo.Echo, ch *_catagoryHandler.CatagoryHandler) {
 func RegisterImageCafePath(e *echo.Echo, ich *_imageCafeHandler.ImageCafeHandler) {
 	e.POST("/image/cafe", ich.CreateImageCafeHandler(), _middlewares.JWTMiddleware())
 	e.DELETE("/image/cafe/:id", ich.DeleteImageCafeHandler(), _middlewares.JWTMiddleware())
+
+}
+
+func HireArtistPath(e *echo.Echo, hh *_hirehandler.HireHandler) {
+	e.POST("hire/:id", hh.CreateHire(), _middlewares.JWTMiddleware())
+	e.GET("hire/artist", hh.GetHireByIdArtis(), _middlewares.JWTMiddleware())
+
 }
