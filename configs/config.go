@@ -1,6 +1,8 @@
 package configs
 
 import (
+	"github.com/joho/godotenv"
+	"github.com/labstack/gommon/log"
 	"os"
 	"sync"
 )
@@ -33,6 +35,10 @@ func GetConfig() *AppConfig {
 
 func initConfig() *AppConfig {
 	var defaultConfig AppConfig
+	err := godotenv.Load()
+	if err != nil {
+		log.Fatal("Error loading .env file")
+	}
 	defaultConfig.Port = os.Getenv("APP_PORT")
 	defaultConfig.Database.Driver = os.Getenv("DB_DRIVER")
 	defaultConfig.Database.Name = os.Getenv("DB_NAME")
