@@ -52,3 +52,46 @@ func (auc *ArtistUseCase) GetProfileArtist(idToken uint) (_entities.Artist, uint
 	artist, rows, err := auc.artistRepository.GetProfileArtist(idToken)
 	return artist, rows, err
 }
+
+func (auc *ArtistUseCase) UpdateArtist(updateArtist _entities.Artist, idToken uint) (_entities.Artist, uint, error) {
+	artist, rows, err := auc.artistRepository.GetProfileArtist(idToken)
+	if err != nil {
+		return artist, 0, err
+	}
+	if rows == 0 {
+		return artist, 0, nil
+	}
+	if updateArtist.IdCatagory != nil {
+		artist.IdCatagory = updateArtist.IdCatagory
+	}
+	if updateArtist.IdGenre != nil {
+		artist.IdGenre = updateArtist.IdGenre
+	}
+	if updateArtist.Name != "" {
+		artist.Name = updateArtist.Name
+	}
+	if updateArtist.Email != "" {
+		artist.Email = updateArtist.Email
+	}
+	if updateArtist.Address != "" {
+		artist.Address = updateArtist.Address
+	}
+	if updateArtist.PhoneNumber != nil {
+		artist.PhoneNumber = updateArtist.PhoneNumber
+	}
+	if updateArtist.Price != nil {
+		artist.Price = updateArtist.Price
+	}
+	if updateArtist.Description != nil {
+		artist.Description = updateArtist.Description
+	}
+	if updateArtist.AccountNumber != nil {
+		artist.AccountNumber = updateArtist.AccountNumber
+	}
+	if updateArtist.Avatar != nil {
+		artist.Avatar = updateArtist.Avatar
+	}
+
+	updateArtist, updateRows, updateErr := auc.artistRepository.UpdateArtist(artist)
+	return updateArtist, updateRows, updateErr
+}

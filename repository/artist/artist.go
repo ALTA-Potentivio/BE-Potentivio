@@ -92,3 +92,11 @@ func (ar *ArtistRepository) GetArtistById(id uint) (_entities.Artist, []_entitie
 	}
 	return artists, hireNotAvailable, hireHistory, int(tx.RowsAffected), nil
 }
+
+func (ar *ArtistRepository) UpdateArtist(updateArtist _entities.Artist) (_entities.Artist, uint, error) {
+	tx := ar.database.Save(&updateArtist)
+	if tx.Error != nil {
+		return updateArtist, 0, tx.Error
+	}
+	return updateArtist, uint(tx.RowsAffected), nil
+}
