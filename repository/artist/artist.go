@@ -73,6 +73,8 @@ func (ar *ArtistRepository) GetArtistById(id uint) (_entities.Artist, []_entitie
 	var hireNotAvailable []_entities.Hire
 	var hireHistory []_entities.Hire
 
+	// mengambil data jadwal manggung dan history manggung (jika ada)
+
 	ar.database.Where("StatusCafe = ?", "accepted").Find(&hireNotAvailable)
 	ar.database.Preload("Cafe").Where("StatusCafe = ?", "done").Find(&hireHistory)
 
@@ -86,8 +88,8 @@ func (ar *ArtistRepository) GetArtistById(id uint) (_entities.Artist, []_entitie
 	return artists, hireNotAvailable, hireHistory, int(tx.RowsAffected), nil
 }
 
-func (ar *ArtistRepository) UpdateArtist(updateArtist _entities.Artist) (_entities.Artist, uint, error) {
-	tx := ar.database.Save(&updateArtist)
+func (ar *ArtistRepository) UpdateArtist(updateArtist _entities.Artist, idToken uint) (_entities.Artist, uint, error) {
+	tx := ar.database.Where("ID = ?", idToken).Updates(&updateArtist)
 	if tx.Error != nil {
 		return updateArtist, 0, tx.Error
 	}

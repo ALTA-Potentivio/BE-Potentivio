@@ -10,8 +10,6 @@ import (
 	_imageCafeHandler "potentivio-app/delivery/handler/imageCafe"
 
 	_middlewares "potentivio-app/delivery/middlewares"
-
-	"github.com/labstack/echo/v4"
 )
 
 func RegisterAuthPath(e *echo.Echo, ah *_authHandler.AuthHandler) {
@@ -26,9 +24,7 @@ func RegisterCafePath(e *echo.Echo, ch *_cafeHandler.CafeHandler) {
 
 func RegisterArtistPath(e *echo.Echo, ah *_artistHandler.ArtistHandler) {
 	e.POST("/artist", ah.CreateArtistHandler())
-
 	e.GET("/artist/profile", ah.GetProfileArtistHandler(), _middlewares.JWTMiddleware())
-
 	e.GET("/artist", ah.GetAllArtistHandler(), _middlewares.JWTMiddleware())
 	e.GET("/artist/:id", ah.GetArtistByIdHandler(), _middlewares.JWTMiddleware())
 	e.PUT("/artist/:id", ah.UpdateArtistHandler(), _middlewares.JWTMiddleware())
@@ -43,9 +39,11 @@ func RegisterCatagoryPath(e *echo.Echo, ch *_catagoryHandler.CatagoryHandler) {
 func RegisterImageCafePath(e *echo.Echo, ich *_imageCafeHandler.ImageCafeHandler) {
 	e.POST("/image/cafe", ich.CreateImageCafeHandler(), _middlewares.JWTMiddleware())
 	e.DELETE("/image/cafe/:id", ich.DeleteImageCafeHandler(), _middlewares.JWTMiddleware())
+
 }
 
 func HireArtistPath(e *echo.Echo, hh *_hirehandler.HireHandler) {
 	e.POST("hire/:id", hh.CreateHire(), _middlewares.JWTMiddleware())
 	e.GET("hire/artist", hh.GetHireByIdArtis(), _middlewares.JWTMiddleware())
+
 }

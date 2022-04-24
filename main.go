@@ -6,7 +6,6 @@ import (
 	"net/http"
 	"potentivio-app/configs"
 
-	"github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"
 
 	_authHandler "potentivio-app/delivery/handler/auth"
@@ -76,6 +75,8 @@ func main() {
 	_routes.RegisterAuthPath(e, authHandler)
 	_routes.RegisterCafePath(e, cafeHandler)
 	_routes.RegisterArtistPath(e, artistHandler)
+	_routes.RegisterCatagoryPath(e, &catagoryHandler)
+	_routes.RegisterImageCafePath(e, imageCafeHandler)
 
 	_routes.HireArtistPath(e, hireHandler)
 
