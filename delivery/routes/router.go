@@ -5,6 +5,7 @@ import (
 	_authHandler "potentivio-app/delivery/handler/auth"
 	_cafeHandler "potentivio-app/delivery/handler/cafe"
 	_catagoryHandler "potentivio-app/delivery/handler/catagory"
+	_imageCafeHandler "potentivio-app/delivery/handler/imageCafe"
 	_middlewares "potentivio-app/delivery/middlewares"
 
 	"github.com/labstack/echo/v4"
@@ -29,7 +30,12 @@ func RegisterArtistPath(e *echo.Echo, ah *_artistHandler.ArtistHandler) {
 	e.DELETE("/artist/:id", ah.DeleteArtistHandler(), _middlewares.JWTMiddleware())
 }
 
-func RegisterCatagoryPath(e *echo.Echo, uh *_catagoryHandler.CatagoryHandler) {
-	e.GET("/catagory", uh.GetAllCatagoryHandler())
-	e.POST("/catagory", uh.CreateCatagoryHandler())
+func RegisterCatagoryPath(e *echo.Echo, ch *_catagoryHandler.CatagoryHandler) {
+	e.GET("/catagory", ch.GetAllCatagoryHandler())
+	e.POST("/catagory", ch.CreateCatagoryHandler())
+}
+
+func RegisterImageCafePath(e *echo.Echo, ich *_imageCafeHandler.ImageCafeHandler) {
+	e.POST("/image/cafe", ich.CreateImageCafeHandler(), _middlewares.JWTMiddleware())
+	e.DELETE("/image/cafe/:id", ich.DeleteImageCafeHandler(), _middlewares.JWTMiddleware())
 }
