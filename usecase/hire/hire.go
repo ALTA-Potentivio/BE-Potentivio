@@ -41,7 +41,7 @@ func (huc *HireUseCase) CreateHire(hire entities.Hire) error {
 	hire.Price = artistData.Price
 	hire.AccountNumberArtist = artistData.AccountNumber
 	hire.AccountNumberCafe = cafeData.AccountNumber
-	
+
 	err = huc.HireRepository.CreateHire(hire)
 
 	return err
@@ -50,5 +50,10 @@ func (huc *HireUseCase) CreateHire(hire entities.Hire) error {
 
 func (huc *HireUseCase) GetHireByIdArtis(IdArtist int) ([]entities.Hire, error) {
 	hires, err := huc.HireRepository.GetHireByIdArtis(IdArtist)
+	return hires, err
+}
+
+func (huc *HireUseCase) GetHireByIdCafe(IdCafe int) ([]entities.Hire, error) {
+	hires, err := huc.HireRepository.GetHireByIdCafe(IdCafe)
 	return hires, err
 }

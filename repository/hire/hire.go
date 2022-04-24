@@ -1,7 +1,6 @@
 package hire
 
 import (
-	"fmt"
 	"gorm.io/gorm"
 	"potentivio-app/entities"
 )
@@ -33,7 +32,15 @@ func (hr *HireRepository) CreateHire(hire entities.Hire) error {
 func (hr *HireRepository) GetHireByIdArtis(IdArtist int) ([]entities.Hire, error) {
 	var hire []entities.Hire
 	tx := hr.database.Where("id_artist = ?", IdArtist).Preload("Cafe").Find(&hire)
-	fmt.Println(hire[0].Cafe)
+	if tx.Error != nil {
+		return hire, tx.Error
+	}
+	return hire, nil
+}
+
+func (hr *HireRepository) GetHireByIdCafe(IdCafe int) ([]entities.Hire, error) {
+	var hire []entities.Hire
+	tx := hr.database.Where("id_cafe = ?", IdCafe).Preload("Cafe").Find(&hire)
 	if tx.Error != nil {
 		return hire, tx.Error
 	}

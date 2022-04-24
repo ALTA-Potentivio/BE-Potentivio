@@ -64,7 +64,34 @@ func (hh *HireHandler) GetHireByIdArtis() echo.HandlerFunc {
 				Date:         fmt.Sprint(hires[i].Date),
 				StatusArtist: hires[i].StatusArtist,
 			}
-			
+
+			results = append(results, result)
+		}
+
+		if err != nil {
+			return c.JSON(http.StatusInternalServerError, helper.ResponseFailed("failed to fetch data"))
+		}
+		return c.JSON(http.StatusOK, helper.ResponseSuccess("success get hire by id", results))
+	}
+}
+
+func (hh *HireHandler) GetHireByIdCafe() echo.HandlerFunc {
+	return func(c echo.Context) error {
+		var id, _ = strconv.Atoi(c.Param("id_cafe"))
+		id, _ = middlewares.ExtractToken(c)
+
+		hires, err := hh.hireUseCase.GetHireByIdCafe(id)
+
+		results := []HireCafeResponse{}
+
+		for i := 0; i < len(hires); i++ {
+			result := HireCafeResponse{
+				Id:         int(hires[i].ID),
+				ArtisName:  hires[i].Artist.Name,
+				Date:       fmt.Sprint(hires[i].Date),
+				StatusCafe: hires[i].StatusCafe,
+			}
+
 			results = append(results, result)
 		}
 
