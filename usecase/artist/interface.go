@@ -10,4 +10,5 @@ type ArtistUseCaseInterface interface {
 	GetProfileArtist(idToken uint) (_entities.Artist, uint, error)
 	GetArtistById(id uint) (_entities.Artist, []_entities.Hire, []_entities.Hire, int, error)
 	UpdateArtist(updateArtist _entities.Artist, idToken uint) (_entities.Artist, uint, error)
+	DeleteArtist(id uint) (uint, error)
 }

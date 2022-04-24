@@ -19,4 +19,5 @@ func RegisterArtistPath(e *echo.Echo, ah *_artistHandler.ArtistHandler) {
 	e.GET("/artist", ah.GetAllArtistHandler(), _middlewares.JWTMiddleware())
 	e.GET("/artist/:id", ah.GetArtistByIdHandler(), _middlewares.JWTMiddleware())
 	e.PUT("/artist/:id", ah.UpdateArtistHandler(), _middlewares.JWTMiddleware())
+	e.DELETE("/artist/:id", ah.DeleteArtistHandler(), _middlewares.JWTMiddleware())
 }

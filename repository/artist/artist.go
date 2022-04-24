@@ -100,3 +100,15 @@ func (ar *ArtistRepository) UpdateArtist(updateArtist _entities.Artist) (_entiti
 	}
 	return updateArtist, uint(tx.RowsAffected), nil
 }
+
+func (ar *ArtistRepository) DeleteArtist(id uint) (uint, error) {
+	var artist _entities.Artist
+	tx := ar.database.Delete(&artist, id)
+	if tx.Error != nil {
+		return 0, tx.Error
+	}
+	if tx.RowsAffected == 0 {
+		return 0, tx.Error
+	}
+	return uint(tx.RowsAffected), nil
+}

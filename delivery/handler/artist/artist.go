@@ -271,3 +271,34 @@ func (ah *ArtistHandler) UpdateArtistHandler() echo.HandlerFunc {
 		return c.JSON(http.StatusOK, helper.ResponseSuccessWithoutData("success to update artist"))
 	}
 }
+
+func (ah *ArtistHandler) DeleteArtistHandler() echo.HandlerFunc {
+	return func(c echo.Context) error {
+		//mendapatkan id dari token yang login
+		idToken, errToken := _middlewares.ExtractToken(c)
+		if errToken != nil {
+			return c.JSON(http.StatusUnauthorized, helper.ResponseFailed("unauthorized"))
+		}
+
+		idStr := c.Param("id")
+		id, err := strconv.Atoi(idStr)
+		if err != nil {
+			return c.JSON(http.StatusInternalServerError, helper.ResponseFailed("id not recognise"))
+		}
+
+		// check apakah id dari token sama dengan id dari parm
+		if idToken != id {
+			return c.JSON(http.StatusUnauthorized, helper.ResponseFailed("unauthorized"))
+		}
+
+		rows, err := ah.artistUseCase.DeleteArtist(uint(id))
+		if err != nil {
+			return c.JSON(http.StatusInternalServerError, helper.ResponseFailed(err.Error()))
+		}
+		if rows == 0 {
+			return c.JSON(http.StatusBadRequest, helper.ResponseFailed("data not found"))
+		}
+
+		return c.JSON(http.StatusOK, helper.ResponseSuccessWithoutData("success to delete artist"))
+	}
+}

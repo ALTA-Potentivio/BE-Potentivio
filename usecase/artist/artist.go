@@ -95,3 +95,8 @@ func (auc *ArtistUseCase) UpdateArtist(updateArtist _entities.Artist, idToken ui
 	updateArtist, updateRows, updateErr := auc.artistRepository.UpdateArtist(artist)
 	return updateArtist, updateRows, updateErr
 }
+
+func (auc *ArtistUseCase) DeleteArtist(id uint) (uint, error) {
+	rows, err := auc.artistRepository.DeleteArtist(id)
+	return rows, err
+}
