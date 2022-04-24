@@ -6,3 +6,10 @@ type HireResponse struct {
 	Date         string `json:"date"`
 	StatusArtist string `json:"status_artist"`
 }
+
+type HireCafeResponse struct {
+	Id         int    `json:"id"`
+	ArtisName  string `json:"artis_name"`
+	Date       string `json:"date"`
+	StatusCafe string `json:"status_cafe"`
+}
