@@ -25,6 +25,14 @@ import (
 	_hireRepository "potentivio-app/repository/hire"
 	_hireUseCase "potentivio-app/usecase/hire"
 
+	_catagoryHandler "potentivio-app/delivery/handler/catagory"
+	_catagoryRepository "potentivio-app/repository/catagory"
+	_catagoryUseCase "potentivio-app/usecase/catagory"
+
+	_imageCafeHandler "potentivio-app/delivery/handler/imageCafe"
+	_imageCafeRepository "potentivio-app/repository/imageCafe"
+	_imageCafeUseCase "potentivio-app/usecase/imageCafe"
+
 	_routes "potentivio-app/delivery/routes"
 	_utils "potentivio-app/utils"
 )
@@ -49,6 +57,14 @@ func main() {
 	hireUseCase := _hireUseCase.NewHireUseCase(hireRepo, artistRepo, cafeRepo)
 	hireHandler := _hireHandler.NewHireHandler(hireUseCase)
 
+	catagoryRepo := _catagoryRepository.NewCatagoryRepository(db)
+	catagoryUseCase := _catagoryUseCase.NewCatagoryUseCase(catagoryRepo)
+	catagoryHandler := _catagoryHandler.NewCatagoryHandler(catagoryUseCase)
+
+	imageCafeRepo := _imageCafeRepository.NewImageCafeRepository(db)
+	imageCafeUseCase := _imageCafeUseCase.NewImageCafeUseCase(imageCafeRepo)
+	imageCafeHandler := _imageCafeHandler.NewImageCafeHandler(imageCafeUseCase)
+
 	e := echo.New()
 	e.Use(middleware.CORS())
 	e.Pre(middleware.RemoveTrailingSlash())
@@ -60,7 +76,11 @@ func main() {
 	_routes.RegisterAuthPath(e, authHandler)
 	_routes.RegisterCafePath(e, cafeHandler)
 	_routes.RegisterArtistPath(e, artistHandler)
+
 	_routes.HireArtistPath(e, hireHandler)
+
+	_routes.RegisterCatagoryPath(e, &catagoryHandler)
+	_routes.RegisterImageCafePath(e, imageCafeHandler)
 
 	log.Fatal(e.Start(fmt.Sprintf(":%v", config.Port)))
 }

@@ -11,6 +11,7 @@ import (
 	"potentivio-app/repository/artist"
 	"potentivio-app/repository/cafe"
 	"potentivio-app/repository/hire"
+	"strings"
 	"time"
 )
 
@@ -35,13 +36,7 @@ func (huc *HireUseCase) CreateHire(hire entities.Hire) error {
 		return errors.New("Artist not found")
 
 	}
-	//var AccountNumber = "1234"
-	//
-	//var artistData = entities.Artist{
-	//
-	//	Price:         10000,
-	//	AccountNumber: &AccountNumber,
-	//}
+
 	cafeData, _, _ := huc.CafeRepository.GetCafeById(int(hire.IdCafe))
 	err = huc.HireRepository.CheckHire(hire)
 	fmt.Println(err)
@@ -59,6 +54,7 @@ func (huc *HireUseCase) CreateHire(hire entities.Hire) error {
 	second := time.Now().Second()
 
 	invoiceNum := fmt.Sprint("invoice/", hire.IdCafe, "/", hire.IdArtist, "/", year, month, day, hour, minute, second)
+	invoiceNum = strings.ReplaceAll(invoiceNum, " ", "")
 
 	hire.Invoice = invoiceNum
 	xendit.Opt.SecretKey = os.Getenv("SECRET_KEY_XENDIT")
@@ -87,9 +83,8 @@ func (huc *HireUseCase) CreateHire(hire entities.Hire) error {
 	}
 
 	resp, err := invoice.Create(&data)
-	fmt.Println(resp)
 	if err != nil {
-		log.Fatal(err)
+		log.Info(err)
 	}
 	var paymentUrl = resp.InvoiceURL
 	hire.PaymentUrl = &paymentUrl
@@ -98,6 +93,11 @@ func (huc *HireUseCase) CreateHire(hire entities.Hire) error {
 
 	return err
 
+}
+
+func (huc *HireUseCase) GetHireByIdArtis(IdArtist int) ([]entities.Hire, error) {
+	hires, err := huc.HireRepository.GetHireByIdArtis(IdArtist)
+	return hires, err
 }
 
 //func (huc *HireUseCase) AcceptHire(hire entities.Hire) error{

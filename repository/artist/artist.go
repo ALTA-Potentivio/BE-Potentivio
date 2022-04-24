@@ -24,9 +24,29 @@ func (ar *ArtistRepository) CreateArtist(artist _entities.Artist) (_entities.Art
 	return artist, nil
 }
 
-func (ar *ArtistRepository) GetAllArtist() ([]_entities.Artist, uint, error) {
+func (ar *ArtistRepository) GetAllArtist(filters_catagory_genre map[string]int, filters_price map[string]string, filters_address map[string]string) ([]_entities.Artist, uint, error) {
 	var artists []_entities.Artist
-	tx := ar.database.Order("Name ASC").Preload("Catagory").Preload("Genre").Find(&artists)
+
+	builder := ar.database.Order("Name ASC")
+
+	for key, value := range filters_price {
+		if value == "asc" {
+			builder = ar.database.Order(key + " " + value)
+		}
+		if value == "desc" {
+			builder = ar.database.Order(key + " " + value)
+		}
+	}
+
+	for key, value := range filters_catagory_genre {
+		builder.Where(key+" = ?", value)
+	}
+
+	for key, value := range filters_address {
+		builder.Where(key+" LIKE ?", "%"+value+"%")
+	}
+
+	tx := builder.Preload("Catagory").Preload("Genre").Find(&artists)
 	if tx.Error != nil {
 		return artists, 0, tx.Error
 	}
@@ -36,20 +56,25 @@ func (ar *ArtistRepository) GetAllArtist() ([]_entities.Artist, uint, error) {
 	return artists, uint(tx.RowsAffected), nil
 }
 
+func (ar *ArtistRepository) GetProfileArtist(idToken uint) (_entities.Artist, uint, error) {
+	var artist _entities.Artist
+	tx := ar.database.Where("ID = ?", idToken).Preload("VideoArtist").Find(&artist)
+	if tx.Error != nil {
+		return artist, 0, tx.Error
+	}
+	if tx.RowsAffected == 0 {
+		return artist, 0, nil
+	}
+	return artist, uint(tx.RowsAffected), nil
+}
+
 func (ar *ArtistRepository) GetArtistById(id uint) (_entities.Artist, []_entities.Hire, []_entities.Hire, int, error) {
 	var artists _entities.Artist
 	var hireNotAvailable []_entities.Hire
 	var hireHistory []_entities.Hire
 
-	txNotAvailable := ar.database.Where("StatusCafe = ?", "accepted").Find(&hireNotAvailable)
-	if txNotAvailable.Error != nil {
-		return artists, hireNotAvailable, hireNotAvailable, 0, txNotAvailable.Error
-	}
-
-	txHireHistory := ar.database.Preload("Cafe").Where("StatusCafe = ?", "done").Find(&hireHistory)
-	if txHireHistory.Error != nil {
-		return artists, hireNotAvailable, hireHistory, 0, txHireHistory.Error
-	}
+	ar.database.Where("StatusCafe = ?", "accepted").Find(&hireNotAvailable)
+	ar.database.Preload("Cafe").Where("StatusCafe = ?", "done").Find(&hireHistory)
 
 	tx := ar.database.Preload("VideoArtist").Find(&artists, id)
 	if tx.Error != nil {
@@ -59,4 +84,24 @@ func (ar *ArtistRepository) GetArtistById(id uint) (_entities.Artist, []_entitie
 		return artists, hireNotAvailable, hireHistory, 0, nil
 	}
 	return artists, hireNotAvailable, hireHistory, int(tx.RowsAffected), nil
+}
+
+func (ar *ArtistRepository) UpdateArtist(updateArtist _entities.Artist) (_entities.Artist, uint, error) {
+	tx := ar.database.Save(&updateArtist)
+	if tx.Error != nil {
+		return updateArtist, 0, tx.Error
+	}
+	return updateArtist, uint(tx.RowsAffected), nil
+}
+
+func (ar *ArtistRepository) DeleteArtist(id uint) (uint, error) {
+	var artist _entities.Artist
+	tx := ar.database.Delete(&artist, id)
+	if tx.Error != nil {
+		return 0, tx.Error
+	}
+	if tx.RowsAffected == 0 {
+		return 0, tx.Error
+	}
+	return uint(tx.RowsAffected), nil
 }

@@ -16,7 +16,7 @@ func NewHireRepository(db *gorm.DB) *HireRepository {
 }
 
 func (hr *HireRepository) CheckHire(hire entities.Hire) error {
-	tx := hr.database.Where("id_artis = ? and date = ? ", hire.IdArtist, hire.Date).First(&hire)
+	tx := hr.database.Where("id_artist = ? and date = ? ", hire.IdArtist, hire.Date).First(&hire)
 
 	return tx.Error
 }
@@ -27,6 +27,15 @@ func (hr *HireRepository) CreateHire(hire entities.Hire) error {
 		return tx.Error
 	}
 	return nil
+}
+
+func (hr *HireRepository) GetHireByIdArtis(IdArtist int) ([]entities.Hire, error) {
+	var hire []entities.Hire
+	tx := hr.database.Where("id_artist = ?", IdArtist).Find(&hire)
+	if tx.Error != nil {
+		return hire, tx.Error
+	}
+	return hire, nil
 }
 
 func (hr *HireRepository) AcceptHire(hire entities.Hire) error {
