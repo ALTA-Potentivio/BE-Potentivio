@@ -21,6 +21,10 @@ func RegisterAuthPath(e *echo.Echo, ah *_authHandler.AuthHandler) {
 func RegisterCafePath(e *echo.Echo, ch *_cafeHandler.CafeHandler) {
 	e.GET("/cafe/:id", ch.GetCafeByIdHandler(), _middlewares.JWTMiddleware())
 	e.GET("/cafe/profile", ch.GetCafeProfileHandler(), _middlewares.JWTMiddleware())
+	e.POST("/cafe", ch.PostCafeHandler())
+	e.GET("/cafe", ch.GetAllCafeHandler())
+	e.DELETE("/cafe/:id", ch.DeleteCafeHandler())
+	e.PUT("/cafe/:id", ch.UpdateCafeHandler(), _middlewares.JWTMiddleware())
 }
 
 func RegisterArtistPath(e *echo.Echo, ah *_artistHandler.ArtistHandler) {

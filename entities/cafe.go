@@ -40,3 +40,10 @@ type GetCafe struct {
 	Latitude      *float64    `json:"latitude" form:"latitude"`
 	ImageCafe     []ImageCafe `gorm:"foreignKey:IdCafe;references:ID"`
 }
+type GetAllCafe struct {
+	ID          uint    `json:"id" form:"id"`
+	Name        string  `json:"cafe_name" form:"cafe_name"`
+	Address     string  `gorm:"not null" json:"address" form:"address"`
+	Description *string `json:"description" form:"description"`
+	Avatar      *string `json:"avatar" form:"avatar"`
+}
