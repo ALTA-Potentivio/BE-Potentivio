@@ -15,6 +15,7 @@ func RegisterAuthPath(e *echo.Echo, ah *_authHandler.AuthHandler) {
 
 func RegisterArtistPath(e *echo.Echo, ah *_artistHandler.ArtistHandler) {
 	e.POST("/artist", ah.CreateArtistHandler(), _middlewares.JWTMiddleware())
+	e.GET("/artist/profile", ah.GetProfileArtistHandler(), _middlewares.JWTMiddleware())
 	e.GET("/artist", ah.GetAllArtistHandler(), _middlewares.JWTMiddleware())
 	e.GET("/artist/:id", ah.GetArtistByIdHandler(), _middlewares.JWTMiddleware())
 }

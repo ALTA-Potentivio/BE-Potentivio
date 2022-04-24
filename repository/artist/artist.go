@@ -24,9 +24,29 @@ func (ar *ArtistRepository) CreateArtist(artist _entities.Artist) (_entities.Art
 	return artist, nil
 }
 
-func (ar *ArtistRepository) GetAllArtist() ([]_entities.Artist, uint, error) {
+func (ar *ArtistRepository) GetAllArtist(filters_catagory_genre map[string]int, filters_price map[string]string, filters_address map[string]string) ([]_entities.Artist, uint, error) {
 	var artists []_entities.Artist
-	tx := ar.database.Order("Name ASC").Preload("Catagory").Preload("Genre").Find(&artists)
+
+	builder := ar.database.Order("Name ASC")
+
+	for key, value := range filters_price {
+		if value == "asc" {
+			builder = ar.database.Order(key + " " + value)
+		}
+		if value == "desc" {
+			builder = ar.database.Order(key + " " + value)
+		}
+	}
+
+	for key, value := range filters_catagory_genre {
+		builder.Where(key+" = ?", value)
+	}
+
+	for key, value := range filters_address {
+		builder.Where(key+" LIKE ?", "%"+value+"%")
+	}
+
+	tx := builder.Preload("Catagory").Preload("Genre").Find(&artists)
 	if tx.Error != nil {
 		return artists, 0, tx.Error
 	}
@@ -34,6 +54,18 @@ func (ar *ArtistRepository) GetAllArtist() ([]_entities.Artist, uint, error) {
 		return artists, 0, nil
 	}
 	return artists, uint(tx.RowsAffected), nil
+}
+
+func (ar *ArtistRepository) GetProfileArtist(idToken uint) (_entities.Artist, uint, error) {
+	var artist _entities.Artist
+	tx := ar.database.Where("ID = ?", idToken).Preload("VideoArtist").Find(&artist)
+	if tx.Error != nil {
+		return artist, 0, tx.Error
+	}
+	if tx.RowsAffected == 0 {
+		return artist, 0, nil
+	}
+	return artist, uint(tx.RowsAffected), nil
 }
 
 func (ar *ArtistRepository) GetArtistById(id uint) (_entities.Artist, []_entities.Hire, []_entities.Hire, int, error) {

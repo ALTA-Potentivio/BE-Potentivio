@@ -38,12 +38,17 @@ func (auc *ArtistUseCase) CreateArtist(artist _entities.Artist) (_entities.Artis
 	return createArtist, err
 }
 
-func (auc *ArtistUseCase) GetAllArtist() ([]_entities.Artist, uint, error) {
-	artists, rows, err := auc.artistRepository.GetAllArtist()
+func (auc *ArtistUseCase) GetAllArtist(filters_catagory_genre map[string]int, filters_price map[string]string, filters_address map[string]string) ([]_entities.Artist, uint, error) {
+	artists, rows, err := auc.artistRepository.GetAllArtist(filters_catagory_genre, filters_price, filters_address)
 	return artists, rows, err
 }
 
 func (auc *ArtistUseCase) GetArtistById(id uint) (_entities.Artist, []_entities.Hire, []_entities.Hire, int, error) {
 	artist, hireNotAvailable, hireHistory, rows, err := auc.artistRepository.GetArtistById(id)
 	return artist, hireNotAvailable, hireHistory, rows, err
+}
+
+func (auc *ArtistUseCase) GetProfileArtist(idToken uint) (_entities.Artist, uint, error) {
+	artist, rows, err := auc.artistRepository.GetProfileArtist(idToken)
+	return artist, rows, err
 }
