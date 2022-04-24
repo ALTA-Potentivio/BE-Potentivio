@@ -127,7 +127,7 @@ func (ah *ArtistHandler) GetProfileArtistHandler() echo.HandlerFunc {
 			"id_catagory":    artist.IdCatagory,
 			"id_genre":       artist.IdGenre,
 			"phone_number":   artist.PhoneNumber,
-			"address":        artist.PhoneNumber,
+			"address":        artist.Address,
 			"price":          artist.Price,
 			"description":    artist.Description,
 			"account_number": artist.AccountNumber,
@@ -230,7 +230,7 @@ func (ah *ArtistHandler) UpdateArtistHandler() echo.HandlerFunc {
 		}
 
 		// prosess binding image
-		fileData, fileInfo, err_binding_image := c.Request().FormFile("image")
+		fileData, fileInfo, err_binding_image := c.Request().FormFile("avatar")
 		if err_binding_image != nil {
 			return c.JSON(http.StatusBadRequest, helper.ResponseFailed("bind image error"))
 		}
