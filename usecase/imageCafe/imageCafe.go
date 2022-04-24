@@ -30,3 +30,8 @@ func (icuc *ImageCafeUseCase) GetImageIDLast() (uint, error) {
 	idname, err := icuc.imageCafeRepository.GetImageIDLast()
 	return idname, err
 }
+
+func (icuc *ImageCafeUseCase) DeleteImageCafe(id uint, idToken uint) (uint, error) {
+	rows, err := icuc.imageCafeRepository.DeleteImageCafe(id, idToken)
+	return rows, err
+}

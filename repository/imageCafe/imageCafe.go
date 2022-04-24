@@ -1,6 +1,7 @@
 package imageCafe
 
 import (
+	"errors"
 	_entities "potentivio-app/entities"
 
 	"gorm.io/gorm"
@@ -36,4 +37,28 @@ func (icr *ImageCafeRepository) GetImageIDLast() (uint, error) {
 		id_image_cafe = imageCafe.ID + 1
 	}
 	return id_image_cafe, nil
+}
+
+func (icr *ImageCafeRepository) DeleteImageCafe(id uint, idToken uint) (uint, error) {
+	var imageCafe _entities.ImageCafe
+
+	txFind := icr.database.Find(&imageCafe, id)
+	if txFind.Error != nil {
+		return 0, txFind.Error
+	}
+	if txFind.RowsAffected == 0 {
+		return 0, txFind.Error
+	}
+	if idToken != imageCafe.IdCafe {
+		return 0, errors.New("unauthorized")
+	}
+
+	tx := icr.database.Delete(&imageCafe, id)
+	if tx.Error != nil {
+		return 0, tx.Error
+	}
+	if tx.RowsAffected == 0 {
+		return 0, tx.Error
+	}
+	return uint(tx.RowsAffected), nil
 }

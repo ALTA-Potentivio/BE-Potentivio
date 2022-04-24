@@ -82,3 +82,29 @@ func (ich *ImageCafeHandler) CreateImageCafeHandler() echo.HandlerFunc {
 		return c.JSON(http.StatusOK, helper.ResponseSuccessWithoutData("success to upload image cafe"))
 	}
 }
+
+func (ich *ImageCafeHandler) DeleteImageCafeHandler() echo.HandlerFunc {
+	return func(c echo.Context) error {
+		//mendapatkan id dari token yang login
+		idToken, errToken := _middlewares.ExtractToken(c)
+		if errToken != nil {
+			return c.JSON(http.StatusUnauthorized, helper.ResponseFailed("unauthorized"))
+		}
+
+		idStr := c.Param("id")
+		id, err := strconv.Atoi(idStr)
+		if err != nil {
+			return c.JSON(http.StatusInternalServerError, helper.ResponseFailed("id not recognise"))
+		}
+
+		rows, err := ich.imageCafeUseCase.DeleteImageCafe(uint(id), uint(idToken))
+		if err != nil {
+			return c.JSON(http.StatusInternalServerError, helper.ResponseFailed(err.Error()))
+		}
+		if rows == 0 {
+			return c.JSON(http.StatusBadRequest, helper.ResponseFailed("data not found"))
+		}
+
+		return c.JSON(http.StatusOK, helper.ResponseSuccessWithoutData("success to delete image cafe"))
+	}
+}
