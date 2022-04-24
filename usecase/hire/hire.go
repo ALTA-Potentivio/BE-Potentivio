@@ -3,16 +3,10 @@ package hire
 import (
 	"errors"
 	"fmt"
-	"github.com/labstack/gommon/log"
-	"github.com/xendit/xendit-go"
-	"github.com/xendit/xendit-go/invoice"
-	"os"
 	"potentivio-app/entities"
 	"potentivio-app/repository/artist"
 	"potentivio-app/repository/cafe"
 	"potentivio-app/repository/hire"
-	"strings"
-	"time"
 )
 
 type HireUseCase struct {
@@ -47,48 +41,7 @@ func (huc *HireUseCase) CreateHire(hire entities.Hire) error {
 	hire.Price = artistData.Price
 	hire.AccountNumberArtist = artistData.AccountNumber
 	hire.AccountNumberCafe = cafeData.AccountNumber
-
-	year, month, day := time.Now().Date()
-	hour := time.Now().Hour()
-	minute := time.Now().Minute()
-	second := time.Now().Second()
-
-	invoiceNum := fmt.Sprint("invoice/", hire.IdCafe, "/", hire.IdArtist, "/", year, month, day, hour, minute, second)
-	invoiceNum = strings.ReplaceAll(invoiceNum, " ", "")
-
-	hire.Invoice = invoiceNum
-	xendit.Opt.SecretKey = os.Getenv("SECRET_KEY_XENDIT")
-
-	customer := xendit.InvoiceCustomer{
-		GivenNames: cafeData.Name,
-		Email:      cafeData.Email,
-	}
-
-	NotificationType := []string{"email"}
-
-	customerNotificationPreference := xendit.InvoiceCustomerNotificationPreference{
-		InvoiceCreated: NotificationType,
-		InvoicePaid:    NotificationType,
-		InvoiceExpired: NotificationType,
-	}
-
-	data := invoice.CreateParams{
-		ExternalID:                     hire.Invoice,
-		Amount:                         hire.Price,
-		Description:                    "Invoice Demo #123",
-		InvoiceDuration:                300,
-		Customer:                       customer,
-		CustomerNotificationPreference: customerNotificationPreference,
-		Currency:                       "IDR",
-	}
-
-	resp, err := invoice.Create(&data)
-	if err != nil {
-		log.Info(err)
-	}
-	var paymentUrl = resp.InvoiceURL
-	hire.PaymentUrl = &paymentUrl
-
+	
 	err = huc.HireRepository.CreateHire(hire)
 
 	return err
@@ -99,9 +52,3 @@ func (huc *HireUseCase) GetHireByIdArtis(IdArtist int) ([]entities.Hire, error) 
 	hires, err := huc.HireRepository.GetHireByIdArtis(IdArtist)
 	return hires, err
 }
-
-//func (huc *HireUseCase) AcceptHire(hire entities.Hire) error{
-//	var hire =
-//
-//	hire, err := huc.HireRepository.
-//}

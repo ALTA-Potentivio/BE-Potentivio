@@ -1,6 +1,7 @@
 package hire
 
 import (
+	"fmt"
 	"github.com/labstack/echo/v4"
 	"net/http"
 	"potentivio-app/delivery/helper"
@@ -54,9 +55,22 @@ func (hh *HireHandler) GetHireByIdArtis() echo.HandlerFunc {
 
 		hires, err := hh.hireUseCase.GetHireByIdArtis(id)
 
+		results := []HireResponse{}
+
+		for i := 0; i < len(hires); i++ {
+			result := HireResponse{
+				Id:           int(hires[i].ID),
+				CafeName:     hires[i].Cafe.Name,
+				Date:         fmt.Sprint(hires[i].Date),
+				StatusArtist: hires[i].StatusArtist,
+			}
+			
+			results = append(results, result)
+		}
+
 		if err != nil {
 			return c.JSON(http.StatusInternalServerError, helper.ResponseFailed("failed to fetch data"))
 		}
-		return c.JSON(http.StatusOK, helper.ResponseSuccess("success get hire by id", hires))
+		return c.JSON(http.StatusOK, helper.ResponseSuccess("success get hire by id", results))
 	}
 }

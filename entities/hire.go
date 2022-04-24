@@ -12,7 +12,7 @@ type Hire struct {
 	IdCafe              uint      `gorm:"not null" json:"id_cafe" form:"id_cafe"`
 	Invoice             string    `json:"invoice" form:"invoice"`
 	Date                time.Time `gorm:"not null" json:"date" form:"date"`
-	StatusArtist        *string   `json:"status_artist" form:"status_artist"`
+	StatusArtist        string    `json:"status_artist" form:"status_artist" gorm:"default:waiting"`
 	StatusCafe          string    `gorm:"not null;default:waiting" json:"status_cafe" form:"status_cafe"`
 	Comment             *string   `json:"comment" form:"comment"`
 	Rating              *uint     `json:"rating" form:"rating"`

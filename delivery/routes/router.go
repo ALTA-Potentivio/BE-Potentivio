@@ -1,6 +1,7 @@
 package routes
 
 import (
+	"github.com/labstack/echo/v4"
 	_artistHandler "potentivio-app/delivery/handler/artist"
 	_authHandler "potentivio-app/delivery/handler/auth"
 	_cafeHandler "potentivio-app/delivery/handler/cafe"
