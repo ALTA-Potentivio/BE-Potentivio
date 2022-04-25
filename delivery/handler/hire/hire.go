@@ -118,3 +118,20 @@ func (hh *HireHandler) AcceptHire() echo.HandlerFunc {
 	}
 
 }
+
+func (hh *HireHandler) CancelHireByCafe() echo.HandlerFunc {
+	return func(c echo.Context) error {
+		var hire entities.Hire
+
+		c.Bind(&hire)
+		id, _ := middlewares.ExtractToken(c)
+		hire.IdCafe = uint(id)
+		err := hh.hireUseCase.CancelHireByCafe(hire)
+
+		if err != nil {
+			return c.JSON(http.StatusInternalServerError, helper.ResponseFailed("failed to fetch data"))
+		}
+		return c.JSON(http.StatusOK, helper.ResponseSuccessWithoutData("canceled"))
+	}
+
+}

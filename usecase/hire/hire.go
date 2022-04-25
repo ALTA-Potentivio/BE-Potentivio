@@ -86,7 +86,7 @@ func (huc *HireUseCase) AcceptHire(hire entities.Hire) error {
 	xendit.Opt.SecretKey = os.Getenv("SECRET_KEY_XENDIT")
 
 	cafeData, _, err := huc.CafeRepository.GetCafeById(int(hires.IdCafe))
-	fmt.Println(cafeData.Name)
+
 	if err != nil {
 		return errors.New("Artis not Available")
 	}
@@ -115,10 +115,11 @@ func (huc *HireUseCase) AcceptHire(hire entities.Hire) error {
 	}
 
 	resp, err := invoice.Create(&data)
+
 	if err != nil {
 		log.Info(err)
 	}
-	fmt.Println(err)
+
 	var paymentUrl = resp.InvoiceURL
 	hires.PaymentUrl = &paymentUrl
 	hires.StatusArtist = "waiting payment"
@@ -126,5 +127,20 @@ func (huc *HireUseCase) AcceptHire(hire entities.Hire) error {
 
 	err = huc.HireRepository.UpdateHire(int(hire.ID), hires)
 
+	return err
+}
+
+func (huc *HireUseCase) CancelHireByCafe(hire entities.Hire) error {
+	hires, err := huc.HireRepository.GetHireById(int(hire.ID))
+
+	if hires.StatusArtist != "waiting" || hires.IdCafe != hire.IdCafe {
+		return errors.New("Failed to cancel")
+	}
+	var id = int(hire.ID)
+
+	hires.StatusArtist = "Canceled"
+	hires.StatusCafe = "Canceled"
+	hires.Comment = hire.Comment
+	err = huc.HireRepository.UpdateHire(id, hires)
 	return err
 }
