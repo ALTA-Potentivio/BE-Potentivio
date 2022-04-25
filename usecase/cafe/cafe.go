@@ -16,7 +16,7 @@ func NewCafeUseCase(cafeRepo _cafeRepository.CafeRepositoryInterface) CafeUseCas
 		cafeRepository: cafeRepo,
 	}
 }
-func (cuc *CafeUseCase) GetCafeById(id int) (_entities.GetCafe, int, error) {
+func (cuc *CafeUseCase) GetCafeById(id int) (_entities.Cafe, int, error) {
 	cafe, rows, err := cuc.cafeRepository.GetCafeById(id)
 
 	var GetCafe _entities.GetCafe
@@ -34,7 +34,7 @@ func (cuc *CafeUseCase) GetCafeById(id int) (_entities.GetCafe, int, error) {
 	GetCafe.Owner = cafe.Owner
 	GetCafe.PhoneNumber = cafe.PhoneNumber
 
-	return GetCafe, rows, err
+	return cafe, rows, err
 }
 
 func (cuc *CafeUseCase) PostCafe(cafe _entities.Cafe) error {
@@ -43,7 +43,6 @@ func (cuc *CafeUseCase) PostCafe(cafe _entities.Cafe) error {
 		return errors.New("error hashing password")
 	}
 	cafe.Password = password
-	//validasi saat registrasi
 	if cafe.Name == "" {
 		return errors.New("name is required")
 	}
