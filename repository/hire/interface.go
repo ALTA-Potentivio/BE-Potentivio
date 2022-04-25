@@ -8,6 +8,8 @@ type HireRepositoryInterface interface {
 	CheckHire(hire entities.Hire) error
 	AcceptHire(hire entities.Hire) error
 	CreateHire(hire entities.Hire) error
-	GetHireByIdArtis(IdArtist int) ([]entities.Hire, error)
+	GetHireByIdArtist(IdArtist int) ([]entities.Hire, error)
+	GetHireById(id int) (entities.Hire, error)
 	GetHireByIdCafe(IdCafe int) ([]entities.Hire, error)
+	UpdateHire(id int, hire entities.Hire) error
 }

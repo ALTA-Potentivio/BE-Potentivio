@@ -29,7 +29,16 @@ func (hr *HireRepository) CreateHire(hire entities.Hire) error {
 	return nil
 }
 
-func (hr *HireRepository) GetHireByIdArtis(IdArtist int) ([]entities.Hire, error) {
+func (hr *HireRepository) GetHireById(id int) (entities.Hire, error) {
+	var hire entities.Hire
+	tx := hr.database.Where("id = ?", id).First(&hire)
+	if tx.Error != nil {
+		return hire, tx.Error
+	}
+	return hire, nil
+}
+
+func (hr *HireRepository) GetHireByIdArtist(IdArtist int) ([]entities.Hire, error) {
 	var hire []entities.Hire
 	tx := hr.database.Where("id_artist = ?", IdArtist).Preload("Cafe").Find(&hire)
 	if tx.Error != nil {
@@ -49,6 +58,14 @@ func (hr *HireRepository) GetHireByIdCafe(IdCafe int) ([]entities.Hire, error) {
 
 func (hr *HireRepository) AcceptHire(hire entities.Hire) error {
 	tx := hr.database.Where("id = ?", hire.ID).Updates(&hire)
+	if tx.Error != nil {
+		return tx.Error
+	}
+	return nil
+}
+
+func (hr *HireRepository) UpdateHire(id int, hire entities.Hire) error {
+	tx := hr.database.Where("id = ?", id).Updates(&hire)
 	if tx.Error != nil {
 		return tx.Error
 	}

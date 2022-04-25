@@ -141,11 +141,7 @@ func (ah *ArtistHandler) GetProfileArtistHandler() echo.HandlerFunc {
 
 func (ah *ArtistHandler) GetArtistByIdHandler() echo.HandlerFunc {
 	return func(c echo.Context) error {
-
-		id, err := strconv.Atoi(c.Param("id"))
-		if err != nil {
-			return c.JSON(http.StatusInternalServerError, helper.ResponseFailed("id not recognise"))
-		}
+		var id, _ = _middlewares.ExtractToken(c)
 
 		artist, hires, rows, err := ah.artistUseCase.GetArtistById(uint(id))
 		if err != nil {
@@ -204,6 +200,7 @@ func (ah *ArtistHandler) GetArtistByIdHandler() echo.HandlerFunc {
 		}
 
 		return c.JSON(http.StatusOK, helper.ResponseSuccess("success to get detail artist", responseArtist))
+
 	}
 }
 

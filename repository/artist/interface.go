@@ -11,4 +11,5 @@ type ArtistRepositoryInterface interface {
 	GetArtistById(id uint) (_entities.Artist, int, error)
 	UpdateArtist(updateArtist _entities.Artist, idToken uint) (_entities.Artist, uint, error)
 	DeleteArtist(id uint) (uint, error)
+	GetArtistByIdForHire(id uint) (_entities.Artist, error)
 }

@@ -80,6 +80,16 @@ func (ar *ArtistRepository) GetArtistById(id uint) (_entities.Artist, int, error
 	return artists, int(tx.RowsAffected), nil
 }
 
+func (ar *ArtistRepository) GetArtistByIdForHire(id uint) (_entities.Artist, error) {
+	var artist _entities.Artist
+	tx := ar.database.Where("id = ?", id).First(&artist)
+	if tx.Error != nil {
+		return artist, tx.Error
+	}
+	return artist, nil
+
+}
+
 func (ar *ArtistRepository) UpdateArtist(updateArtist _entities.Artist, idToken uint) (_entities.Artist, uint, error) {
 	tx := ar.database.Where("ID = ?", idToken).Updates(&updateArtist)
 	if tx.Error != nil {
