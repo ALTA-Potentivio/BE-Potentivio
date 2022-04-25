@@ -22,4 +22,4 @@ jobs:
           docker stop potentivio_app_cont
           docker rm potentivio_app_cont
           docker build -t image_potentivio_app:latest .
-          docker run -d -p 80:80 -e APP_PORT="80" -e DB_PORT="3306" -e DB_DRIVER="mysql" -e DB_NAME="potentivio_app" -e DB_ADDRESS="${{ secrets.DBHOST }}" -e DB_USERNAME="${{ secrets.DBUSERNAME }}" -e DB_PASSWORD="${{ secrets.DBPASSWORD }}" --name potentivio_app_cont image_potentivio_app:latest
+          docker run -d -p 80:80 --name potentivio_app_cont image_potentivio_app:latest
