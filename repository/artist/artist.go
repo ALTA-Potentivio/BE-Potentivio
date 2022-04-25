@@ -68,24 +68,14 @@ func (ar *ArtistRepository) GetProfileArtist(idToken uint) (_entities.Artist, ui
 	return artist, uint(tx.RowsAffected), nil
 }
 
-func (ar *ArtistRepository) GetArtistById(id uint) (_entities.Artist, []_entities.Hire, []_entities.Hire, int, error) {
-	var artists _entities.Artist
-	var hireNotAvailable []_entities.Hire
-	var hireHistory []_entities.Hire
-
-	// mengambil data jadwal manggung dan history manggung (jika ada)
-
-	ar.database.Where("StatusCafe = ?", "accepted").Find(&hireNotAvailable)
-	ar.database.Preload("Cafe").Where("StatusCafe = ?", "done").Find(&hireHistory)
-
-	tx := ar.database.Preload("VideoArtist").Find(&artists, id)
+func (ar *ArtistRepository) GetArtistByIdForHire(id uint) (_entities.Artist, error) {
+	var artist _entities.Artist
+	tx := ar.database.Where("id = ?", id).First(&artist)
 	if tx.Error != nil {
-		return artists, hireNotAvailable, hireHistory, 0, tx.Error
+		return artist, tx.Error
 	}
-	if tx.RowsAffected == 0 {
-		return artists, hireNotAvailable, hireHistory, 0, nil
-	}
-	return artists, hireNotAvailable, hireHistory, int(tx.RowsAffected), nil
+	return artist, nil
+
 }
 
 func (ar *ArtistRepository) UpdateArtist(updateArtist _entities.Artist, idToken uint) (_entities.Artist, uint, error) {

@@ -43,9 +43,9 @@ func (auc *ArtistUseCase) GetAllArtist(filters_catagory_genre map[string]int, fi
 	return artists, rows, err
 }
 
-func (auc *ArtistUseCase) GetArtistById(id uint) (_entities.Artist, []_entities.Hire, []_entities.Hire, int, error) {
-	artist, hireNotAvailable, hireHistory, rows, err := auc.artistRepository.GetArtistById(id)
-	return artist, hireNotAvailable, hireHistory, rows, err
+func (auc *ArtistUseCase) GetArtistById(id uint) (_entities.Artist, error) {
+	artists, err := auc.artistRepository.GetArtistById(id)
+	return artists, err
 }
 
 func (auc *ArtistUseCase) GetProfileArtist(idToken uint) (_entities.Artist, uint, error) {

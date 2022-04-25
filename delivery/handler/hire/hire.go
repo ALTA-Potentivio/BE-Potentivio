@@ -53,7 +53,7 @@ func (hh *HireHandler) GetHireByIdArtis() echo.HandlerFunc {
 		var id, _ = strconv.Atoi(c.Param("id_artist"))
 		id, _ = middlewares.ExtractToken(c)
 
-		hires, err := hh.hireUseCase.GetHireByIdArtis(id)
+		hires, err := hh.hireUseCase.GetHireByIdArtist(id)
 
 		results := []HireResponse{}
 
@@ -100,4 +100,21 @@ func (hh *HireHandler) GetHireByIdCafe() echo.HandlerFunc {
 		}
 		return c.JSON(http.StatusOK, helper.ResponseSuccess("success get hire by id", results))
 	}
+}
+
+func (hh *HireHandler) AcceptHire() echo.HandlerFunc {
+	return func(c echo.Context) error {
+		var hire entities.Hire
+
+		c.Bind(&hire)
+		id, _ := middlewares.ExtractToken(c)
+		hire.IdArtist = uint(id)
+
+		err := hh.hireUseCase.AcceptHire(hire)
+		if err != nil {
+			return c.JSON(http.StatusInternalServerError, helper.ResponseFailed("failed to accept"))
+		}
+		return c.JSON(http.StatusOK, helper.ResponseSuccessWithoutData("success to accept"))
+	}
+
 }

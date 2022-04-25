@@ -141,65 +141,12 @@ func (ah *ArtistHandler) GetProfileArtistHandler() echo.HandlerFunc {
 
 func (ah *ArtistHandler) GetArtistByIdHandler() echo.HandlerFunc {
 	return func(c echo.Context) error {
-
-		id, err := strconv.Atoi(c.Param("id"))
+		var id, _ = _middlewares.ExtractToken(c)
+		artists, err := ah.artistUseCase.GetArtistById(uint(id))
 		if err != nil {
-			return c.JSON(http.StatusInternalServerError, helper.ResponseFailed("id not recognise"))
+			return c.JSON(http.StatusInternalServerError, helper.ResponseFailed("failed to fetch data"))
 		}
-
-		artist, hireNotAvailable, hireHistory, rows, err := ah.artistUseCase.GetArtistById(uint(id))
-		if err != nil {
-			return c.JSON(http.StatusInternalServerError, helper.ResponseFailed(err.Error()))
-		}
-		if rows == 0 {
-			return c.JSON(http.StatusBadRequest, helper.ResponseFailed("data not found"))
-		}
-
-		notAvailable := []map[string]interface{}{}
-		for i := 0; i < len(hireNotAvailable); i++ {
-			response := map[string]interface{}{
-				"date": hireNotAvailable[i].Date,
-			}
-			notAvailable = append(notAvailable, response)
-		}
-
-		history := []map[string]interface{}{}
-		for i := 0; i < len(hireHistory); i++ {
-			response := map[string]interface{}{
-				"cafe_name": hireHistory[i].Cafe.Name,
-				"date":      hireHistory[i].Date,
-				"rating":    hireHistory[i].Rating,
-				"comment":   hireHistory[i].Comment,
-			}
-			history = append(history, response)
-		}
-
-		videoArtist := []map[string]interface{}{}
-		for i := 0; i < len(artist.VideoArtist); i++ {
-			response := map[string]interface{}{
-				"id":        artist.VideoArtist[i].ID,
-				"video_url": artist.VideoArtist[i].VideoUrl,
-			}
-			videoArtist = append(videoArtist, response)
-		}
-
-		responseArtist := map[string]interface{}{
-			"id":             artist.ID,
-			"artist_name":    artist.Name,
-			"id_catagory":    artist.IdCatagory,
-			"id_genre":       artist.IdGenre,
-			"phone_number":   artist.PhoneNumber,
-			"address":        artist.Address,
-			"price":          artist.Price,
-			"description":    artist.Description,
-			"account_number": artist.AccountNumber,
-			"avatar":         artist.Avatar,
-			"video_artist":   videoArtist,
-			"not_available":  notAvailable,
-			"hire_history":   history,
-		}
-
-		return c.JSON(http.StatusOK, helper.ResponseSuccess("success to get detail artist", responseArtist))
+		return c.JSON(http.StatusOK, helper.ResponseSuccess("success get user by id", artists))
 	}
 }
 
