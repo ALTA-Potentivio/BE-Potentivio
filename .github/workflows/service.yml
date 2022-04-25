@@ -17,7 +17,7 @@ jobs:
         key: ${{ secrets.KEY }}
         port: ${{ secrets.PORT }}
         script: |
-          cd home/ubuntu/potentivio_app
+          cd home/ubuntu/BE-Potentivio
           git pull origin main
           docker stop potentivio_app_cont
           docker rm potentivio_app_cont
