@@ -27,13 +27,14 @@ func (ah *AuthHandler) LoginArtistHandler() echo.HandlerFunc {
 		if err != nil {
 			return c.JSON(http.StatusBadRequest, helper.ResponseFailed("error bind data"))
 		}
-		token, idArtist, errorLogin := ah.authUseCase.LoginArtist(login.Email, login.Password)
+		token, idArtist, validation, errorLogin := ah.authUseCase.LoginArtist(login.Email, login.Password)
 		if errorLogin != nil {
 			return c.JSON(http.StatusBadRequest, helper.ResponseFailed(fmt.Sprintf("%v", errorLogin)))
 		}
 		responseToken := map[string]interface{}{
-			"token":     token,
-			"id_artist": idArtist,
+			"token":          token,
+			"id_artist":      idArtist,
+			"status_profile": validation,
 		}
 		return c.JSON(http.StatusOK, helper.ResponseSuccess("success login", responseToken))
 	}
@@ -46,13 +47,14 @@ func (ah *AuthHandler) LoginCafeHandler() echo.HandlerFunc {
 		if err != nil {
 			return c.JSON(http.StatusBadRequest, helper.ResponseFailed("error bind data"))
 		}
-		token, idCafe, errorLogin := ah.authUseCase.LoginCafe(login.Email, login.Password)
+		token, idCafe, validation, errorLogin := ah.authUseCase.LoginCafe(login.Email, login.Password)
 		if errorLogin != nil {
 			return c.JSON(http.StatusBadRequest, helper.ResponseFailed(fmt.Sprintf("%v", errorLogin)))
 		}
 		responseToken := map[string]interface{}{
-			"token":   token,
-			"id_cafe": idCafe,
+			"token":          token,
+			"id_cafe":        idCafe,
+			"status profile": validation,
 		}
 		return c.JSON(http.StatusOK, helper.ResponseSuccess("success login", responseToken))
 	}
