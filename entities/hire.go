@@ -14,7 +14,7 @@ type Hire struct {
 	Date                time.Time `gorm:"not null" json:"date" form:"date"`
 	StatusArtist        string    `json:"status_artist" form:"status_artist" gorm:"default:waiting"`
 	StatusCafe          string    `gorm:"not null;default:waiting" json:"status_cafe" form:"status_cafe"`
-	Comment             *string   `json:"comment" form:"comment"`
+	Comment             string    `json:"comment" form:"comment"`
 	Rating              *uint     `json:"rating" form:"rating"`
 	Price               float64   `gorm:"not null" json:"price" form:"price"`
 	AccountNumberArtist *string   `gorm:"not null" json:"account_number_artist" form:"account_number_artist"`
