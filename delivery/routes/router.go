@@ -1,11 +1,13 @@
 package routes
 
 import (
-	"github.com/labstack/echo/v4"
 	_artistHandler "potentivio-app/delivery/handler/artist"
 	_authHandler "potentivio-app/delivery/handler/auth"
 	_cafeHandler "potentivio-app/delivery/handler/cafe"
 	_hirehandler "potentivio-app/delivery/handler/hire"
+	_videoHandler "potentivio-app/delivery/handler/videoArtist"
+
+	"github.com/labstack/echo/v4"
 
 	_catagoryHandler "potentivio-app/delivery/handler/catagory"
 	_imageCafeHandler "potentivio-app/delivery/handler/imageCafe"
@@ -53,5 +55,11 @@ func HireArtistPath(e *echo.Echo, hh *_hirehandler.HireHandler) {
 	e.GET("hire/cafe", hh.GetHireByIdCafe(), _middlewares.JWTMiddleware())
 	e.POST("/accept", hh.AcceptHire(), _middlewares.JWTMiddleware())
 	e.PUT("/cancel", hh.CancelHireByCafe(), _middlewares.JWTMiddleware())
+
+}
+
+func RegisterVideoArtistPath(e *echo.Echo, ich *_videoHandler.VideoHandler) {
+	e.POST("/video/artist", ich.PostVideoHandler(), _middlewares.JWTMiddleware())
+	e.DELETE("/video/artist/:id", ich.DeleteVideoHandler(), _middlewares.JWTMiddleware())
 
 }

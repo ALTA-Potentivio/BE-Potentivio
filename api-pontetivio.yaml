@@ -1433,7 +1433,44 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/500'  
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: please insert link video
+    get:
+      tags:
+        - video-artist
+      summary: get all video artist
+      responses:
+        "200":
+          description: succes
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: succes to get all link video artist
+        "400":
+          description: failed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/400'
+        "401":
+          description: failed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/401'
+        "403":
+          description: failed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/403'        
   /video/artist/{id}:
     delete:
       tags:

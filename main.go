@@ -34,6 +34,10 @@ import (
 	_imageCafeRepository "potentivio-app/repository/imageCafe"
 	_imageCafeUseCase "potentivio-app/usecase/imageCafe"
 
+	_videoArtistHandler "potentivio-app/delivery/handler/videoArtist"
+	_videoArtistRepository "potentivio-app/repository/videoArtist"
+	_videoArtistUseCase "potentivio-app/usecase/videoArtist"
+
 	_routes "potentivio-app/delivery/routes"
 	_utils "potentivio-app/utils"
 )
@@ -67,6 +71,10 @@ func main() {
 	imageCafeUseCase := _imageCafeUseCase.NewImageCafeUseCase(imageCafeRepo)
 	imageCafeHandler := _imageCafeHandler.NewImageCafeHandler(imageCafeUseCase)
 
+	videoArtistRepo := _videoArtistRepository.NewVideoRepository(db)
+	videoArtistUseCase := _videoArtistUseCase.NewVideoUseCase(videoArtistRepo)
+	videoArtistHandler := _videoArtistHandler.NewVideoHandler(videoArtistUseCase)
+
 	e := echo.New()
 	e.Use(middleware.CORS())
 	e.Pre(middleware.RemoveTrailingSlash())
@@ -85,6 +93,8 @@ func main() {
 
 	_routes.RegisterCatagoryPath(e, &catagoryHandler)
 	_routes.RegisterImageCafePath(e, imageCafeHandler)
+
+	_routes.RegisterVideoArtistPath(e, videoArtistHandler)
 
 	log.Fatal(e.Start(fmt.Sprintf(":%v", config.Port)))
 }
