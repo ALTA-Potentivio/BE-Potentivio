@@ -2,10 +2,11 @@ package main
 
 import (
 	"fmt"
-	"github.com/labstack/echo/v4"
 	"log"
 	"net/http"
 	"potentivio-app/configs"
+
+	"github.com/labstack/echo/v4"
 
 	"github.com/labstack/echo/v4/middleware"
 
@@ -49,8 +50,9 @@ func main() {
 	cafeUseCase := _cafeUseCase.NewCafeUseCase(cafeRepo)
 	cafeHandler := _cafeHandler.NewCafeHandler(cafeUseCase)
 
+	hireRepoArtist := _hireRepository.NewHireRepository(db)
 	artistRepo := _artistRepository.NewArtistRepository(db)
-	artistUseCase := _artistUseCase.NewArtistUseCase(artistRepo)
+	artistUseCase := _artistUseCase.NewArtistUseCase(artistRepo, hireRepoArtist)
 	artistHandler := _artistHandler.NewArtistHandler(artistUseCase)
 
 	hireRepo := _hireRepository.NewHireRepository(db)

@@ -147,7 +147,7 @@ func (ah *ArtistHandler) GetArtistByIdHandler() echo.HandlerFunc {
 			return c.JSON(http.StatusInternalServerError, helper.ResponseFailed("id not recognise"))
 		}
 
-		artist, hireNotAvailable, hireHistory, rows, err := ah.artistUseCase.GetArtistById(uint(id))
+		artist, hires, rows, err := ah.artistUseCase.GetArtistById(uint(id))
 		if err != nil {
 			return c.JSON(http.StatusInternalServerError, helper.ResponseFailed(err.Error()))
 		}
@@ -156,22 +156,26 @@ func (ah *ArtistHandler) GetArtistByIdHandler() echo.HandlerFunc {
 		}
 
 		notAvailable := []map[string]interface{}{}
-		for i := 0; i < len(hireNotAvailable); i++ {
-			response := map[string]interface{}{
-				"date": hireNotAvailable[i].Date,
+		for i := 0; i < len(hires); i++ {
+			if hires[i].StatusCafe == "accepted" {
+				response := map[string]interface{}{
+					"date": hires[i].Date,
+				}
+				notAvailable = append(notAvailable, response)
 			}
-			notAvailable = append(notAvailable, response)
 		}
 
 		history := []map[string]interface{}{}
-		for i := 0; i < len(hireHistory); i++ {
-			response := map[string]interface{}{
-				"cafe_name": hireHistory[i].Cafe.Name,
-				"date":      hireHistory[i].Date,
-				"rating":    hireHistory[i].Rating,
-				"comment":   hireHistory[i].Comment,
+		for i := 0; i < len(hires); i++ {
+			if hires[i].StatusCafe == "done" {
+				response := map[string]interface{}{
+					"cafe_name": hires[i].Cafe.Name,
+					"date":      hires[i].Date,
+					"rating":    hires[i].Rating,
+					"comment":   hires[i].Comment,
+				}
+				history = append(history, response)
 			}
-			history = append(history, response)
 		}
 
 		videoArtist := []map[string]interface{}{}
@@ -229,36 +233,38 @@ func (ah *ArtistHandler) UpdateArtistHandler() echo.HandlerFunc {
 			return c.JSON(http.StatusBadRequest, helper.ResponseFailed(errBind.Error()))
 		}
 
-		// prosess binding image
-		fileData, fileInfo, err_binding_image := c.Request().FormFile("avatar")
-		if err_binding_image != nil {
-			return c.JSON(http.StatusBadRequest, helper.ResponseFailed("bind image error"))
+		if updateArtist.Avatar != nil {
+			// prosess binding image
+			fileData, fileInfo, err_binding_image := c.Request().FormFile("avatar")
+			if err_binding_image != nil {
+				return c.JSON(http.StatusBadRequest, helper.ResponseFailed("bind image error"))
+			}
+
+			// check file extension
+			_, err_check_extension := helper.CheckFileExtension(fileInfo.Filename)
+			if err_check_extension != nil {
+				return c.JSON(http.StatusBadRequest, helper.ResponseFailed("file extension error"))
+			}
+
+			// check file size
+			err_check_size := helper.CheckFileSize(fileInfo.Size)
+			if err_check_size != nil {
+				return c.JSON(http.StatusBadRequest, helper.ResponseFailed("file size error"))
+			}
+
+			// memberikan nama file
+			fileName := "foto_profile_" + strconv.Itoa(idToken)
+
+			// upload foto profile
+			var err_upload_photo error
+			theUrl, err_upload_photo := helper.UploadImage("foto_profile_artist", fileName, fileData)
+			if err_upload_photo != nil {
+				return c.JSON(http.StatusBadRequest, helper.ResponseFailed("upload image failed"))
+			}
+
+			// create foto profile artist
+			updateArtist.Avatar = &theUrl
 		}
-
-		// check file extension
-		_, err_check_extension := helper.CheckFileExtension(fileInfo.Filename)
-		if err_check_extension != nil {
-			return c.JSON(http.StatusBadRequest, helper.ResponseFailed("file extension error"))
-		}
-
-		// check file size
-		err_check_size := helper.CheckFileSize(fileInfo.Size)
-		if err_check_size != nil {
-			return c.JSON(http.StatusBadRequest, helper.ResponseFailed("file size error"))
-		}
-
-		// memberikan nama file
-		fileName := "foto_profile_" + strconv.Itoa(idToken)
-
-		// upload foto profile
-		var err_upload_photo error
-		theUrl, err_upload_photo := helper.UploadImage("foto_profile_artist", fileName, fileData)
-		if err_upload_photo != nil {
-			return c.JSON(http.StatusBadRequest, helper.ResponseFailed("upload image failed"))
-		}
-
-		// create foto profile artist
-		updateArtist.Avatar = &theUrl
 
 		_, rows, err := ah.artistUseCase.UpdateArtist(updateArtist, uint(idToken))
 		if err != nil {

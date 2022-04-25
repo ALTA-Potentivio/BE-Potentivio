@@ -11,7 +11,7 @@ type Artist struct {
 	Password      string         `gorm:"not null" json:"password" form:"password"`
 	Address       string         `gorm:"not null" json:"address" form:"address"`
 	PhoneNumber   *string        `json:"phone_number" form:"phone_number"`
-	Price         float64        `json:"price" form:"price"`
+	Price         *float64       `json:"price" form:"price"`
 	Description   *string        `json:"description" form:"description"`
 	AccountNumber *string        `json:"account_number" form:"account_number"`
 	Avatar        *string        `json:"avatar" form:"avatar"`
