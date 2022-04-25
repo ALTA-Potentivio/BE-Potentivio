@@ -195,6 +195,27 @@ paths:
       tags:
         - artist
       summary: get all artist
+      parameters:
+        - name: id_catagory
+          in: query
+          schema:
+            type: integer
+            example: 1
+        - name: id_genre
+          in: query
+          schema:
+            type: integer
+            example: 1
+        - name: price
+          in: query
+          schema:
+            type: string
+            example: asc or desc
+        - name: address
+          in: query
+          schema:
+            type: string
+            example: bogor
       responses:
         "200":
           description: succes
@@ -1739,6 +1760,9 @@ components:
           type: integer
           format: uint
           example: 1
+        address:
+          type: string
+          example: kota bogor
         price:
           type: integer
           format: uint
@@ -2020,6 +2044,9 @@ components:
             token:
               type: string
               example: 26e7gdsjfhu4w8yhflsaf.arei73rsmcaln,edugweferf
+            status_profile:
+              type: string
+              example: "complete"
     cafe_login_succes:
       type: object
       properties:
@@ -2036,6 +2063,9 @@ components:
             token:
               type: string
               example: 26e7gdsjfhu4w8yhflsaf.arei73rsmcaln,edugweferf
+            status_profile:
+              type: string
+              example: "not complete"
     all_hire_artist:
       type: array
       items:
