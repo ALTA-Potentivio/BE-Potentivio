@@ -129,7 +129,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/500'
   /artist:
-    post:
+    post: 
       tags:
         - register
       summary: create user artist
@@ -192,6 +192,8 @@ paths:
                   value: 
                     message: email is required
     get:
+      security:
+      - bearerAuth: []
       tags:
         - artist
       summary: get all artist
@@ -255,6 +257,8 @@ paths:
                 $ref: '#/components/schemas/500'
   /artist/profile:
     get:
+      security:
+      - bearerAuth: []
       tags:
         - artist
       summary: get profile artist
@@ -297,6 +301,8 @@ paths:
                 $ref: '#/components/schemas/500'
   /artist/{id}:
     get:
+      security:
+      - bearerAuth: []
       tags:
         - artist
       summary: get detail artist by id
@@ -325,6 +331,8 @@ paths:
         "400":
           description: failed to get detail artist
     put:
+      security:
+      - bearerAuth: []
       tags:
         - artist
       summary: edit artist by id
@@ -379,6 +387,8 @@ paths:
               schema:
                 $ref: '#/components/schemas/500'
     delete:
+      security:
+      - bearerAuth: []
       tags:
         - artist
       summary: delete artist by id
@@ -429,6 +439,8 @@ paths:
                 $ref: '#/components/schemas/500'
   /cafe/profile:
     get:
+      security:
+      - bearerAuth: []
       tags:
         - cafe
       summary: get profile cafe
@@ -543,6 +555,8 @@ paths:
                   value: 
                     message: email is required
     get:
+      security:
+      - bearerAuth: []
       tags:
         - cafe
       summary: get all cafe owner
@@ -585,6 +599,8 @@ paths:
                 $ref: '#/components/schemas/500'
   /cafe/{id}:
     get:
+      security:
+      - bearerAuth: []
       tags:
         - cafe
       summary: get detail cafe by id
@@ -647,9 +663,10 @@ paths:
                 properties:
                   message: 
                     type: string
-                    example: failed to convert id param
-                 
+                    example: failed to convert id param            
     put:
+      security:
+      - bearerAuth: []
       tags:
         - cafe
       summary: edit cafe by id
@@ -704,6 +721,8 @@ paths:
               schema:
                 $ref: '#/components/schemas/500'
     delete:
+      security:
+      - bearerAuth: []
       tags:
         - cafe
       summary: delete cafe by id
@@ -753,6 +772,8 @@ paths:
                 $ref: '#/components/schemas/500'
   /offer/{id}:
     post:
+      security:
+      - bearerAuth: []
       tags:
         - notification
       summary: notification for offer to artist from cafe
@@ -803,6 +824,8 @@ paths:
                 $ref: '#/components/schemas/500'
   /hire/{id}:
     post:
+      security:
+      - bearerAuth: []
       tags:
         - hire
       summary: hire artist by id
@@ -861,6 +884,8 @@ paths:
                 $ref: '#/components/schemas/500'
   /hire/artist:
     get:
+      security:
+      - bearerAuth: []
       tags:
         - hire
       summary: get all hiring in user artist 
@@ -903,6 +928,8 @@ paths:
                 $ref: '#/components/schemas/500'
   /hire/cafe:
     get:
+      security:
+      - bearerAuth: []
       tags:
         - hire
       summary: get all hiring in user cafe 
@@ -945,6 +972,8 @@ paths:
                 $ref: '#/components/schemas/500'
   /accept/{id}:
     put:
+      security:
+      - bearerAuth: []
       tags:
         - hire
       summary: accept job   
@@ -995,6 +1024,8 @@ paths:
                 $ref: '#/components/schemas/500'
   /reject/{id}:
     put:
+      security:
+      - bearerAuth: []
       tags:
         - hire
       summary: rejected job 
@@ -1045,6 +1076,8 @@ paths:
                 $ref: '#/components/schemas/500'
   /cancel/{id}:
     put:
+      security:
+      - bearerAuth: []
       tags: 
       - hire
       summary: canceled job
@@ -1095,6 +1128,8 @@ paths:
                 $ref: '#/components/schemas/500'
   /rating/{id}:
      put:
+      security:
+      - bearerAuth: []
       tags:
         - hire
       summary: give ratting artist 
@@ -1158,6 +1193,8 @@ paths:
                 $ref: '#/components/schemas/500'
   /payment/{id}:
     post:
+      security:
+      - bearerAuth: []
       tags:
         - hire
       summary: payment to artist
@@ -1208,6 +1245,8 @@ paths:
                 $ref: '#/components/schemas/500'
   /category:
     post:
+      security:
+      - bearerAuth: []
       tags:
         - category
       summary: create category 
@@ -1257,6 +1296,8 @@ paths:
               schema:
                 $ref: '#/components/schemas/500'
     get:
+      security:
+      - bearerAuth: []
       tags:
         - category
       summary: get all category 
@@ -1299,6 +1340,8 @@ paths:
                 $ref: '#/components/schemas/500'
   /genre:
     post:
+      security:
+      - bearerAuth: []
       tags:
         - genre
       summary: create genre
@@ -1348,6 +1391,8 @@ paths:
               schema:
                 $ref: '#/components/schemas/500'
     get:
+      security:
+      - bearerAuth: []
       tags:
         - genre
       summary: get all genre 
@@ -1390,6 +1435,8 @@ paths:
                 $ref: '#/components/schemas/500'
   /video/artist:
     post:
+      security:
+      - bearerAuth: []
       tags:
         - video-artist
       summary: upload link video artist
@@ -1439,6 +1486,8 @@ paths:
                     type: string
                     example: please insert link video
     get:
+      security:
+      - bearerAuth: []
       tags:
         - video-artist
       summary: get all video artist
@@ -1473,6 +1522,8 @@ paths:
                 $ref: '#/components/schemas/403'        
   /video/artist/{id}:
     delete:
+      security:
+      - bearerAuth: []
       tags:
         - video-artist
       summary: delete link video artist
@@ -1523,6 +1574,8 @@ paths:
                 $ref: '#/components/schemas/500'    
   /image/cafe:
     post:
+      security:
+      - bearerAuth: []
       tags:
         - image-cafe
       summary: upload image cafe
@@ -1569,6 +1622,8 @@ paths:
                 $ref: '#/components/schemas/500'
   /image/cafe/{id}:
     delete:
+      security:
+      - bearerAuth: []
       tags:
         - image-cafe
       summary: delete image cafe
@@ -1620,6 +1675,11 @@ paths:
 
 
 components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT 
   schemas:
     login:
       type: object
