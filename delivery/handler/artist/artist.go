@@ -230,9 +230,9 @@ func (ah *ArtistHandler) UpdateArtistHandler() echo.HandlerFunc {
 			return c.JSON(http.StatusBadRequest, helper.ResponseFailed(errBind.Error()))
 		}
 
-		if updateArtist.Avatar != nil {
-			// prosess binding image
-			fileData, fileInfo, err_binding_image := c.Request().FormFile("avatar")
+		// prosess binding image
+		fileData, fileInfo, err_binding_image := c.Request().FormFile("avatar")
+		if err_binding_image != http.ErrMissingFile {
 			if err_binding_image != nil {
 				return c.JSON(http.StatusBadRequest, helper.ResponseFailed("bind image error"))
 			}

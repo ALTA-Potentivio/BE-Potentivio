@@ -3,9 +3,6 @@ package hire
 import (
 	"errors"
 	"fmt"
-	"github.com/labstack/gommon/log"
-	"github.com/xendit/xendit-go"
-	"github.com/xendit/xendit-go/invoice"
 	"os"
 	"potentivio-app/entities"
 	"potentivio-app/repository/artist"
@@ -13,6 +10,10 @@ import (
 	"potentivio-app/repository/hire"
 	"strings"
 	"time"
+
+	"github.com/labstack/gommon/log"
+	"github.com/xendit/xendit-go"
+	"github.com/xendit/xendit-go/invoice"
 )
 
 type HireUseCase struct {

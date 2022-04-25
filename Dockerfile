@@ -10,6 +10,6 @@ RUN go mod download
 
 RUN go build -o ./builder
 
-EXPOSE 80
+EXPOSE 80   
 
 CMD ./builder
