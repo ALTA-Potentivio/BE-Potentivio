@@ -16,7 +16,7 @@ func NewCafeUseCase(cafeRepo _cafeRepository.CafeRepositoryInterface) CafeUseCas
 		cafeRepository: cafeRepo,
 	}
 }
-func (cuc *CafeUseCase) GetCafeById(id int) (_entities.Cafe, int, error) {
+func (cuc *CafeUseCase) GetCafeById(id int) (_entities.GetCafe, int, error) {
 	cafe, rows, err := cuc.cafeRepository.GetCafeById(id)
 
 	var GetCafe _entities.GetCafe
@@ -34,7 +34,7 @@ func (cuc *CafeUseCase) GetCafeById(id int) (_entities.Cafe, int, error) {
 	GetCafe.Owner = cafe.Owner
 	GetCafe.PhoneNumber = cafe.PhoneNumber
 
-	return cafe, rows, err
+	return GetCafe, rows, err
 }
 
 func (cuc *CafeUseCase) PostCafe(cafe _entities.Cafe) error {
