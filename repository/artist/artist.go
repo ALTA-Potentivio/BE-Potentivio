@@ -68,6 +68,18 @@ func (ar *ArtistRepository) GetProfileArtist(idToken uint) (_entities.Artist, ui
 	return artist, uint(tx.RowsAffected), nil
 }
 
+func (ar *ArtistRepository) GetArtistById(id uint) (_entities.Artist, int, error) {
+	var artists _entities.Artist
+	tx := ar.database.Preload("VideoArtist").Find(&artists, id)
+	if tx.Error != nil {
+		return artists, 0, tx.Error
+	}
+	if tx.RowsAffected == 0 {
+		return artists, 0, nil
+	}
+	return artists, int(tx.RowsAffected), nil
+}
+
 func (ar *ArtistRepository) GetArtistByIdForHire(id uint) (_entities.Artist, error) {
 	var artist _entities.Artist
 	tx := ar.database.Where("id = ?", id).First(&artist)

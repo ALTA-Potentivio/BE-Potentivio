@@ -5,15 +5,18 @@ import (
 	"potentivio-app/delivery/helper"
 	_entities "potentivio-app/entities"
 	_artistRepository "potentivio-app/repository/artist"
+	_hireRepository "potentivio-app/repository/hire"
 )
 
 type ArtistUseCase struct {
 	artistRepository _artistRepository.ArtistRepositoryInterface
+	hireRepository   _hireRepository.HireRepositoryInterface
 }
 
-func NewArtistUseCase(artistRepo _artistRepository.ArtistRepositoryInterface) ArtistUseCaseInterface {
+func NewArtistUseCase(artistRepo _artistRepository.ArtistRepositoryInterface, hireRepo _hireRepository.HireRepositoryInterface) ArtistUseCaseInterface {
 	return &ArtistUseCase{
 		artistRepository: artistRepo,
+		hireRepository:   hireRepo,
 	}
 }
 
@@ -43,9 +46,11 @@ func (auc *ArtistUseCase) GetAllArtist(filters_catagory_genre map[string]int, fi
 	return artists, rows, err
 }
 
-func (auc *ArtistUseCase) GetArtistById(id uint) (_entities.Artist, error) {
-	artists, err := auc.artistRepository.GetArtistById(id)
-	return artists, err
+func (auc *ArtistUseCase) GetArtistById(id uint) (_entities.Artist, []_entities.Hire, int, error) {
+	hires, _ := auc.hireRepository.GetHireByIdArtist(int(id))
+
+	artist, rows, err := auc.artistRepository.GetArtistById(id)
+	return artist, hires, rows, err
 }
 
 func (auc *ArtistUseCase) GetProfileArtist(idToken uint) (_entities.Artist, uint, error) {

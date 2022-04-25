@@ -31,19 +31,22 @@ func NewHireUseCase(hireRepo hire.HireRepositoryInterface, artistRepo artist.Art
 
 func (huc *HireUseCase) CreateHire(hire entities.Hire) error {
 
-	artistData, err := huc.ArtistRepository.GetArtistById(hire.IdArtist)
+	artistData, err := huc.ArtistRepository.GetArtistByIdForHire(hire.IdArtist)
+
 	if err != nil {
-		return errors.New("Artist not found")
+		return errors.New("artist not found")
 
 	}
 
 	cafeData, _, _ := huc.CafeRepository.GetCafeById(int(hire.IdCafe))
 	err = huc.HireRepository.CheckHire(hire)
+
 	if err != nil {
 		return errors.New("Artis not Available")
+
 	}
 
-	hire.Price = artistData.Price
+	hire.Price = *artistData.Price
 	hire.AccountNumberArtist = artistData.AccountNumber
 	hire.AccountNumberCafe = cafeData.AccountNumber
 
