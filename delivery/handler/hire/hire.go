@@ -135,3 +135,20 @@ func (hh *HireHandler) CancelHireByCafe() echo.HandlerFunc {
 	}
 
 }
+
+func (hh *HireHandler) RejectHire() echo.HandlerFunc {
+	return func(c echo.Context) error {
+		var hire entities.Hire
+
+		c.Bind(&hire)
+		id, _ := middlewares.ExtractToken(c)
+		hire.IdArtist = uint(id)
+		err := hh.hireUseCase.Rejecthire(hire)
+
+		if err != nil {
+			return c.JSON(http.StatusInternalServerError, helper.ResponseFailed("failed to reject"))
+		}
+		return c.JSON(http.StatusOK, helper.ResponseSuccessWithoutData("rejected"))
+	}
+
+}
