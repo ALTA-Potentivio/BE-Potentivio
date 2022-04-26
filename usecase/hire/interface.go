@@ -10,4 +10,5 @@ type HireUseCaseInterface interface {
 	GetHireByIdCafe(IdCafe int) ([]entities.Hire, error)
 	AcceptHire(hire entities.Hire) error
 	CancelHireByCafe(hire entities.Hire) error
+	Rejecthire(hire entities.Hire) error
 }

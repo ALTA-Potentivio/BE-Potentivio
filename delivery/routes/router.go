@@ -61,6 +61,7 @@ func HireArtistPath(e *echo.Echo, hh *_hirehandler.HireHandler) {
 	e.GET("hire/cafe", hh.GetHireByIdCafe(), _middlewares.JWTMiddleware())
 	e.POST("/accept", hh.AcceptHire(), _middlewares.JWTMiddleware())
 	e.PUT("/cancel", hh.CancelHireByCafe(), _middlewares.JWTMiddleware())
+	e.PUT("/reject", hh.RejectHire(), _middlewares.JWTMiddleware())
 
 }
 

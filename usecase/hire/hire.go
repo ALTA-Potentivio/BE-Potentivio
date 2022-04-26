@@ -3,6 +3,9 @@ package hire
 import (
 	"errors"
 	"fmt"
+	"github.com/labstack/gommon/log"
+	"github.com/xendit/xendit-go"
+	"github.com/xendit/xendit-go/invoice"
 	"os"
 	"potentivio-app/entities"
 	"potentivio-app/repository/artist"
@@ -10,10 +13,6 @@ import (
 	"potentivio-app/repository/hire"
 	"strings"
 	"time"
-
-	"github.com/labstack/gommon/log"
-	"github.com/xendit/xendit-go"
-	"github.com/xendit/xendit-go/invoice"
 )
 
 type HireUseCase struct {
@@ -141,6 +140,21 @@ func (huc *HireUseCase) CancelHireByCafe(hire entities.Hire) error {
 	hires.StatusArtist = "Canceled"
 	hires.StatusCafe = "Canceled"
 	hires.Comment = hire.Comment
+	err = huc.HireRepository.UpdateHire(id, hires)
+	return err
+}
+
+func (huc *HireUseCase) Rejecthire(hire entities.Hire) error {
+	hires, err := huc.HireRepository.GetHireById(int(hire.ID))
+
+	if hires.StatusArtist != "waiting" || hires.IdArtist != hire.IdArtist {
+		return errors.New("Failed to Reject")
+	}
+	var id = int(hire.ID)
+
+	hires.StatusArtist = "Rejected"
+	hires.StatusCafe = "Rejected"
+
 	err = huc.HireRepository.UpdateHire(id, hires)
 	return err
 }
