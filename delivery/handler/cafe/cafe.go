@@ -86,7 +86,12 @@ func (ch *CafeHandler) PostCafeHandler() echo.HandlerFunc {
 func (ch *CafeHandler) GetAllCafeHandler() echo.HandlerFunc {
 	return func(c echo.Context) error {
 
-		cafes, error := ch.cafeUseCase.GetAllCafe()
+		filters := map[string]string{}
+		if c.QueryParam("name") != "" {
+			filters["name"] = c.QueryParam("name")
+		}
+
+		cafes, error := ch.cafeUseCase.GetAllCafe(filters)
 		if error != nil {
 			return c.JSON(http.StatusInternalServerError, helper.ResponseFailed(error.Error()))
 		}

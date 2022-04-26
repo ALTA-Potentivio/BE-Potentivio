@@ -54,6 +54,9 @@ func (ah *ArtistHandler) GetAllArtistHandler() echo.HandlerFunc {
 		if c.QueryParam("address") != "" {
 			filters_address["address"] = c.QueryParam("address")
 		}
+		if c.QueryParam("name") != "" {
+			filters_address["name"] = c.QueryParam("name")
+		}
 
 		filters_price := map[string]string{}
 		if c.QueryParam("price") != "" {

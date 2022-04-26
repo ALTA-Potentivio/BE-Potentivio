@@ -59,8 +59,8 @@ func (cuc *CafeUseCase) PostCafe(cafe _entities.Cafe) error {
 	return error
 }
 
-func (cuc *CafeUseCase) GetAllCafe() ([]_entities.GetAllCafe, error) {
-	cafe, error := cuc.cafeRepository.GetAllCafe()
+func (cuc *CafeUseCase) GetAllCafe(filters map[string]string) ([]_entities.GetAllCafe, error) {
+	cafe, error := cuc.cafeRepository.GetAllCafe(filters)
 	var GetCafe _entities.GetAllCafe
 	var GetCafes []_entities.GetAllCafe
 
