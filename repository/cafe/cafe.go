@@ -37,10 +37,16 @@ func (cr *CafeRepository) PostCafe(cafe _entities.Cafe) error {
 	}
 	return tx.Error
 }
-func (cr *CafeRepository) GetAllCafe() ([]_entities.Cafe, error) {
+func (cr *CafeRepository) GetAllCafe(filters map[string]string) ([]_entities.Cafe, error) {
 	var cafes []_entities.Cafe
 
-	tx := cr.database.Find(&cafes)
+	builder := cr.database.Order("Name ASC")
+
+	for key, value := range filters {
+		builder.Where(key+" LIKE ?", "%"+value+"%")
+	}
+
+	tx := builder.Find(&cafes)
 	if tx.Error != nil {
 		return cafes, tx.Error
 	}

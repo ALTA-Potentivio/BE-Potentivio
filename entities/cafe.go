@@ -1,8 +1,6 @@
 package entities
 
 import (
-	"time"
-
 	"gorm.io/gorm"
 )
 
@@ -15,7 +13,7 @@ type Cafe struct {
 	Address       string         `gorm:"not null" json:"address" form:"address"`
 	PhoneNumber   *string        `json:"phone_number" form:"phone_number"`
 	Description   *string        `json:"description" form:"description"`
-	OpeningHours  *time.Time     `json:"opening_hours" form:"opening_hours"`
+	OpeningHours  *string        `json:"opening_hours" form:"opening_hours"`
 	AccountNumber *string        `json:"account_number" form:"account_number"`
 	Avatar        *string        `json:"avatar" form:"avatar"`
 	Longitude     *float64       `json:"longitude" form:"longitude"`
@@ -33,7 +31,7 @@ type GetCafe struct {
 	PhoneNumber   *string     `json:"phone_number" form:"phone_number"`
 	Address       string      `gorm:"not null" json:"address" form:"address"`
 	Description   *string     `json:"description" form:"description"`
-	OpeningHours  *time.Time  `json:"opening_hours" form:"opening_hours"`
+	OpeningHours  *string     `json:"opening_hours" form:"opening_hours"`
 	Avatar        *string     `json:"avatar" form:"avatar"`
 	AccountNumber *string     `json:"account_number" form:"account_number"`
 	Longitude     *float64    `json:"longitude" form:"longitude"`
