@@ -61,6 +61,7 @@ func (hh *HireHandler) GetHireByIdArtis() echo.HandlerFunc {
 			result := HireResponse{
 				Id:           int(hires[i].ID),
 				CafeName:     hires[i].Cafe.Name,
+				Comment:      hires[i].Comment,
 				Date:         fmt.Sprint(hires[i].Date),
 				StatusArtist: hires[i].StatusArtist,
 			}
