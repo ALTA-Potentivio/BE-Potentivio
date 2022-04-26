@@ -8,4 +8,5 @@ type CafeRepositoryInterface interface {
 	GetAllCafe(filters map[string]string) ([]_entities.Cafe, error)
 	DeleteCafe(id int) error
 	UpdateCafe(updateCafe _entities.Cafe, idToken int) (uint, error)
+	GetCafeByIdForHire(id uint) (_entities.Cafe, error)
 }
