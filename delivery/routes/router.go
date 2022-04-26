@@ -39,8 +39,8 @@ func RegisterArtistPath(e *echo.Echo, ah *_artistHandler.ArtistHandler) {
 }
 
 func RegisterCatagoryPath(e *echo.Echo, ch *_catagoryHandler.CatagoryHandler) {
-	e.GET("/catagory", ch.GetAllCatagoryHandler())
-	e.POST("/catagory", ch.CreateCatagoryHandler())
+	e.GET("/catagory", ch.GetAllCatagoryHandler(), _middlewares.JWTMiddleware())
+	e.POST("/catagory", ch.CreateCatagoryHandler(), _middlewares.JWTMiddleware())
 }
 
 func RegisterImageCafePath(e *echo.Echo, ich *_imageCafeHandler.ImageCafeHandler) {
