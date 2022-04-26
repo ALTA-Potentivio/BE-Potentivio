@@ -1,7 +1,6 @@
 package cafe
 
 import (
-	"fmt"
 	"net/http"
 	"potentivio-app/delivery/helper"
 	_middlewares "potentivio-app/delivery/middlewares"
@@ -165,7 +164,6 @@ func (ch *CafeHandler) UpdateCafeHandler() echo.HandlerFunc {
 			var err_upload_photo error
 			theUrl, err_upload_photo := helper.UploadImage("foto_profile_cafe", fileName, fileData)
 			if err_upload_photo != nil {
-				fmt.Println("ini errornya", err_upload_photo)
 				return c.JSON(http.StatusBadRequest, helper.ResponseFailed("upload image failed"))
 			}
 
@@ -177,7 +175,7 @@ func (ch *CafeHandler) UpdateCafeHandler() echo.HandlerFunc {
 			return c.JSON(http.StatusInternalServerError, helper.ResponseFailed(err.Error()))
 		}
 		if rows == 0 {
-			return c.JSON(http.StatusBadRequest, helper.ResponseFailed("data not found"))
+			return c.JSON(http.StatusNotFound, helper.ResponseFailed("data not found"))
 		}
 
 		return c.JSON(http.StatusOK, helper.ResponseSuccessWithoutData("success to update cafe"))
