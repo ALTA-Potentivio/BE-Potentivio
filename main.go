@@ -94,7 +94,7 @@ func main() {
 	_routes.RegisterAuthPath(e, authHandler)
 	_routes.RegisterCafePath(e, cafeHandler)
 	_routes.RegisterArtistPath(e, artistHandler)
-	_routes.RegisterCatagoryPath(e, &catagoryHandler)
+	_routes.RegisterCategoryPath(e, &catagoryHandler)
 	_routes.RegisterImageCafePath(e, imageCafeHandler)
 	_routes.HireArtistPath(e, hireHandler)
 	_routes.RegisterGenrePath(e, &genreHandler)

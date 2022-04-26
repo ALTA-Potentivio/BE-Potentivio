@@ -39,9 +39,9 @@ func RegisterArtistPath(e *echo.Echo, ah *_artistHandler.ArtistHandler) {
 	e.DELETE("/artist/:id", ah.DeleteArtistHandler(), _middlewares.JWTMiddleware())
 }
 
-func RegisterCatagoryPath(e *echo.Echo, ch *_catagoryHandler.CatagoryHandler) {
-	e.GET("/catagory", ch.GetAllCatagoryHandler(), _middlewares.JWTMiddleware())
-	e.POST("/catagory", ch.CreateCatagoryHandler(), _middlewares.JWTMiddleware())
+func RegisterCategoryPath(e *echo.Echo, ch *_catagoryHandler.CatagoryHandler) {
+	e.GET("/category", ch.GetAllCatagoryHandler(), _middlewares.JWTMiddleware())
+	e.POST("/category", ch.CreateCatagoryHandler(), _middlewares.JWTMiddleware())
 }
 
 func RegisterGenrePath(e *echo.Echo, gh *_genreHandler.GenreHandler) {
