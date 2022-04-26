@@ -54,7 +54,7 @@ func (ah *AuthHandler) LoginCafeHandler() echo.HandlerFunc {
 		responseToken := map[string]interface{}{
 			"token":          token,
 			"id_cafe":        idCafe,
-			"status profile": validation,
+			"status_profile": validation,
 		}
 		return c.JSON(http.StatusOK, helper.ResponseSuccess("success login", responseToken))
 	}
