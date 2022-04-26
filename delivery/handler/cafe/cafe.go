@@ -145,30 +145,32 @@ func (ch *CafeHandler) UpdateCafeHandler() echo.HandlerFunc {
 		}
 
 		fileData, fileInfo, err_binding_image := c.Request().FormFile("avatar")
-		if err_binding_image != nil {
-			return c.JSON(http.StatusBadRequest, helper.ResponseFailed("bind image error"))
+		if err_binding_image != http.ErrMissingFile {
+			if err_binding_image != nil {
+				return c.JSON(http.StatusBadRequest, helper.ResponseFailed("bind image error"))
+			}
+
+			_, err_check_extension := helper.CheckFileExtension(fileInfo.Filename)
+			if err_check_extension != nil {
+				return c.JSON(http.StatusBadRequest, helper.ResponseFailed("file extension error"))
+			}
+
+			err_check_size := helper.CheckFileSize(fileInfo.Size)
+			if err_check_size != nil {
+				return c.JSON(http.StatusBadRequest, helper.ResponseFailed("file size error"))
+			}
+
+			fileName := "foto_profile_" + strconv.Itoa(idToken)
+
+			var err_upload_photo error
+			theUrl, err_upload_photo := helper.UploadImage("foto_profile_cafe", fileName, fileData)
+			if err_upload_photo != nil {
+				fmt.Println("ini errornya", err_upload_photo)
+				return c.JSON(http.StatusBadRequest, helper.ResponseFailed("upload image failed"))
+			}
+
+			updateCafe.Avatar = &theUrl
 		}
-
-		_, err_check_extension := helper.CheckFileExtension(fileInfo.Filename)
-		if err_check_extension != nil {
-			return c.JSON(http.StatusBadRequest, helper.ResponseFailed("file extension error"))
-		}
-
-		err_check_size := helper.CheckFileSize(fileInfo.Size)
-		if err_check_size != nil {
-			return c.JSON(http.StatusBadRequest, helper.ResponseFailed("file size error"))
-		}
-
-		fileName := "foto_profile_" + strconv.Itoa(idToken)
-
-		var err_upload_photo error
-		theUrl, err_upload_photo := helper.UploadImage("foto_profile_cafe", fileName, fileData)
-		if err_upload_photo != nil {
-			fmt.Println("ini errornya", err_upload_photo)
-			return c.JSON(http.StatusBadRequest, helper.ResponseFailed("upload image failed"))
-		}
-
-		updateCafe.Avatar = &theUrl
 
 		rows, err := ch.cafeUseCase.UpdateCafe(updateCafe, idToken)
 		if err != nil {

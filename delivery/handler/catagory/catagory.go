@@ -13,20 +13,20 @@ type CatagoryHandler struct {
 	catagoryUseCase _catagoryUseCase.CatagoryUseCaseInterface
 }
 
-func NewCatagoryHandler(c _catagoryUseCase.CatagoryUseCaseInterface) CatagoryHandler {
+func NewCatagoryHandler(catagoryUseCase _catagoryUseCase.CatagoryUseCaseInterface) CatagoryHandler {
 	return CatagoryHandler{
-		catagoryUseCase: c,
+		catagoryUseCase: catagoryUseCase,
 	}
 }
 
-func (uh *CatagoryHandler) CreateCatagoryHandler() echo.HandlerFunc {
+func (ch *CatagoryHandler) CreateCatagoryHandler() echo.HandlerFunc {
 	return func(c echo.Context) error {
 		var newCatagory entities.Catagory
 		err := c.Bind(&newCatagory)
 		if err != nil {
 			return c.JSON(http.StatusBadRequest, helper.ResponseFailed(err.Error()))
 		}
-		_, error := uh.catagoryUseCase.CreateCatagory(newCatagory)
+		_, error := ch.catagoryUseCase.CreateCatagory(newCatagory)
 		if error != nil {
 			return c.JSON(http.StatusInternalServerError, helper.ResponseFailed(error.Error()))
 		}
@@ -34,9 +34,9 @@ func (uh *CatagoryHandler) CreateCatagoryHandler() echo.HandlerFunc {
 	}
 }
 
-func (uh *CatagoryHandler) GetAllCatagoryHandler() echo.HandlerFunc {
+func (ch *CatagoryHandler) GetAllCatagoryHandler() echo.HandlerFunc {
 	return func(c echo.Context) error {
-		catagory, err := uh.catagoryUseCase.GetAllCatagory()
+		catagory, err := ch.catagoryUseCase.GetAllCatagory()
 		if err != nil {
 			return c.JSON(http.StatusInternalServerError, helper.ResponseFailed("failed to fetch data"))
 		}
