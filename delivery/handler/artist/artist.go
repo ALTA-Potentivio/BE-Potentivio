@@ -153,9 +153,10 @@ func (ah *ArtistHandler) GetArtistByIdHandler() echo.HandlerFunc {
 
 		notAvailable := []map[string]interface{}{}
 		for i := 0; i < len(hires); i++ {
-			if hires[i].StatusCafe == "accepted" {
+			if hires[i].StatusCafe == "waiting payment" {
 				response := map[string]interface{}{
-					"date": hires[i].Date,
+					"cafe_name": hires[i].Cafe.Name,
+					"date":      hires[i].Date,
 				}
 				notAvailable = append(notAvailable, response)
 			}
