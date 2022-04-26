@@ -10,6 +10,7 @@ import (
 	"github.com/labstack/echo/v4"
 
 	_catagoryHandler "potentivio-app/delivery/handler/catagory"
+	_genreHandler "potentivio-app/delivery/handler/genre"
 	_imageCafeHandler "potentivio-app/delivery/handler/imageCafe"
 
 	_middlewares "potentivio-app/delivery/middlewares"
@@ -41,6 +42,11 @@ func RegisterArtistPath(e *echo.Echo, ah *_artistHandler.ArtistHandler) {
 func RegisterCatagoryPath(e *echo.Echo, ch *_catagoryHandler.CatagoryHandler) {
 	e.GET("/catagory", ch.GetAllCatagoryHandler(), _middlewares.JWTMiddleware())
 	e.POST("/catagory", ch.CreateCatagoryHandler(), _middlewares.JWTMiddleware())
+}
+
+func RegisterGenrePath(e *echo.Echo, gh *_genreHandler.GenreHandler) {
+	e.GET("/genre", gh.GetAllGenreHandler(), _middlewares.JWTMiddleware())
+	e.POST("/genre", gh.CreateGenreHandler(), _middlewares.JWTMiddleware())
 }
 
 func RegisterImageCafePath(e *echo.Echo, ich *_imageCafeHandler.ImageCafeHandler) {
