@@ -106,7 +106,7 @@ func (huc *HireUseCase) AcceptHire(hire entities.Hire) error {
 		ExternalID:                     hires.Invoice,
 		Amount:                         hires.Price,
 		Description:                    "Invoice Demo #123",
-		InvoiceDuration:                300,
+		InvoiceDuration:                3000,
 		Customer:                       customer,
 		CustomerNotificationPreference: customerNotificationPreference,
 		Currency:                       "IDR",
@@ -132,10 +132,23 @@ func (huc *HireUseCase) AcceptHire(hire entities.Hire) error {
 func (huc *HireUseCase) CancelHireByCafe(hire entities.Hire) error {
 	hires, err := huc.HireRepository.GetHireById(int(hire.ID))
 
-	if hires.StatusArtist != "waiting" || hires.IdCafe != hire.IdCafe {
+	if hires.StatusArtist == "PAID" || hires.StatusArtist == "EXPIRED" || hires.IdCafe != hire.IdCafe {
 		return errors.New("Failed to cancel")
 	}
 	var id = int(hire.ID)
+
+	if hires.Invoice != "" {
+		xendit.Opt.SecretKey = os.Getenv("SECRET_KEY_XENDIT")
+
+		data := invoice.ExpireParams{
+			ID: hires.IDXendit,
+		}
+
+		_, err = invoice.Expire(&data)
+		if err != nil {
+			log.Info(err)
+		}
+	}
 
 	hires.StatusArtist = "Canceled"
 	hires.StatusCafe = "Canceled"
