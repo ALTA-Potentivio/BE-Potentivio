@@ -50,10 +50,9 @@ func (hh *HireHandler) CreateHire() echo.HandlerFunc {
 func (hh *HireHandler) GetHireByIdArtis() echo.HandlerFunc {
 	return func(c echo.Context) error {
 		var id, _ = strconv.Atoi(c.Param("id_artist"))
+
 		id, _ = middlewares.ExtractToken(c)
-
 		hires, err := hh.hireUseCase.GetHireByIdArtist(id)
-
 		results := []HireResponse{}
 
 		for i := 0; i < len(hires); i++ {
@@ -78,10 +77,9 @@ func (hh *HireHandler) GetHireByIdArtis() echo.HandlerFunc {
 func (hh *HireHandler) GetHireByIdCafe() echo.HandlerFunc {
 	return func(c echo.Context) error {
 		var id, _ = strconv.Atoi(c.Param("id_cafe"))
+
 		id, _ = middlewares.ExtractToken(c)
-
 		hires, err := hh.hireUseCase.GetHireByIdCafe(id)
-
 		results := []HireCafeResponse{}
 
 		for i := 0; i < len(hires); i++ {
@@ -105,11 +103,11 @@ func (hh *HireHandler) GetHireByIdCafe() echo.HandlerFunc {
 func (hh *HireHandler) AcceptHire() echo.HandlerFunc {
 	return func(c echo.Context) error {
 		var hire entities.Hire
+		var id, _ = strconv.Atoi(c.Param("id"))
 
-		c.Bind(&hire)
-		id, _ := middlewares.ExtractToken(c)
-		hire.IdArtist = uint(id)
-
+		IdArtist, _ := middlewares.ExtractToken(c)
+		hire.IdArtist = uint(IdArtist)
+		hire.ID = uint(id)
 		err := hh.hireUseCase.AcceptHire(hire)
 		if err != nil {
 			return c.JSON(http.StatusInternalServerError, helper.ResponseFailed("failed to accept"))
@@ -122,10 +120,11 @@ func (hh *HireHandler) AcceptHire() echo.HandlerFunc {
 func (hh *HireHandler) CancelHireByCafe() echo.HandlerFunc {
 	return func(c echo.Context) error {
 		var hire entities.Hire
+		var id, _ = strconv.Atoi(c.Param("id"))
 
-		c.Bind(&hire)
-		id, _ := middlewares.ExtractToken(c)
-		hire.IdCafe = uint(id)
+		IdCafe, _ := middlewares.ExtractToken(c)
+		hire.IdCafe = uint(IdCafe)
+		hire.ID = uint(id)
 		err := hh.hireUseCase.CancelHireByCafe(hire)
 
 		if err != nil {
@@ -139,10 +138,11 @@ func (hh *HireHandler) CancelHireByCafe() echo.HandlerFunc {
 func (hh *HireHandler) RejectHire() echo.HandlerFunc {
 	return func(c echo.Context) error {
 		var hire entities.Hire
+		var id, _ = strconv.Atoi(c.Param("id"))
 
-		c.Bind(&hire)
-		id, _ := middlewares.ExtractToken(c)
-		hire.IdArtist = uint(id)
+		IdArtist, _ := middlewares.ExtractToken(c)
+		hire.IdArtist = uint(IdArtist)
+		hire.ID = uint(id)
 		err := hh.hireUseCase.Rejecthire(hire)
 
 		if err != nil {
@@ -156,7 +156,6 @@ func (hh *HireHandler) RejectHire() echo.HandlerFunc {
 func (hh *HireHandler) CancelHireByArtis() echo.HandlerFunc {
 	return func(c echo.Context) error {
 		var hires entities.Hire
-
 		var id, _ = strconv.Atoi(c.Param("id"))
 
 		idArtist, _ := middlewares.ExtractToken(c)

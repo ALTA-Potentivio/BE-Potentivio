@@ -56,13 +56,13 @@ func RegisterImageCafePath(e *echo.Echo, ich *_imageCafeHandler.ImageCafeHandler
 }
 
 func HireArtistPath(e *echo.Echo, hh *_hirehandler.HireHandler) {
-	e.POST("hire/:id", hh.CreateHire(), _middlewares.JWTMiddleware())
-	e.GET("hire/artist", hh.GetHireByIdArtis(), _middlewares.JWTMiddleware())
-	e.GET("hire/cafe", hh.GetHireByIdCafe(), _middlewares.JWTMiddleware())
-	e.POST("/accept", hh.AcceptHire(), _middlewares.JWTMiddleware())
-	e.PUT("/cancel", hh.CancelHireByCafe(), _middlewares.JWTMiddleware())
-	e.PUT("/reject", hh.RejectHire(), _middlewares.JWTMiddleware())
-	e.PUT("/cancel/:id", hh.CancelHireByArtis(), _middlewares.JWTMiddleware())
+	e.POST("/hire/:id", hh.CreateHire(), _middlewares.JWTMiddleware())
+	e.GET("/hire/artist", hh.GetHireByIdArtis(), _middlewares.JWTMiddleware())
+	e.GET("/hire/cafe", hh.GetHireByIdCafe(), _middlewares.JWTMiddleware())
+	e.POST("/accept/:id", hh.AcceptHire(), _middlewares.JWTMiddleware())
+	e.PUT("/cafe/cancel/:id", hh.CancelHireByCafe(), _middlewares.JWTMiddleware())
+	e.PUT("/reject/:id", hh.RejectHire(), _middlewares.JWTMiddleware())
+	e.PUT("/artist/cancel/:id", hh.CancelHireByArtis(), _middlewares.JWTMiddleware())
 	e.PUT("/comment", hh.Rating(), _middlewares.JWTMiddleware())
 }
 
