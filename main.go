@@ -30,9 +30,17 @@ import (
 	_catagoryRepository "potentivio-app/repository/catagory"
 	_catagoryUseCase "potentivio-app/usecase/catagory"
 
+	_genreHandler "potentivio-app/delivery/handler/genre"
+	_genreRepository "potentivio-app/repository/genre"
+	_genreUseCase "potentivio-app/usecase/genre"
+
 	_imageCafeHandler "potentivio-app/delivery/handler/imageCafe"
 	_imageCafeRepository "potentivio-app/repository/imageCafe"
 	_imageCafeUseCase "potentivio-app/usecase/imageCafe"
+
+	_videoArtistHandler "potentivio-app/delivery/handler/videoArtist"
+	_videoArtistRepository "potentivio-app/repository/videoArtist"
+	_videoArtistUseCase "potentivio-app/usecase/videoArtist"
 
 	_routes "potentivio-app/delivery/routes"
 	_utils "potentivio-app/utils"
@@ -63,9 +71,17 @@ func main() {
 	catagoryUseCase := _catagoryUseCase.NewCatagoryUseCase(catagoryRepo)
 	catagoryHandler := _catagoryHandler.NewCatagoryHandler(catagoryUseCase)
 
+	genreRepo := _genreRepository.NewGenreRepository(db)
+	genreUseCase := _genreUseCase.NewGenreUseCase(genreRepo)
+	genreHandler := _genreHandler.NewGenreHandler(genreUseCase)
+
 	imageCafeRepo := _imageCafeRepository.NewImageCafeRepository(db)
 	imageCafeUseCase := _imageCafeUseCase.NewImageCafeUseCase(imageCafeRepo)
 	imageCafeHandler := _imageCafeHandler.NewImageCafeHandler(imageCafeUseCase)
+
+	videoArtistRepo := _videoArtistRepository.NewVideoRepository(db)
+	videoArtistUseCase := _videoArtistUseCase.NewVideoUseCase(videoArtistRepo)
+	videoArtistHandler := _videoArtistHandler.NewVideoHandler(videoArtistUseCase)
 
 	e := echo.New()
 	e.Use(middleware.CORS())
@@ -80,11 +96,9 @@ func main() {
 	_routes.RegisterArtistPath(e, artistHandler)
 	_routes.RegisterCatagoryPath(e, &catagoryHandler)
 	_routes.RegisterImageCafePath(e, imageCafeHandler)
-
 	_routes.HireArtistPath(e, hireHandler)
-
-	_routes.RegisterCatagoryPath(e, &catagoryHandler)
-	_routes.RegisterImageCafePath(e, imageCafeHandler)
+	_routes.RegisterGenrePath(e, &genreHandler)
+	_routes.RegisterVideoArtistPath(e, videoArtistHandler)
 
 	log.Fatal(e.Start(fmt.Sprintf(":%v", config.Port)))
 }

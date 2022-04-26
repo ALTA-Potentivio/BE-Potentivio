@@ -72,12 +72,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/401'
-        "403":
-          description: failed
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/403'
+
         "500":
           description: failed
           content:
@@ -116,12 +111,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/401'
-        "403":
-          description: failed
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/403'
+
         "500":
           description: failed
           content:
@@ -129,7 +119,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/500'
   /artist:
-    post:
+    post: 
       tags:
         - register
       summary: create user artist
@@ -192,6 +182,8 @@ paths:
                   value: 
                     message: email is required
     get:
+      security:
+      - bearerAuth: []
       tags:
         - artist
       summary: get all artist
@@ -241,12 +233,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/401'
-        "403":
-          description: failed
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/403'
+
         "500":
           description: failed
           content:
@@ -255,6 +242,8 @@ paths:
                 $ref: '#/components/schemas/500'
   /artist/profile:
     get:
+      security:
+      - bearerAuth: []
       tags:
         - artist
       summary: get profile artist
@@ -283,12 +272,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/401'
-        "403":
-          description: failed
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/403'
+
         "500":
           description: failed
           content:
@@ -297,6 +281,8 @@ paths:
                 $ref: '#/components/schemas/500'
   /artist/{id}:
     get:
+      security:
+      - bearerAuth: []
       tags:
         - artist
       summary: get detail artist by id
@@ -325,6 +311,8 @@ paths:
         "400":
           description: failed to get detail artist
     put:
+      security:
+      - bearerAuth: []
       tags:
         - artist
       summary: edit artist by id
@@ -366,12 +354,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/401'
-        "403":
-          description: failed
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/403'
+
         "500":
           description: failed
           content:
@@ -379,6 +362,8 @@ paths:
               schema:
                 $ref: '#/components/schemas/500'
     delete:
+      security:
+      - bearerAuth: []
       tags:
         - artist
       summary: delete artist by id
@@ -415,12 +400,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/401'
-        "403":
-          description: failed
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/403'
+
         "500":
           description: failed
           content:
@@ -429,6 +409,8 @@ paths:
                 $ref: '#/components/schemas/500'
   /cafe/profile:
     get:
+      security:
+      - bearerAuth: []
       tags:
         - cafe
       summary: get profile cafe
@@ -457,12 +439,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/401'
-        "403":
-          description: failed
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/403'
+
         "404":
           description: if request url not exist
           content:
@@ -543,6 +520,8 @@ paths:
                   value: 
                     message: email is required
     get:
+      security:
+      - bearerAuth: []
       tags:
         - cafe
       summary: get all cafe owner
@@ -571,12 +550,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/401'
-        "403":
-          description: failed
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/403'
+
         "500":
           description: failed
           content:
@@ -585,6 +559,8 @@ paths:
                 $ref: '#/components/schemas/500'
   /cafe/{id}:
     get:
+      security:
+      - bearerAuth: []
       tags:
         - cafe
       summary: get detail cafe by id
@@ -622,12 +598,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/401'
-        "403":
-          description: failed
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/403'
+
         "404":
           description: if request url not exist
           content:
@@ -647,9 +618,10 @@ paths:
                 properties:
                   message: 
                     type: string
-                    example: failed to convert id param
-                 
+                    example: failed to convert id param            
     put:
+      security:
+      - bearerAuth: []
       tags:
         - cafe
       summary: edit cafe by id
@@ -691,12 +663,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/401'
-        "403":
-          description: failed
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/403'
+
         "500":
           description: failed
           content:
@@ -704,6 +671,8 @@ paths:
               schema:
                 $ref: '#/components/schemas/500'
     delete:
+      security:
+      - bearerAuth: []
       tags:
         - cafe
       summary: delete cafe by id
@@ -739,12 +708,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/401'
-        "403":
-          description: failed
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/403'
+
         "500":
           description: failed
           content:
@@ -753,6 +717,8 @@ paths:
                 $ref: '#/components/schemas/500'
   /offer/{id}:
     post:
+      security:
+      - bearerAuth: []
       tags:
         - notification
       summary: notification for offer to artist from cafe
@@ -789,12 +755,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/401'
-        "403":
-          description: failed
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/403'
+
         "500":
           description: failed
           content:
@@ -803,6 +764,8 @@ paths:
                 $ref: '#/components/schemas/500'
   /hire/{id}:
     post:
+      security:
+      - bearerAuth: []
       tags:
         - hire
       summary: hire artist by id
@@ -847,12 +810,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/401'
-        "403":
-          description: failed
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/403'
+
         "500":
           description: failed
           content:
@@ -861,6 +819,8 @@ paths:
                 $ref: '#/components/schemas/500'
   /hire/artist:
     get:
+      security:
+      - bearerAuth: []
       tags:
         - hire
       summary: get all hiring in user artist 
@@ -889,12 +849,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/401'
-        "403":
-          description: failed
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/403'
+
         "500":
           description: failed
           content:
@@ -903,6 +858,8 @@ paths:
                 $ref: '#/components/schemas/500'
   /hire/cafe:
     get:
+      security:
+      - bearerAuth: []
       tags:
         - hire
       summary: get all hiring in user cafe 
@@ -931,12 +888,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/401'
-        "403":
-          description: failed
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/403'
+
         "500":
           description: failed
           content:
@@ -945,6 +897,8 @@ paths:
                 $ref: '#/components/schemas/500'
   /accept/{id}:
     put:
+      security:
+      - bearerAuth: []
       tags:
         - hire
       summary: accept job   
@@ -981,12 +935,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/401'
-        "403":
-          description: failed
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/403'
+
         "500":
           description: failed
           content:
@@ -995,6 +944,8 @@ paths:
                 $ref: '#/components/schemas/500'
   /reject/{id}:
     put:
+      security:
+      - bearerAuth: []
       tags:
         - hire
       summary: rejected job 
@@ -1031,12 +982,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/401'
-        "403":
-          description: failed
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/403'
+
         "500":
           description: failed
           content:
@@ -1045,6 +991,8 @@ paths:
                 $ref: '#/components/schemas/500'
   /cancel/{id}:
     put:
+      security:
+      - bearerAuth: []
       tags: 
       - hire
       summary: canceled job
@@ -1081,12 +1029,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/401'
-        "403":
-          description: failed
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/403'
+
         "500":
           description: failed
           content:
@@ -1095,6 +1038,8 @@ paths:
                 $ref: '#/components/schemas/500'
   /rating/{id}:
      put:
+      security:
+      - bearerAuth: []
       tags:
         - hire
       summary: give ratting artist 
@@ -1144,12 +1089,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/401'
-        "403":
-          description: failed
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/403'
+
         "500":
           description: failed
           content:
@@ -1158,6 +1098,8 @@ paths:
                 $ref: '#/components/schemas/500'
   /payment/{id}:
     post:
+      security:
+      - bearerAuth: []
       tags:
         - hire
       summary: payment to artist
@@ -1194,12 +1136,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/401'
-        "403":
-          description: failed
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/403'
+
         "500":
           description: failed
           content:
@@ -1208,6 +1145,8 @@ paths:
                 $ref: '#/components/schemas/500'
   /category:
     post:
+      security:
+      - bearerAuth: []
       tags:
         - category
       summary: create category 
@@ -1244,12 +1183,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/401'
-        "403":
-          description: failed
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/403'
+
         "500":
           description: failed
           content:
@@ -1257,6 +1191,8 @@ paths:
               schema:
                 $ref: '#/components/schemas/500'
     get:
+      security:
+      - bearerAuth: []
       tags:
         - category
       summary: get all category 
@@ -1285,12 +1221,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/401'
-        "403":
-          description: failed
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/403'
+
         "500":
           description: failed
           content:
@@ -1299,6 +1230,8 @@ paths:
                 $ref: '#/components/schemas/500'
   /genre:
     post:
+      security:
+      - bearerAuth: []
       tags:
         - genre
       summary: create genre
@@ -1335,12 +1268,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/401'
-        "403":
-          description: failed
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/403'
+
         "500":
           description: failed
           content:
@@ -1348,6 +1276,8 @@ paths:
               schema:
                 $ref: '#/components/schemas/500'
     get:
+      security:
+      - bearerAuth: []
       tags:
         - genre
       summary: get all genre 
@@ -1376,12 +1306,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/401'
-        "403":
-          description: failed
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/403'
+
         "500":
           description: failed
           content:
@@ -1390,6 +1315,8 @@ paths:
                 $ref: '#/components/schemas/500'
   /video/artist:
     post:
+      security:
+      - bearerAuth: []
       tags:
         - video-artist
       summary: upload link video artist
@@ -1422,20 +1349,51 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/401'
-        "403":
-          description: failed
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/403'
+
         "500":
           description: failed
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/500'  
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: please insert link video
+    get:
+      security:
+      - bearerAuth: []
+      tags:
+        - video-artist
+      summary: get all video artist
+      responses:
+        "200":
+          description: succes
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: succes to get all link video artist
+        "400":
+          description: failed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/400'
+        "401":
+          description: failed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/401'
+        
   /video/artist/{id}:
     delete:
+      security:
+      - bearerAuth: []
       tags:
         - video-artist
       summary: delete link video artist
@@ -1472,12 +1430,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/401'
-        "403":
-          description: failed
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/403'
+
         "500":
           description: failed
           content:
@@ -1486,6 +1439,8 @@ paths:
                 $ref: '#/components/schemas/500'    
   /image/cafe:
     post:
+      security:
+      - bearerAuth: []
       tags:
         - image-cafe
       summary: upload image cafe
@@ -1518,12 +1473,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/401'
-        "403":
-          description: failed
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/403'
+
         "500":
           description: failed
           content:
@@ -1532,6 +1482,8 @@ paths:
                 $ref: '#/components/schemas/500'
   /image/cafe/{id}:
     delete:
+      security:
+      - bearerAuth: []
       tags:
         - image-cafe
       summary: delete image cafe
@@ -1568,12 +1520,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/401'
-        "403":
-          description: failed
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/403'
+
         "500":
           description: failed
           content:
@@ -1583,6 +1530,11 @@ paths:
 
 
 components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT 
   schemas:
     login:
       type: object

@@ -20,7 +20,7 @@ func NewCafeRepository(db *gorm.DB) *CafeRepository {
 func (cr *CafeRepository) GetCafeById(id int) (_entities.Cafe, int, error) {
 	var cafe _entities.Cafe
 
-	tx := cr.database.Find(&cafe, id)
+	tx := cr.database.Preload("ImageCafe").Find(&cafe, id)
 	if tx.Error != nil {
 		return cafe, 0, tx.Error
 	}

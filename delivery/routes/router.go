@@ -1,13 +1,16 @@
 package routes
 
 import (
-	"github.com/labstack/echo/v4"
 	_artistHandler "potentivio-app/delivery/handler/artist"
 	_authHandler "potentivio-app/delivery/handler/auth"
 	_cafeHandler "potentivio-app/delivery/handler/cafe"
 	_hirehandler "potentivio-app/delivery/handler/hire"
+	_videoHandler "potentivio-app/delivery/handler/videoArtist"
+
+	"github.com/labstack/echo/v4"
 
 	_catagoryHandler "potentivio-app/delivery/handler/catagory"
+	_genreHandler "potentivio-app/delivery/handler/genre"
 	_imageCafeHandler "potentivio-app/delivery/handler/imageCafe"
 
 	_middlewares "potentivio-app/delivery/middlewares"
@@ -37,8 +40,13 @@ func RegisterArtistPath(e *echo.Echo, ah *_artistHandler.ArtistHandler) {
 }
 
 func RegisterCatagoryPath(e *echo.Echo, ch *_catagoryHandler.CatagoryHandler) {
-	e.GET("/catagory", ch.GetAllCatagoryHandler())
-	e.POST("/catagory", ch.CreateCatagoryHandler())
+	e.GET("/catagory", ch.GetAllCatagoryHandler(), _middlewares.JWTMiddleware())
+	e.POST("/catagory", ch.CreateCatagoryHandler(), _middlewares.JWTMiddleware())
+}
+
+func RegisterGenrePath(e *echo.Echo, gh *_genreHandler.GenreHandler) {
+	e.GET("/genre", gh.GetAllGenreHandler(), _middlewares.JWTMiddleware())
+	e.POST("/genre", gh.CreateGenreHandler(), _middlewares.JWTMiddleware())
 }
 
 func RegisterImageCafePath(e *echo.Echo, ich *_imageCafeHandler.ImageCafeHandler) {
@@ -54,5 +62,11 @@ func HireArtistPath(e *echo.Echo, hh *_hirehandler.HireHandler) {
 	e.POST("/accept", hh.AcceptHire(), _middlewares.JWTMiddleware())
 	e.PUT("/cancel", hh.CancelHireByCafe(), _middlewares.JWTMiddleware())
 	e.PUT("/reject", hh.RejectHire(), _middlewares.JWTMiddleware())
+
+}
+
+func RegisterVideoArtistPath(e *echo.Echo, ich *_videoHandler.VideoHandler) {
+	e.POST("/video/artist", ich.PostVideoHandler(), _middlewares.JWTMiddleware())
+	e.DELETE("/video/artist/:id", ich.DeleteVideoHandler(), _middlewares.JWTMiddleware())
 
 }

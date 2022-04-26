@@ -43,7 +43,6 @@ func (cuc *CafeUseCase) PostCafe(cafe _entities.Cafe) error {
 		return errors.New("error hashing password")
 	}
 	cafe.Password = password
-	//validasi saat registrasi
 	if cafe.Name == "" {
 		return errors.New("name is required")
 	}
