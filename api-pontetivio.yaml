@@ -72,12 +72,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/401'
-        "403":
-          description: failed
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/403'
+
         "500":
           description: failed
           content:
@@ -116,12 +111,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/401'
-        "403":
-          description: failed
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/403'
+
         "500":
           description: failed
           content:
@@ -243,12 +233,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/401'
-        "403":
-          description: failed
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/403'
+
         "500":
           description: failed
           content:
@@ -287,12 +272,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/401'
-        "403":
-          description: failed
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/403'
+
         "500":
           description: failed
           content:
@@ -374,12 +354,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/401'
-        "403":
-          description: failed
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/403'
+
         "500":
           description: failed
           content:
@@ -425,12 +400,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/401'
-        "403":
-          description: failed
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/403'
+
         "500":
           description: failed
           content:
@@ -469,12 +439,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/401'
-        "403":
-          description: failed
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/403'
+
         "404":
           description: if request url not exist
           content:
@@ -585,12 +550,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/401'
-        "403":
-          description: failed
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/403'
+
         "500":
           description: failed
           content:
@@ -638,12 +598,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/401'
-        "403":
-          description: failed
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/403'
+
         "404":
           description: if request url not exist
           content:
@@ -708,12 +663,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/401'
-        "403":
-          description: failed
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/403'
+
         "500":
           description: failed
           content:
@@ -758,12 +708,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/401'
-        "403":
-          description: failed
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/403'
+
         "500":
           description: failed
           content:
@@ -810,12 +755,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/401'
-        "403":
-          description: failed
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/403'
+
         "500":
           description: failed
           content:
@@ -870,12 +810,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/401'
-        "403":
-          description: failed
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/403'
+
         "500":
           description: failed
           content:
@@ -914,12 +849,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/401'
-        "403":
-          description: failed
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/403'
+
         "500":
           description: failed
           content:
@@ -958,12 +888,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/401'
-        "403":
-          description: failed
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/403'
+
         "500":
           description: failed
           content:
@@ -1010,12 +935,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/401'
-        "403":
-          description: failed
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/403'
+
         "500":
           description: failed
           content:
@@ -1062,12 +982,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/401'
-        "403":
-          description: failed
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/403'
+
         "500":
           description: failed
           content:
@@ -1114,12 +1029,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/401'
-        "403":
-          description: failed
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/403'
+
         "500":
           description: failed
           content:
@@ -1179,12 +1089,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/401'
-        "403":
-          description: failed
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/403'
+
         "500":
           description: failed
           content:
@@ -1231,12 +1136,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/401'
-        "403":
-          description: failed
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/403'
+
         "500":
           description: failed
           content:
@@ -1283,12 +1183,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/401'
-        "403":
-          description: failed
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/403'
+
         "500":
           description: failed
           content:
@@ -1326,12 +1221,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/401'
-        "403":
-          description: failed
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/403'
+
         "500":
           description: failed
           content:
@@ -1378,12 +1268,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/401'
-        "403":
-          description: failed
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/403'
+
         "500":
           description: failed
           content:
@@ -1421,12 +1306,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/401'
-        "403":
-          description: failed
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/403'
+
         "500":
           description: failed
           content:
@@ -1469,12 +1349,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/401'
-        "403":
-          description: failed
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/403'
+
         "500":
           description: failed
           content:
@@ -1514,12 +1389,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/401'
-        "403":
-          description: failed
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/403'        
+        
   /video/artist/{id}:
     delete:
       security:
@@ -1560,12 +1430,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/401'
-        "403":
-          description: failed
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/403'
+
         "500":
           description: failed
           content:
@@ -1608,12 +1473,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/401'
-        "403":
-          description: failed
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/403'
+
         "500":
           description: failed
           content:
@@ -1660,12 +1520,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/401'
-        "403":
-          description: failed
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/403'
+
         "500":
           description: failed
           content:
