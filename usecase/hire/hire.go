@@ -222,3 +222,25 @@ func (huc *HireUseCase) CancelHireByArtis(hire entities.Hire) error {
 	return err
 
 }
+func (huc *HireUseCase) Rating(hire entities.Hire) error {
+	hires, err := huc.HireRepository.GetHireById(int(hire.ID))
+
+	if hires.StatusArtist != "done" || hires.IdArtist != hire.IdArtist {
+		return errors.New("status not done")
+	}
+	var id = int(hire.ID)
+
+	hires.Comment = hire.Comment
+	hires.Rating = hire.Rating
+
+	err = huc.HireRepository.UpdateHire(id, hires)
+
+	var rating entities.Rating
+
+	rating.IdArtist = hire.IdArtist
+	rating.Rating = hire.Rating
+
+	err = huc.HireRepository.Rating(rating)
+	return err
+
+}

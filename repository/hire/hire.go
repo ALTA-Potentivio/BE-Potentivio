@@ -79,3 +79,12 @@ func (hr *HireRepository) DeleteHire(hire entities.Hire) error {
 	}
 	return nil
 }
+
+func (hr *HireRepository) Rating(rating entities.Rating) error {
+
+	tx := hr.database.Create(&rating)
+	if tx.Error != nil {
+		return tx.Error
+	}
+	return nil
+}

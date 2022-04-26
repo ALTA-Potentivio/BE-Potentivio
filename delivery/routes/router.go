@@ -63,7 +63,7 @@ func HireArtistPath(e *echo.Echo, hh *_hirehandler.HireHandler) {
 	e.PUT("/cancel", hh.CancelHireByCafe(), _middlewares.JWTMiddleware())
 	e.PUT("/reject", hh.RejectHire(), _middlewares.JWTMiddleware())
 	e.PUT("/cancel/:id", hh.CancelHireByArtis(), _middlewares.JWTMiddleware())
-
+	e.PUT("/comment", hh.Rating(), _middlewares.JWTMiddleware())
 }
 
 func RegisterVideoArtistPath(e *echo.Echo, ich *_videoHandler.VideoHandler) {
