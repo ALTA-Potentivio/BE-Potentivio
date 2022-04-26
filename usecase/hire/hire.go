@@ -41,7 +41,7 @@ func (huc *HireUseCase) CreateHire(hire entities.Hire) error {
 	cafeData, _, _ := huc.CafeRepository.GetCafeById(int(hire.IdCafe))
 	err = huc.HireRepository.CheckHire(hire)
 
-	if err != nil {
+	if err == nil {
 		return errors.New("Artis not Available")
 
 	}
@@ -78,10 +78,9 @@ func (huc *HireUseCase) AcceptHire(hire entities.Hire) error {
 	minute := time.Now().Minute()
 	second := time.Now().Second()
 
-	invoiceNum := fmt.Sprint("invoice/", hire.IdCafe, "/", hire.IdArtist, "/", year, month, day, hour, minute, second)
+	invoiceNum := fmt.Sprint("invoice/", hires.IdCafe, "/", hire.IdArtist, "/", year, month, day, hour, minute, second)
 	invoiceNum = strings.ReplaceAll(invoiceNum, " ", "")
 	hires.Invoice = invoiceNum
-
 	xendit.Opt.SecretKey = os.Getenv("SECRET_KEY_XENDIT")
 
 	cafeData, _, err := huc.CafeRepository.GetCafeById(int(hires.IdCafe))
@@ -123,6 +122,7 @@ func (huc *HireUseCase) AcceptHire(hire entities.Hire) error {
 	hires.PaymentUrl = &paymentUrl
 	hires.StatusArtist = "waiting payment"
 	hires.StatusCafe = "waiting payment"
+	hires.IDXendit = resp.ID
 
 	err = huc.HireRepository.UpdateHire(int(hire.ID), hires)
 
