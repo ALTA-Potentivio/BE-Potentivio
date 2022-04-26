@@ -71,3 +71,11 @@ func (hr *HireRepository) UpdateHire(id int, hire entities.Hire) error {
 	}
 	return nil
 }
+
+func (hr *HireRepository) DeleteHire(hire entities.Hire) error {
+	tx := hr.database.Where("id = ?", hire.ID).Delete(&hire)
+	if tx.Error != nil {
+		return tx.Error
+	}
+	return nil
+}
