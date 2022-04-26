@@ -3,7 +3,7 @@
 
 ![Logo](https://github.com/ALTA-Potentivio/BE-Potentivio/blob/main/logo.png)
 
-Readme in english [click here](https://github.com/ALTA-Potentivio/BE-Potentivio/blob/main/go.sum).
+Readme in english [click here](https://github.com/ALTA-Potentivio/BE-Potentivio/blob/readme/README-en.md).
 
 Potentivio apps adalah sebuah aplikasi yang menjembatani antara artist dengan cafe untuk menjalin sebuah hubungan bisnis. Dengan aplikasi ini, cafe akan lebih mudah dalam mencari artist dan dari sisi artist berkemungkinan mendapatkan job lebih banyak dan mudah. 
 
