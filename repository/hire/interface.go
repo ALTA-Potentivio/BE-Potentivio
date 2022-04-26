@@ -13,4 +13,5 @@ type HireRepositoryInterface interface {
 	GetHireByIdCafe(IdCafe int) ([]entities.Hire, error)
 	UpdateHire(id int, hire entities.Hire) error
 	DeleteHire(hire entities.Hire) error
+	Rating(rating entities.Rating) error
 }

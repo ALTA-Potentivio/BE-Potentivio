@@ -39,7 +39,6 @@ func (hh *HireHandler) CreateHire() echo.HandlerFunc {
 		hire.IdArtist = uint(id)
 		hire.IdCafe = uint(CafeID)
 		hire.Date = date
-
 		err := hh.hireUseCase.CreateHire(hire)
 		if err != nil {
 			return c.JSON(http.StatusInternalServerError, helper.ResponseFailed(err.Error()))
@@ -150,6 +149,22 @@ func (hh *HireHandler) RejectHire() echo.HandlerFunc {
 			return c.JSON(http.StatusInternalServerError, helper.ResponseFailed("failed to reject"))
 		}
 		return c.JSON(http.StatusOK, helper.ResponseSuccessWithoutData("rejected"))
+	}
+
+}
+func (hh *HireHandler) Rating() echo.HandlerFunc {
+	return func(c echo.Context) error {
+		
+		var hire entities.Hire
+		c.Bind(&hire)
+		id, _ := middlewares.ExtractToken(c)
+		hire.IdArtist = uint(id)
+		err := hh.hireUseCase.Rating(hire)
+
+		if err != nil {
+			return c.JSON(http.StatusInternalServerError, helper.ResponseFailed("failed give rating"))
+		}
+		return c.JSON(http.StatusOK, helper.ResponseSuccessWithoutData("succes to give rating"))
 	}
 
 }
