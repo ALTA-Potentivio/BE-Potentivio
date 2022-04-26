@@ -153,7 +153,12 @@ func (huc *HireUseCase) CancelHireByCafe(hire entities.Hire) error {
 	hires.StatusArtist = "Canceled"
 	hires.StatusCafe = "Canceled"
 	hires.Comment = hire.Comment
+
 	err = huc.HireRepository.UpdateHire(id, hires)
+	if err != nil {
+		return err
+	}
+	err = huc.HireRepository.DeleteHire(hire)
 	return err
 }
 
