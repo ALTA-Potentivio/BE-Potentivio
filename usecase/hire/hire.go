@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"github.com/labstack/gommon/log"
 	"github.com/xendit/xendit-go"
+	"github.com/xendit/xendit-go/disbursement"
 	"github.com/xendit/xendit-go/invoice"
 	"os"
 	"potentivio-app/entities"
@@ -78,7 +79,7 @@ func (huc *HireUseCase) AcceptHire(hire entities.Hire) error {
 	minute := time.Now().Minute()
 	second := time.Now().Second()
 
-	invoiceNum := fmt.Sprint("invoice/", hires.IdCafe, "/", hire.IdArtist, "/", year, month, day, hour, minute, second)
+	invoiceNum := fmt.Sprint("invoice/", hires.IdCafe, "/", hires.IdArtist, "/", year, month, day, hour, minute, second)
 	invoiceNum = strings.ReplaceAll(invoiceNum, " ", "")
 	hires.Invoice = invoiceNum
 	xendit.Opt.SecretKey = os.Getenv("SECRET_KEY_XENDIT")
@@ -177,6 +178,50 @@ func (huc *HireUseCase) Rejecthire(hire entities.Hire) error {
 	return err
 }
 
+func (huc *HireUseCase) CancelHireByArtis(hire entities.Hire) error {
+	hires, err := huc.HireRepository.GetHireById(int(hire.ID))
+
+	if hires.StatusArtist != "PAID" || hires.IdArtist != hire.IdArtist {
+		return errors.New("Failed to cancel")
+
+	}
+
+	cafe, _ := huc.CafeRepository.GetCafeByIdForHire(hires.IdCafe)
+
+	xendit.Opt.SecretKey = os.Getenv("SECRET_KEY_XENDIT")
+
+	year, month, day := time.Now().Date()
+	hour := time.Now().Hour()
+	minute := time.Now().Minute()
+	second := time.Now().Second()
+
+	disbursementKey := fmt.Sprint("invoice/", hires.IdCafe, "/", hires.IdArtist, "/", year, month, day, hour, minute, second)
+	disbursementKey = strings.ReplaceAll(disbursementKey, " ", "")
+
+	createData := disbursement.CreateParams{
+		IdempotencyKey:    disbursementKey,
+		ExternalID:        hires.Invoice,
+		BankCode:          "BCA",
+		AccountHolderName: cafe.Name,
+		AccountNumber:     *hires.AccountNumberCafe,
+		Description:       "Pengembalian dana dari Potentivio",
+		Amount:            hires.Price,
+		EmailTo:           []string{cafe.Email},
+	}
+
+	_, err = disbursement.Create(&createData)
+	if err != nil {
+		log.Info(err)
+	}
+
+	hires.StatusArtist = "canceled"
+	hires.StatusCafe = "canceled"
+
+	err = huc.HireRepository.UpdateHire(int(hires.ID), hires)
+
+	return err
+
+}
 func (huc *HireUseCase) Rating(hire entities.Hire) error {
 	hires, err := huc.HireRepository.GetHireById(int(hire.ID))
 
@@ -184,17 +229,18 @@ func (huc *HireUseCase) Rating(hire entities.Hire) error {
 		return errors.New("status not done")
 	}
 	var id = int(hire.ID)
-	
+
 	hires.Comment = hire.Comment
 	hires.Rating = hire.Rating
 
 	err = huc.HireRepository.UpdateHire(id, hires)
 
 	var rating entities.Rating
-	
+
 	rating.IdArtist = hire.IdArtist
 	rating.Rating = hire.Rating
-	
+
 	err = huc.HireRepository.Rating(rating)
 	return err
+
 }

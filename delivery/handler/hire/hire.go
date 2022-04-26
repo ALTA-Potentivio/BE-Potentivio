@@ -152,9 +152,29 @@ func (hh *HireHandler) RejectHire() echo.HandlerFunc {
 	}
 
 }
+
+func (hh *HireHandler) CancelHireByArtis() echo.HandlerFunc {
+	return func(c echo.Context) error {
+		var hires entities.Hire
+
+		var id, _ = strconv.Atoi(c.Param("id"))
+
+		idArtist, _ := middlewares.ExtractToken(c)
+		hires.ID = uint(id)
+		hires.IdArtist = uint(idArtist)
+		err := hh.hireUseCase.CancelHireByArtis(hires)
+
+		if err != nil {
+			return c.JSON(http.StatusInternalServerError, helper.ResponseFailed("failed to cancel"))
+		}
+		return c.JSON(http.StatusOK, helper.ResponseSuccessWithoutData("canceled"))
+
+	}
+}
+
 func (hh *HireHandler) Rating() echo.HandlerFunc {
 	return func(c echo.Context) error {
-		
+
 		var hire entities.Hire
 		c.Bind(&hire)
 		id, _ := middlewares.ExtractToken(c)

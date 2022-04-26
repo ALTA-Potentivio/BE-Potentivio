@@ -73,3 +73,13 @@ func (cr *CafeRepository) UpdateCafe(updateCafe _entities.Cafe, idToken int) (ui
 	}
 	return uint(tx.RowsAffected), nil
 }
+
+func (cr *CafeRepository) GetCafeByIdForHire(id uint) (_entities.Cafe, error) {
+	var cafe _entities.Cafe
+	tx := cr.database.Where("id = ?", id).First(&cafe)
+	if tx.Error != nil {
+		return cafe, tx.Error
+	}
+	return cafe, nil
+
+}
