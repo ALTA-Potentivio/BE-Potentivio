@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"github.com/labstack/echo/v4"
 	"net/http"
+	"os"
 	"potentivio-app/delivery/helper"
 	"potentivio-app/delivery/middlewares"
 	"potentivio-app/entities"
@@ -185,6 +186,33 @@ func (hh *HireHandler) Rating() echo.HandlerFunc {
 			return c.JSON(http.StatusInternalServerError, helper.ResponseFailed("failed give rating"))
 		}
 		return c.JSON(http.StatusOK, helper.ResponseSuccessWithoutData("succes to give rating"))
+	}
+
+}
+
+func (hh *HireHandler) CallBack() echo.HandlerFunc {
+	return func(c echo.Context) error {
+		req := c.Request()
+		headers := req.Header
+
+		callBackToken := headers.Get("X-Callback-Token")
+
+		if callBackToken != os.Getenv("CALLBACK_KEY") {
+			return c.JSON(http.StatusUnauthorized, "Unauthorized")
+		}
+
+		var callback CallBackRequest
+		c.Bind(&callback)
+
+		callBackData := entities.Hire{
+			Invoice:      callback.Invoice,
+			StatusArtist: callback.Status,
+			StatusCafe:   callback.Status,
+		}
+
+		err := hh.hireUseCase.CallBack(callBackData)
+
+		return err
 	}
 
 }

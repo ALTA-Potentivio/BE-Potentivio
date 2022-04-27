@@ -14,4 +14,5 @@ type HireRepositoryInterface interface {
 	UpdateHire(id int, hire entities.Hire) error
 	DeleteHire(hire entities.Hire) error
 	Rating(rating entities.Rating) error
+	CallBack(hire entities.Hire) error
 }

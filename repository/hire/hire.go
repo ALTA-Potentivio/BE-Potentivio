@@ -88,3 +88,12 @@ func (hr *HireRepository) Rating(rating entities.Rating) error {
 	}
 	return nil
 }
+
+func (hr *HireRepository) CallBack(hire entities.Hire) error {
+
+	tx := hr.database.Where("invoice = ?", hire.Invoice).Updates(&hire)
+	if tx.Error != nil {
+		return tx.Error
+	}
+	return nil
+}
