@@ -47,6 +47,14 @@ func (huc *HireUseCase) CreateHire(hire entities.Hire) error {
 
 	}
 
+	if artistData.AccountNumber == nil || artistData.Price == nil {
+		return errors.New("Can't hire artis, because artist data not complete")
+	}
+
+	if cafeData.AccountNumber == nil {
+		return errors.New("Can't hire artis, because cafe data not complete")
+	}
+
 	hire.Price = *artistData.Price
 	hire.AccountNumberArtist = artistData.AccountNumber
 	hire.AccountNumberCafe = cafeData.AccountNumber
@@ -294,8 +302,3 @@ func (huc *HireUseCase) Done(hire entities.Hire) error {
 
 	return err
 }
-
-
-
-
-
