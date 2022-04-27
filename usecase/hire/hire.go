@@ -3,10 +3,6 @@ package hire
 import (
 	"errors"
 	"fmt"
-	"github.com/labstack/gommon/log"
-	"github.com/xendit/xendit-go"
-	"github.com/xendit/xendit-go/disbursement"
-	"github.com/xendit/xendit-go/invoice"
 	"os"
 	"potentivio-app/entities"
 	"potentivio-app/repository/artist"
@@ -14,6 +10,11 @@ import (
 	"potentivio-app/repository/hire"
 	"strings"
 	"time"
+
+	"github.com/labstack/gommon/log"
+	"github.com/xendit/xendit-go"
+	"github.com/xendit/xendit-go/disbursement"
+	"github.com/xendit/xendit-go/invoice"
 )
 
 type HireUseCase struct {
@@ -223,22 +224,24 @@ func (huc *HireUseCase) CancelHireByArtis(hire entities.Hire) error {
 
 }
 func (huc *HireUseCase) Rating(hire entities.Hire) error {
-	hires, err := huc.HireRepository.GetHireById(int(hire.ID))
 
-	if hires.StatusArtist != "done" || hires.IdArtist != hire.IdArtist {
+	hires, err := huc.HireRepository.GetHireById(int(hire.ID))
+	if hires.StatusArtist != "done" || hires.StatusCafe != "done" {
 		return errors.New("status not done")
 	}
-	var id = int(hire.ID)
 
+	if hires.Rating != 0 {
+		return errors.New("you have given a rating")
+	}
+	var id = int(hire.ID)
 	hires.Comment = hire.Comment
 	hires.Rating = hire.Rating
-
 	err = huc.HireRepository.UpdateHire(id, hires)
 
 	var rating entities.Rating
 
-	rating.IdArtist = hire.IdArtist
-	rating.Rating = hire.Rating
+	rating.IdArtist = hires.IdArtist
+	rating.Rating = hires.Rating
 
 	err = huc.HireRepository.Rating(rating)
 	return err
@@ -294,8 +297,3 @@ func (huc *HireUseCase) Done(hire entities.Hire) error {
 
 	return err
 }
-
-
-
-
-

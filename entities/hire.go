@@ -15,7 +15,7 @@ type Hire struct {
 	StatusArtist        string    `json:"status_artist" form:"status_artist" gorm:"default:waiting"`
 	StatusCafe          string    `gorm:"not null;default:waiting" json:"status_cafe" form:"status_cafe"`
 	Comment             string    `json:"comment" form:"comment"`
-	Rating              *uint     `json:"rating" form:"rating"`
+	Rating              uint      `json:"rating" form:"rating"`
 	Price               float64   `gorm:"not null" json:"price" form:"price"`
 	AccountNumberArtist *string   `gorm:"not null" json:"account_number_artist" form:"account_number_artist"`
 	AccountNumberCafe   *string   `gorm:"not null" json:"account_number_cafe" form:"account_number_cafe"`

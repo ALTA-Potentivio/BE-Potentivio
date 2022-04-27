@@ -38,3 +38,13 @@ func ExtractToken(c echo.Context) (int, error) {
 	}
 	return -1, fmt.Errorf("unauthorized")
 }
+
+func ExtractTokenName(c echo.Context) (string, error) {
+	loginToken := c.Get("user").(*jwt.Token)
+	if loginToken.Valid {
+		claims := loginToken.Claims.(jwt.MapClaims)
+		name := claims["name"].(string)
+		return name, nil
+	}
+	return "", fmt.Errorf("unauthorized")
+}

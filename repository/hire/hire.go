@@ -1,8 +1,9 @@
 package hire
 
 import (
-	"gorm.io/gorm"
 	"potentivio-app/entities"
+
+	"gorm.io/gorm"
 )
 
 type HireRepository struct {

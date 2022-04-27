@@ -109,3 +109,22 @@ func (ar *ArtistRepository) DeleteArtist(id uint) (uint, error) {
 	}
 	return uint(tx.RowsAffected), nil
 }
+
+func (ar *ArtistRepository) CountRating(id uint) (float32, error) {
+	// var rating _entities.Rating
+	var rateArtist []_entities.Rating
+	tx := ar.database.Where("id_artist = ?", id).Find(&rateArtist)
+	if tx.Error != nil {
+		return 0, tx.Error
+	}
+
+	var ave uint
+	for i := 0; i < len(rateArtist); i++ {
+		ave += rateArtist[i].Rating
+	}
+
+	var aveInt = int(ave)
+
+	result := float32(aveInt) / float32(len(rateArtist))
+	return result, nil
+}

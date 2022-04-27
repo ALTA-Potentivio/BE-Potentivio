@@ -16,16 +16,16 @@ func NewVideoUseCase(videoRepo _videoRepository.VideoRepositoryInterface) VideoU
 	}
 }
 
-func (vuc *VideoUseCase) PostVideo(video _entities.VideoArtist, idToken int) error {
+func (vuc *VideoUseCase) PostVideo(video _entities.VideoArtist, idToken int, name string) error {
 	video.IdArtist = uint(idToken)
 	if video.VideoUrl == "" {
 		return errors.New("please insert link video")
 	}
-	error := vuc.videoRepository.PostVideo(video)
+	error := vuc.videoRepository.PostVideo(video, name)
 	return error
 }
 
-func (vuc *VideoUseCase) DeleteVideo(id int, idToken int) error {
-	error := vuc.videoRepository.DeleteVideo(id, idToken)
+func (vuc *VideoUseCase) DeleteVideo(id int, idToken int, name string) error {
+	error := vuc.videoRepository.DeleteVideo(id, idToken, name)
 	return error
 }

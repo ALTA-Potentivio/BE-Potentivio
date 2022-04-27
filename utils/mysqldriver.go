@@ -40,4 +40,5 @@ func InitialMigration(db *gorm.DB) {
 	db.AutoMigrate(&entities.VideoArtist{})
 	db.AutoMigrate(&entities.Hire{})
 	db.AutoMigrate(&entities.Notification{})
+	db.AutoMigrate(&entities.Rating{})
 }
