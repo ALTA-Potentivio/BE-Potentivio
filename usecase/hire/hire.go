@@ -244,3 +244,9 @@ func (huc *HireUseCase) Rating(hire entities.Hire) error {
 	return err
 
 }
+
+func (huc *HireUseCase) CallBack(hire entities.Hire) error {
+	err := huc.HireRepository.CallBack(hire)
+	return err
+
+}

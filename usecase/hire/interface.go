@@ -13,4 +13,5 @@ type HireUseCaseInterface interface {
 	Rejecthire(hire entities.Hire) error
 	CancelHireByArtis(hire entities.Hire) error
 	Rating(hire entities.Hire) error
+	CallBack(hire entities.Hire) error
 }
