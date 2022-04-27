@@ -70,7 +70,7 @@ func (hh *HireHandler) GetHireByIdArtis() echo.HandlerFunc {
 		}
 
 		if err != nil {
-			return c.JSON(http.StatusInternalServerError, helper.ResponseFailed("failed to fetch data"))
+			return c.JSON(http.StatusInternalServerError, helper.ResponseFailed(err.Error()))
 		}
 		return c.JSON(http.StatusOK, helper.ResponseSuccess("success get hire by id", results))
 	}
@@ -96,7 +96,7 @@ func (hh *HireHandler) GetHireByIdCafe() echo.HandlerFunc {
 		}
 
 		if err != nil {
-			return c.JSON(http.StatusInternalServerError, helper.ResponseFailed("failed to fetch data"))
+			return c.JSON(http.StatusInternalServerError, helper.ResponseFailed(err.Error()))
 		}
 		return c.JSON(http.StatusOK, helper.ResponseSuccess("success get hire by id", results))
 	}
@@ -112,7 +112,7 @@ func (hh *HireHandler) AcceptHire() echo.HandlerFunc {
 		hire.ID = uint(id)
 		err := hh.hireUseCase.AcceptHire(hire)
 		if err != nil {
-			return c.JSON(http.StatusInternalServerError, helper.ResponseFailed("failed to accept"))
+			return c.JSON(http.StatusInternalServerError, helper.ResponseFailed(err.Error()))
 		}
 		return c.JSON(http.StatusOK, helper.ResponseSuccessWithoutData("success to accept"))
 	}
@@ -131,7 +131,7 @@ func (hh *HireHandler) CancelHireByCafe() echo.HandlerFunc {
 		err := hh.hireUseCase.CancelHireByCafe(hire)
 
 		if err != nil {
-			return c.JSON(http.StatusInternalServerError, helper.ResponseFailed("failed to fetch data"))
+			return c.JSON(http.StatusInternalServerError, helper.ResponseFailed(err.Error()))
 		}
 		return c.JSON(http.StatusOK, helper.ResponseSuccessWithoutData("canceled"))
 	}
@@ -149,7 +149,7 @@ func (hh *HireHandler) RejectHire() echo.HandlerFunc {
 		err := hh.hireUseCase.Rejecthire(hire)
 
 		if err != nil {
-			return c.JSON(http.StatusInternalServerError, helper.ResponseFailed("failed to reject"))
+			return c.JSON(http.StatusInternalServerError, helper.ResponseFailed(err.Error()))
 		}
 		return c.JSON(http.StatusOK, helper.ResponseSuccessWithoutData("rejected"))
 	}
@@ -167,7 +167,7 @@ func (hh *HireHandler) CancelHireByArtis() echo.HandlerFunc {
 		err := hh.hireUseCase.CancelHireByArtis(hires)
 
 		if err != nil {
-			return c.JSON(http.StatusInternalServerError, helper.ResponseFailed("failed to cancel"))
+			return c.JSON(http.StatusInternalServerError, helper.ResponseFailed(err.Error()))
 		}
 		return c.JSON(http.StatusOK, helper.ResponseSuccessWithoutData("canceled"))
 
@@ -233,7 +233,7 @@ func (hh *HireHandler) Done() echo.HandlerFunc {
 		err := hh.hireUseCase.Done(hires)
 
 		if err != nil {
-			return c.JSON(http.StatusInternalServerError, helper.ResponseFailed("failed to done"))
+			return c.JSON(http.StatusInternalServerError, helper.ResponseFailed(err.Error()))
 		}
 		return c.JSON(http.StatusOK, helper.ResponseSuccessWithoutData("done"))
 
