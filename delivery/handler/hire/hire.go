@@ -122,6 +122,7 @@ func (hh *HireHandler) CancelHireByCafe() echo.HandlerFunc {
 		var hire entities.Hire
 		var id, _ = strconv.Atoi(c.Param("id"))
 
+		c.Bind(&hire)
 		IdCafe, _ := middlewares.ExtractToken(c)
 		hire.IdCafe = uint(IdCafe)
 		hire.ID = uint(id)
