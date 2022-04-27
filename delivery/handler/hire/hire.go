@@ -216,3 +216,21 @@ func (hh *HireHandler) CallBack() echo.HandlerFunc {
 	}
 
 }
+
+func (hh *HireHandler) Done() echo.HandlerFunc {
+	return func(c echo.Context) error {
+		var hires entities.Hire
+		var id, _ = strconv.Atoi(c.Param("id"))
+
+		idArtist, _ := middlewares.ExtractToken(c)
+		hires.ID = uint(id)
+		hires.IdArtist = uint(idArtist)
+		err := hh.hireUseCase.Done(hires)
+
+		if err != nil {
+			return c.JSON(http.StatusInternalServerError, helper.ResponseFailed("failed to done"))
+		}
+		return c.JSON(http.StatusOK, helper.ResponseSuccessWithoutData("done"))
+
+	}
+}
