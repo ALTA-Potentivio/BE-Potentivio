@@ -195,7 +195,7 @@ func (huc *HireUseCase) CancelHireByArtis(hire entities.Hire) error {
 	minute := time.Now().Minute()
 	second := time.Now().Second()
 
-	disbursementKey := fmt.Sprint("invoice/", hires.IdCafe, "/", hires.IdArtist, "/", year, month, day, hour, minute, second)
+	disbursementKey := fmt.Sprint("disbursement/", hires.IdCafe, "/", hires.IdArtist, "/", year, month, day, hour, minute, second)
 	disbursementKey = strings.ReplaceAll(disbursementKey, " ", "")
 
 	createData := disbursement.CreateParams{
@@ -250,3 +250,52 @@ func (huc *HireUseCase) CallBack(hire entities.Hire) error {
 	return err
 
 }
+
+func (huc *HireUseCase) Done(hire entities.Hire) error {
+	hires, err := huc.HireRepository.GetHireById(int(hire.ID))
+
+	if hires.StatusArtist != "PAID" || hires.IdArtist != hire.IdArtist {
+		return errors.New("Failed to cancel")
+
+	}
+
+	artist, _ := huc.ArtistRepository.GetArtistByIdForHire(hires.IdArtist)
+
+	xendit.Opt.SecretKey = os.Getenv("SECRET_KEY_XENDIT")
+
+	year, month, day := time.Now().Date()
+	hour := time.Now().Hour()
+	minute := time.Now().Minute()
+	second := time.Now().Second()
+
+	disbursementKey := fmt.Sprint("disbursement/", hires.IdCafe, "/", hires.IdArtist, "/", year, month, day, hour, minute, second)
+	disbursementKey = strings.ReplaceAll(disbursementKey, " ", "")
+
+	createData := disbursement.CreateParams{
+		IdempotencyKey:    disbursementKey,
+		ExternalID:        hires.Invoice,
+		BankCode:          "BCA",
+		AccountHolderName: artist.Name,
+		AccountNumber:     *hires.AccountNumberArtist,
+		Description:       "Pembayaran dana dari Potentivio",
+		Amount:            hires.Price,
+		EmailTo:           []string{artist.Email},
+	}
+
+	_, err = disbursement.Create(&createData)
+	if err != nil {
+		log.Info(err)
+	}
+
+	hires.StatusArtist = "done"
+	hires.StatusCafe = "done"
+
+	err = huc.HireRepository.UpdateHire(int(hires.ID), hires)
+
+	return err
+}
+
+
+
+
+
