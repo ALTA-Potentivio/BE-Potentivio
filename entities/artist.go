@@ -15,17 +15,17 @@ type Artist struct {
 	Description   *string        `json:"description" form:"description"`
 	AccountNumber *string        `json:"account_number" form:"account_number"`
 	Avatar        *string        `json:"avatar" form:"avatar"`
-	Rating		  uint 			 `json:"rating" form:"rating"`
+	Rating        float32        `json:"rating" form:"rating"`
 	Catagory      Catagory       `gorm:"foreignKey:IdCatagory;references:ID"`
 	Genre         Genre          `gorm:"foreignKey:IdGenre;references:ID"`
 	VideoArtist   []VideoArtist  `gorm:"foreignKey:IdArtist;references:ID"`
 	Hire          []Hire         `gorm:"foreignKey:IdArtist;references:ID"`
 	Notification  []Notification `gorm:"foreignKey:IdArtist;references:ID"`
-	Ratings 	  Rating		 `gorm:"foreignKey:Rating;references:ID"`
+	Ratings       Rating         `gorm:"foreignKey:IdArtist;references:ID"`
 }
 
 type Rating struct {
 	gorm.Model
-	IdArtist 	uint   `gorm:"not null" json:"id_artist" form:"id_artist"`
-	Rating 		*uint   `json:"rating" form:"rating"`
+	IdArtist uint `gorm:"not null" json:"id_artist" form:"id_artist"`
+	Rating   uint `json:"rating" form:"rating"`
 }

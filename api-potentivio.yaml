@@ -32,7 +32,9 @@ tags:
     description: Operations about user cafe owner
   - name: notification
     description: notification offer from cafe to artist
-  - name: hire
+  - name: hire as cafe
+    description: Operation about hire
+  - name: hire artist
     description: Operation about hire
   - name: category  
     description: Operation for create and get category
@@ -822,7 +824,7 @@ paths:
       security:
       - bearerAuth: []
       tags:
-        - hire
+        - hire as cafe
       summary: hire artist by id
       parameters:
         - name: id
@@ -1415,36 +1417,6 @@ paths:
                   message:
                     type: string
                     example: please insert link video
-    get:
-      security:
-      - bearerAuth: []
-      tags:
-        - video-artist
-      summary: get all video artist
-      responses:
-        "200":
-          description: succes
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  message:
-                    type: string
-                    example: succes to get all link video artist
-        "400":
-          description: failed
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/400'
-        "401":
-          description: failed
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/401'
-        
   /video/artist/{id}:
     delete:
       security:
@@ -1703,6 +1675,10 @@ components:
           type: string
           format: byte
           example: avatar.png
+        rating:          
+          type: integer
+          format: float32
+          example: 4.9
         video_artist:
           type: array
           items:

@@ -2,7 +2,6 @@ package hire
 
 import (
 	"fmt"
-	"github.com/labstack/echo/v4"
 	"net/http"
 	"os"
 	"potentivio-app/delivery/helper"
@@ -11,6 +10,8 @@ import (
 	"potentivio-app/usecase/hire"
 	"strconv"
 	"time"
+
+	"github.com/labstack/echo/v4"
 )
 
 type HireHandler struct {
@@ -175,11 +176,15 @@ func (hh *HireHandler) CancelHireByArtis() echo.HandlerFunc {
 
 func (hh *HireHandler) Rating() echo.HandlerFunc {
 	return func(c echo.Context) error {
+		idStr := c.Param("id")
+		id, errconv := strconv.Atoi(idStr)
+		if errconv != nil {
+			return c.JSON(http.StatusInternalServerError, helper.ResponseFailed("id not recognise"))
+		}
 
 		var hire entities.Hire
 		c.Bind(&hire)
-		id, _ := middlewares.ExtractToken(c)
-		hire.IdArtist = uint(id)
+		hire.ID = uint(id)
 		err := hh.hireUseCase.Rating(hire)
 
 		if err != nil {

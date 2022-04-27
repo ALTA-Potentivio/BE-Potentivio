@@ -1,10 +1,11 @@
 package configs
 
 import (
-	"github.com/joho/godotenv"
-	"github.com/labstack/gommon/log"
 	"os"
 	"sync"
+
+	"github.com/joho/godotenv"
+	"github.com/labstack/gommon/log"
 )
 
 type AppConfig struct {

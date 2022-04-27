@@ -34,7 +34,12 @@ func (vh *VideoHandler) PostVideoHandler() echo.HandlerFunc {
 			return c.JSON(http.StatusUnauthorized, helper.ResponseFailed("failed to extract token"))
 		}
 
-		error := vh.videoUseCase.PostVideo(video, idToken)
+		name, errPrice := _middlewares.ExtractTokenName(c)
+		if errPrice != nil {
+			return c.JSON(http.StatusUnauthorized, helper.ResponseFailed("failed to extract token"))
+		}
+
+		error := vh.videoUseCase.PostVideo(video, idToken, name)
 		if error != nil {
 			return c.JSON(http.StatusInternalServerError, helper.ResponseFailed(error.Error()))
 		}
@@ -52,12 +57,16 @@ func (vh *VideoHandler) DeleteVideoHandler() echo.HandlerFunc {
 		}
 
 		idToken, errToken := _middlewares.ExtractToken(c)
-
 		if errToken != nil {
 			return c.JSON(http.StatusUnauthorized, helper.ResponseFailed("failed to extract token"))
 		}
 
-		error := vh.videoUseCase.DeleteVideo(id, idToken)
+		name, errPrice := _middlewares.ExtractTokenName(c)
+		if errPrice != nil {
+			return c.JSON(http.StatusUnauthorized, helper.ResponseFailed("failed to extract token"))
+		}
+
+		error := vh.videoUseCase.DeleteVideo(id, idToken, name)
 		if error != nil {
 			return c.JSON(http.StatusInternalServerError, helper.ResponseFailed(error.Error()))
 		}

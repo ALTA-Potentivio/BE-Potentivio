@@ -63,7 +63,7 @@ func HireArtistPath(e *echo.Echo, hh *_hirehandler.HireHandler) {
 	e.PUT("/cafe/cancel/:id", hh.CancelHireByCafe(), _middlewares.JWTMiddleware())
 	e.PUT("/reject/:id", hh.RejectHire(), _middlewares.JWTMiddleware())
 	e.PUT("/artist/cancel/:id", hh.CancelHireByArtis(), _middlewares.JWTMiddleware())
-	e.PUT("/comment", hh.Rating(), _middlewares.JWTMiddleware())
+	e.PUT("/comment/:id", hh.Rating(), _middlewares.JWTMiddleware())
 	// callback jangan di hit lewat postman
 	e.POST("/callback", hh.CallBack())
 	e.PUT("/cafe/done/:id", hh.Done(), _middlewares.JWTMiddleware())
