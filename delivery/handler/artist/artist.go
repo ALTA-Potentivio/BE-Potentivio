@@ -135,6 +135,8 @@ func (ah *ArtistHandler) GetProfileArtistHandler() echo.HandlerFunc {
 			"description":    artist.Description,
 			"account_number": artist.AccountNumber,
 			"avatar":         artist.Avatar,
+			"name_catagory":  artist.Catagory.NameCatagory,
+			"name_genre":     artist.Genre.NameGenre,
 			"video_artist":   video_artist,
 		}
 

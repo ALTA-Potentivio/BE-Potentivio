@@ -20,6 +20,7 @@ func NewNotifHandler(notif _notifUseCase.NotifUseCaseInterface) *NotifHandler {
 		notifUseCase: notif,
 	}
 }
+
 func (nh *NotifHandler) CreateNotifHandler() echo.HandlerFunc {
 	return func(c echo.Context) error {
 		//mendapatkan id dari token yang login
@@ -38,7 +39,7 @@ func (nh *NotifHandler) CreateNotifHandler() echo.HandlerFunc {
 
 		_, errNotif := nh.notifUseCase.CreateNotif(notif, uint(idToken), uint(id))
 		if errNotif != nil {
-			return c.JSON(http.StatusInternalServerError, helper.ResponseFailed("failed to fetch data"))
+			return c.JSON(http.StatusInternalServerError, helper.ResponseFailed(errNotif.Error()))
 		}
 		return c.JSON(http.StatusOK, helper.ResponseSuccessWithoutData("succes to create notification"))
 	}
@@ -75,5 +76,31 @@ func (nh *NotifHandler) GetAllNotifByIdCafe() echo.HandlerFunc {
 		}
 
 		return c.JSON(http.StatusOK, helper.ResponseSuccess("success to get all notification", responseNotif))
+	}
+}
+
+func (nh *NotifHandler) DeleteNotifHandler() echo.HandlerFunc {
+	return func(c echo.Context) error {
+		//mendapatkan id dari token yang login
+		idToken, errToken := _middlewares.ExtractToken(c)
+		if errToken != nil {
+			return c.JSON(http.StatusUnauthorized, helper.ResponseFailed("unauthorized"))
+		}
+
+		idStr := c.Param("id")
+		id, err := strconv.Atoi(idStr)
+		if err != nil {
+			return c.JSON(http.StatusInternalServerError, helper.ResponseFailed("id not recognise"))
+		}
+
+		rows, err := nh.notifUseCase.DeleteNotif(uint(idToken), uint(id))
+		if err != nil {
+			return c.JSON(http.StatusInternalServerError, helper.ResponseFailed(err.Error()))
+		}
+		if rows == 0 {
+			return c.JSON(http.StatusBadRequest, helper.ResponseFailed("data not found"))
+		}
+
+		return c.JSON(http.StatusOK, helper.ResponseSuccessWithoutData("success to delete notification"))
 	}
 }
