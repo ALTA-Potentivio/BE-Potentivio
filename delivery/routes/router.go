@@ -12,6 +12,7 @@ import (
 	_catagoryHandler "potentivio-app/delivery/handler/catagory"
 	_genreHandler "potentivio-app/delivery/handler/genre"
 	_imageCafeHandler "potentivio-app/delivery/handler/imageCafe"
+	_notifHandler "potentivio-app/delivery/handler/notification"
 
 	_middlewares "potentivio-app/delivery/middlewares"
 )
@@ -52,7 +53,6 @@ func RegisterGenrePath(e *echo.Echo, gh *_genreHandler.GenreHandler) {
 func RegisterImageCafePath(e *echo.Echo, ich *_imageCafeHandler.ImageCafeHandler) {
 	e.POST("/image/cafe", ich.CreateImageCafeHandler(), _middlewares.JWTMiddleware())
 	e.DELETE("/image/cafe/:id", ich.DeleteImageCafeHandler(), _middlewares.JWTMiddleware())
-
 }
 
 func HireArtistPath(e *echo.Echo, hh *_hirehandler.HireHandler) {
@@ -69,5 +69,9 @@ func HireArtistPath(e *echo.Echo, hh *_hirehandler.HireHandler) {
 func RegisterVideoArtistPath(e *echo.Echo, ich *_videoHandler.VideoHandler) {
 	e.POST("/video/artist", ich.PostVideoHandler(), _middlewares.JWTMiddleware())
 	e.DELETE("/video/artist/:id", ich.DeleteVideoHandler(), _middlewares.JWTMiddleware())
+}
 
+func RegisterNotificationPath(e *echo.Echo, nh *_notifHandler.NotifHandler) {
+	e.POST("/offer/:id", nh.CreateNotifHandler(), _middlewares.JWTMiddleware())
+	e.GET("/offer", nh.GetAllNotifByIdCafe(), _middlewares.JWTMiddleware())
 }

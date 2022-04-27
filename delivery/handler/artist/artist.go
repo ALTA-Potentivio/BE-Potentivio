@@ -144,7 +144,11 @@ func (ah *ArtistHandler) GetProfileArtistHandler() echo.HandlerFunc {
 
 func (ah *ArtistHandler) GetArtistByIdHandler() echo.HandlerFunc {
 	return func(c echo.Context) error {
-		var id, _ = _middlewares.ExtractToken(c)
+		idStr := c.Param("id")
+		id, err := strconv.Atoi(idStr)
+		if err != nil {
+			return c.JSON(http.StatusInternalServerError, helper.ResponseFailed("id not recognise"))
+		}
 
 		artist, hires, rows, err := ah.artistUseCase.GetArtistById(uint(id))
 		if err != nil {
@@ -155,6 +159,8 @@ func (ah *ArtistHandler) GetArtistByIdHandler() echo.HandlerFunc {
 		}
 
 		notAvailable := []map[string]interface{}{}
+		history := []map[string]interface{}{}
+
 		for i := 0; i < len(hires); i++ {
 			if hires[i].StatusCafe == "waiting payment" {
 				response := map[string]interface{}{
@@ -163,10 +169,6 @@ func (ah *ArtistHandler) GetArtistByIdHandler() echo.HandlerFunc {
 				}
 				notAvailable = append(notAvailable, response)
 			}
-		}
-
-		history := []map[string]interface{}{}
-		for i := 0; i < len(hires); i++ {
 			if hires[i].StatusCafe == "done" {
 				response := map[string]interface{}{
 					"cafe_name": hires[i].Cafe.Name,

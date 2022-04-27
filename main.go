@@ -42,6 +42,10 @@ import (
 	_videoArtistRepository "potentivio-app/repository/videoArtist"
 	_videoArtistUseCase "potentivio-app/usecase/videoArtist"
 
+	_notifHandler "potentivio-app/delivery/handler/notification"
+	_notifRepository "potentivio-app/repository/notification"
+	_notifUseCase "potentivio-app/usecase/notification"
+
 	_routes "potentivio-app/delivery/routes"
 	_utils "potentivio-app/utils"
 )
@@ -83,6 +87,10 @@ func main() {
 	videoArtistUseCase := _videoArtistUseCase.NewVideoUseCase(videoArtistRepo)
 	videoArtistHandler := _videoArtistHandler.NewVideoHandler(videoArtistUseCase)
 
+	notifRepo := _notifRepository.NewNotifRepository(db)
+	notifUseCase := _notifUseCase.NewNotifUseCase(notifRepo)
+	notifHandler := _notifHandler.NewNotifHandler(notifUseCase)
+
 	e := echo.New()
 	e.Use(middleware.CORS())
 	e.Pre(middleware.RemoveTrailingSlash())
@@ -99,6 +107,7 @@ func main() {
 	_routes.HireArtistPath(e, hireHandler)
 	_routes.RegisterGenrePath(e, &genreHandler)
 	_routes.RegisterVideoArtistPath(e, videoArtistHandler)
+	_routes.RegisterNotificationPath(e, notifHandler)
 
 	log.Fatal(e.Start(fmt.Sprintf(":%v", config.Port)))
 }
