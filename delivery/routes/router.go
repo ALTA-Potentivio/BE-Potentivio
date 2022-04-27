@@ -74,4 +74,5 @@ func RegisterVideoArtistPath(e *echo.Echo, ich *_videoHandler.VideoHandler) {
 func RegisterNotificationPath(e *echo.Echo, nh *_notifHandler.NotifHandler) {
 	e.POST("/offer/:id", nh.CreateNotifHandler(), _middlewares.JWTMiddleware())
 	e.GET("/offer", nh.GetAllNotifByIdCafe(), _middlewares.JWTMiddleware())
+	e.DELETE("/offer/:id", nh.DeleteNotifHandler(), _middlewares.JWTMiddleware())
 }

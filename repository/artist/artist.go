@@ -58,7 +58,7 @@ func (ar *ArtistRepository) GetAllArtist(filters_catagory_genre map[string]int, 
 
 func (ar *ArtistRepository) GetProfileArtist(idToken uint) (_entities.Artist, uint, error) {
 	var artist _entities.Artist
-	tx := ar.database.Where("ID = ?", idToken).Preload("VideoArtist").Find(&artist)
+	tx := ar.database.Where("ID = ?", idToken).Preload("Catagory").Preload("Genre").Preload("VideoArtist").Find(&artist)
 	if tx.Error != nil {
 		return artist, 0, tx.Error
 	}
@@ -105,7 +105,7 @@ func (ar *ArtistRepository) DeleteArtist(id uint) (uint, error) {
 		return 0, tx.Error
 	}
 	if tx.RowsAffected == 0 {
-		return 0, tx.Error
+		return 0, nil
 	}
 	return uint(tx.RowsAffected), nil
 }
