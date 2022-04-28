@@ -123,7 +123,8 @@ func (ah *ArtistHandler) GetProfileArtistHandler() echo.HandlerFunc {
 			video_artist = append(video_artist, response)
 		}
 
-		rating, errCount := ah.artistUseCase.CountRating(artist.ID)
+		total, rating, errCount := ah.artistUseCase.CountRating(artist.ID)
+		artist.TotalRate = total
 		artist.Rating = rating
 		if errCount != nil {
 			return c.JSON(http.StatusInternalServerError, helper.ResponseFailed(errCount.Error()))
@@ -134,6 +135,7 @@ func (ah *ArtistHandler) GetProfileArtistHandler() echo.HandlerFunc {
 			"artist_name":    artist.Name,
 			"email":          artist.Email,
 			"rating":         artist.Rating,
+			"total_rate":     artist.TotalRate,
 			"id_catagory":    artist.IdCatagory,
 			"id_genre":       artist.IdGenre,
 			"phone_number":   artist.PhoneNumber,
@@ -198,7 +200,8 @@ func (ah *ArtistHandler) GetArtistByIdHandler() echo.HandlerFunc {
 			videoArtist = append(videoArtist, response)
 		}
 
-		rating, errCount := ah.artistUseCase.CountRating(artist.ID)
+		total, rating, errCount := ah.artistUseCase.CountRating(artist.ID)
+		artist.TotalRate = total
 		artist.Rating = rating
 		if errCount != nil {
 			return c.JSON(http.StatusInternalServerError, helper.ResponseFailed(errCount.Error()))
@@ -207,6 +210,7 @@ func (ah *ArtistHandler) GetArtistByIdHandler() echo.HandlerFunc {
 		responseArtist := map[string]interface{}{
 			"id":             artist.ID,
 			"rating":         artist.Rating,
+			"total_rate":     artist.TotalRate,
 			"artist_name":    artist.Name,
 			"id_catagory":    artist.IdCatagory,
 			"id_genre":       artist.IdGenre,

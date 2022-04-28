@@ -69,7 +69,7 @@ func (auc *ArtistUseCase) DeleteArtist(id uint) (uint, error) {
 	return rows, err
 }
 
-func (auc *ArtistUseCase) CountRating(idArtist uint) (float32, error) {
-	rating, err := auc.artistRepository.CountRating(idArtist)
-	return rating, err
+func (auc *ArtistUseCase) CountRating(idArtist uint) (uint, float32, error) {
+	total, rating, err := auc.artistRepository.CountRating(idArtist)
+	return total, rating, err
 }

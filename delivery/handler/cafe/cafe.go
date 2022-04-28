@@ -100,23 +100,13 @@ func (ch *CafeHandler) GetAllCafeHandler() echo.HandlerFunc {
 func (ch *CafeHandler) DeleteCafeHandler() echo.HandlerFunc {
 	return func(c echo.Context) error {
 
-		idStr := c.Param("id")
-		id, err := strconv.Atoi(idStr)
-		if err != nil {
-			return c.JSON(http.StatusInternalServerError, helper.ResponseFailed("failed to convert id param"))
-		}
-
 		idToken, errToken := _middlewares.ExtractToken(c)
 
 		if errToken != nil {
 			return c.JSON(http.StatusUnauthorized, helper.ResponseFailed("failed to extract token"))
 		}
 
-		if id != idToken {
-			return c.JSON(http.StatusUnauthorized, helper.ResponseFailed("unautorized"))
-		}
-
-		error := ch.cafeUseCase.DeleteCafe(id)
+		error := ch.cafeUseCase.DeleteCafe(idToken)
 		if error != nil {
 			return c.JSON(http.StatusInternalServerError, helper.ResponseFailed(error.Error()))
 		}
@@ -132,17 +122,8 @@ func (ch *CafeHandler) UpdateCafeHandler() echo.HandlerFunc {
 			return c.JSON(http.StatusUnauthorized, helper.ResponseFailed("unauthorized"))
 		}
 
-		idStr := c.Param("id")
-		id, err := strconv.Atoi(idStr)
-		if err != nil {
-			return c.JSON(http.StatusInternalServerError, helper.ResponseFailed("id not recognise"))
-		}
-
-		if idToken != id {
-			return c.JSON(http.StatusUnauthorized, helper.ResponseFailed("unauthorized"))
-		}
-
 		var updateCafe _entities.Cafe
+		updateCafe.ID = uint(idToken)
 		errBind := c.Bind(&updateCafe)
 		if errBind != nil {
 			return c.JSON(http.StatusBadRequest, helper.ResponseFailed(errBind.Error()))
@@ -175,12 +156,9 @@ func (ch *CafeHandler) UpdateCafeHandler() echo.HandlerFunc {
 			updateCafe.Avatar = &theUrl
 		}
 
-		rows, err := ch.cafeUseCase.UpdateCafe(updateCafe, idToken)
+		err := ch.cafeUseCase.UpdateCafe(updateCafe)
 		if err != nil {
 			return c.JSON(http.StatusInternalServerError, helper.ResponseFailed(err.Error()))
-		}
-		if rows == 0 {
-			return c.JSON(http.StatusNotFound, helper.ResponseFailed("data not found"))
 		}
 
 		return c.JSON(http.StatusOK, helper.ResponseSuccessWithoutData("success to update cafe"))

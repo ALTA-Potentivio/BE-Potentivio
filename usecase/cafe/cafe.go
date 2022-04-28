@@ -81,7 +81,7 @@ func (cuc *CafeUseCase) DeleteCafe(id int) error {
 	return error
 }
 
-func (cuc *CafeUseCase) UpdateCafe(updateCafe _entities.Cafe, idToken int) (uint, error) {
-	updateRows, updateErr := cuc.cafeRepository.UpdateCafe(updateCafe, idToken)
-	return updateRows, updateErr
+func (cuc *CafeUseCase) UpdateCafe(updateCafe _entities.Cafe) error {
+	updateErr := cuc.cafeRepository.UpdateCafe(updateCafe)
+	return updateErr
 }

@@ -66,12 +66,12 @@ func (cr *CafeRepository) DeleteCafe(id int) error {
 	}
 	return nil
 }
-func (cr *CafeRepository) UpdateCafe(updateCafe _entities.Cafe, idToken int) (uint, error) {
-	tx := cr.database.Where("ID = ?", idToken).Updates(&updateCafe)
+func (cr *CafeRepository) UpdateCafe(updateCafe _entities.Cafe) error {
+	tx := cr.database.Where("ID = ?", updateCafe.ID).Updates(&updateCafe)
 	if tx.Error != nil {
-		return 0, tx.Error
+		return tx.Error
 	}
-	return uint(tx.RowsAffected), nil
+	return nil
 }
 
 func (cr *CafeRepository) GetCafeByIdForHire(id uint) (_entities.Cafe, error) {
