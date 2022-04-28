@@ -463,6 +463,84 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/500'
+    put:
+      security:
+      - bearerAuth: []
+      tags:
+        - cafe
+      summary: edit cafe by id
+      requestBody:
+        description: need new data to update
+        content:
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/put_cafe'
+      responses:
+        "200":
+          description: succes
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: succes to update cafe
+        "400":
+          description: failed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/400'
+        "401":
+          description: failed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/401'
+
+        "500":
+          description: failed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/500'
+    delete:
+      security:
+      - bearerAuth: []
+      tags:
+        - cafe
+      summary: delete cafe by id
+      responses:
+        "200":
+          description: succes
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: succes to delete cafe
+        "400":
+          description: failed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/400'
+        "401":
+          description: failed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/401'
+
+        "500":
+          description: failed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/500'
   /cafe:
     post:
       tags:
@@ -632,102 +710,6 @@ paths:
                   message: 
                     type: string
                     example: failed to convert id param            
-    put:
-      security:
-      - bearerAuth: []
-      tags:
-        - cafe
-      summary: edit cafe by id
-      parameters:
-        - name: id
-          in: path
-          required: true
-          style: simple
-          schema:
-            type: integer
-            format: uint
-            example: 1
-      requestBody:
-        description: need new data to update
-        content:
-          multipart/form-data:
-            schema:
-              $ref: '#/components/schemas/put_cafe'
-      responses:
-        "200":
-          description: succes
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  message:
-                    type: string
-                    example: succes to update cafe
-        "400":
-          description: failed
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/400'
-        "401":
-          description: failed
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/401'
-
-        "500":
-          description: failed
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/500'
-    delete:
-      security:
-      - bearerAuth: []
-      tags:
-        - cafe
-      summary: delete cafe by id
-      parameters:
-        - name: id
-          in: path
-          required: true
-          style: simple
-          schema:
-            type: integer
-            format: uint
-            example: 1
-      responses:
-        "200":
-          description: succes
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  message:
-                    type: string
-                    example: succes to delete cafe
-        "400":
-          description: failed
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/400'
-        "401":
-          description: failed
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/401'
-
-        "500":
-          description: failed
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/500'
   /offer/{id}:
     post:
       security:
@@ -1411,12 +1393,15 @@ paths:
           description: failed
           content:
             application/json:
-              schema:
-                type: object
-                properties:
-                  message:
-                    type: string
-                    example: please insert link video
+              examples:
+                duplicate entry:
+                  description: if email already exist
+                  value:
+                    message: "Error 1062: Duplicate entry 'youtube.com/jogetkeju' for key 'video_url'"
+                url not inserted:
+                  description: if url not inserted
+                  value:    
+                    message: please insert link video
   /video/artist/{id}:
     delete:
       security:
@@ -1629,6 +1614,14 @@ components:
           type: string
           format: byte
           example: avatar.png
+        rating:
+          type: integer
+          format: float32
+          example: 4.5
+        total_rate:
+          type: integer
+          format: uint
+          example: 9
         video_artist:
           type: array
           items:
@@ -1678,7 +1671,11 @@ components:
         rating:          
           type: integer
           format: float32
-          example: 4.9
+          example: 4.5
+        total_rate:
+          type: integer
+          format: uint
+          example: 9
         video_artist:
           type: array
           items:

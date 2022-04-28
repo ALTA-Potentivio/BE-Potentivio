@@ -110,12 +110,12 @@ func (ar *ArtistRepository) DeleteArtist(id uint) (uint, error) {
 	return uint(tx.RowsAffected), nil
 }
 
-func (ar *ArtistRepository) CountRating(id uint) (float32, error) {
+func (ar *ArtistRepository) CountRating(id uint) (uint, float32, error) {
 	// var rating _entities.Rating
 	var rateArtist []_entities.Rating
 	tx := ar.database.Where("id_artist = ?", id).Find(&rateArtist)
 	if tx.Error != nil {
-		return 0, tx.Error
+		return 0, 0, tx.Error
 	}
 
 	var ave uint
@@ -124,7 +124,7 @@ func (ar *ArtistRepository) CountRating(id uint) (float32, error) {
 	}
 
 	var aveInt = int(ave)
-
 	result := float32(aveInt) / float32(len(rateArtist))
-	return result, nil
+	total := uint(len(rateArtist))
+	return total, result, nil
 }

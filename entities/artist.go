@@ -16,6 +16,7 @@ type Artist struct {
 	AccountNumber *string        `json:"account_number" form:"account_number"`
 	Avatar        *string        `json:"avatar" form:"avatar"`
 	Rating        float32        `json:"rating" form:"rating"`
+	TotalRate     uint           `json:"total_rate" form:"total_rate"`
 	Catagory      Catagory       `gorm:"foreignKey:IdCatagory;references:ID"`
 	Genre         Genre          `gorm:"foreignKey:IdGenre;references:ID"`
 	VideoArtist   []VideoArtist  `gorm:"foreignKey:IdArtist;references:ID"`

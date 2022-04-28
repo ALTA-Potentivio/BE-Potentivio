@@ -7,5 +7,5 @@ type CafeUseCaseInterface interface {
 	PostCafe(cafe _entities.Cafe) error
 	GetAllCafe(filters map[string]string) ([]_entities.GetAllCafe, error)
 	DeleteCafe(id int) error
-	UpdateCafe(updateCafe _entities.Cafe, idToken int) (uint, error)
+	UpdateCafe(updateCafe _entities.Cafe) error
 }

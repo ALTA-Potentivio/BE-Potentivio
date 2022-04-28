@@ -11,5 +11,5 @@ type ArtistUseCaseInterface interface {
 	GetArtistById(id uint) (_entities.Artist, []_entities.Hire, int, error)
 	UpdateArtist(updateArtist _entities.Artist, idToken uint) (_entities.Artist, uint, error)
 	DeleteArtist(id uint) (uint, error)
-	CountRating(idArtist uint) (float32, error)
+	CountRating(idArtist uint) (uint, float32, error)
 }

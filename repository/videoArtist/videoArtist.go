@@ -21,7 +21,9 @@ func NewVideoRepository(db *gorm.DB) *VideoRepository {
 func (cr *VideoRepository) PostVideo(video _entities.VideoArtist, name string) error {
 
 	var artist _entities.Artist
-	find := cr.database.Where("name = ?", name).Where("id = ?", video.IdArtist).Find(artist)
+	fmt.Println("lewat")
+	find := cr.database.Where("name = ?", name).Where("id = ?", video.IdArtist).Find(&artist)
+	fmt.Println(artist)
 	if find.RowsAffected == 0 {
 		return errors.New("unauthorized")
 	}
