@@ -1,6 +1,7 @@
 package artist
 
 import (
+	"errors"
 	_entities "potentivio-app/entities"
 
 	"gorm.io/gorm"
@@ -111,11 +112,13 @@ func (ar *ArtistRepository) DeleteArtist(id uint) (uint, error) {
 }
 
 func (ar *ArtistRepository) CountRating(id uint) (uint, float32, error) {
-	// var rating _entities.Rating
 	var rateArtist []_entities.Rating
 	tx := ar.database.Where("id_artist = ?", id).Find(&rateArtist)
+	if tx.RowsAffected == 0 {
+		return 0, 0, nil
+	}
 	if tx.Error != nil {
-		return 0, 0, tx.Error
+		return 0, 0, errors.New("failed to find artist in count rating")
 	}
 
 	var ave uint
@@ -126,5 +129,13 @@ func (ar *ArtistRepository) CountRating(id uint) (uint, float32, error) {
 	var aveInt = int(ave)
 	result := float32(aveInt) / float32(len(rateArtist))
 	total := uint(len(rateArtist))
+
+	var updateArtist _entities.Artist
+	updateArtist.Rating = result
+	putArtis := ar.database.Where("ID = ?", id).Updates(&updateArtist)
+	if putArtis.Error != nil {
+		return 0, 0, errors.New("error to update rating artist in count rating")
+	}
+
 	return total, result, nil
 }
