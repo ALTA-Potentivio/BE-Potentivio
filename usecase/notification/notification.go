@@ -37,7 +37,7 @@ func (nuc *NotifUseCase) GetAllNotifByIdCafe(idToken uint) ([]_entities.Notifica
 }
 
 func (nuc *NotifUseCase) GetAllNotifByIdArtist(idToken uint) ([]_entities.Notification, uint, error) {
-	notif, rows, err := nuc.notifRepository.GetAllNotifByIdCafe(idToken)
+	notif, rows, err := nuc.notifRepository.GetAllNotifByIdArtist(idToken)
 	return notif, rows, err
 }
 
