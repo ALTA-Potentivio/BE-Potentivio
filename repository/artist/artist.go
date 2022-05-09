@@ -99,9 +99,9 @@ func (ar *ArtistRepository) UpdateArtist(updateArtist _entities.Artist, idToken 
 	return updateArtist, uint(tx.RowsAffected), nil
 }
 
-func (ar *ArtistRepository) DeleteArtist(id uint) (uint, error) {
+func (ar *ArtistRepository) DeleteArtist(idToken uint) (uint, error) {
 	var artist _entities.Artist
-	tx := ar.database.Delete(&artist, id)
+	tx := ar.database.Delete(&artist, idToken)
 	if tx.Error != nil {
 		return 0, tx.Error
 	}
