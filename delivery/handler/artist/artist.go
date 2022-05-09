@@ -239,17 +239,6 @@ func (ah *ArtistHandler) UpdateArtistHandler() echo.HandlerFunc {
 			return c.JSON(http.StatusUnauthorized, helper.ResponseFailed("unauthorized"))
 		}
 
-		idStr := c.Param("id")
-		id, err := strconv.Atoi(idStr)
-		if err != nil {
-			return c.JSON(http.StatusInternalServerError, helper.ResponseFailed("id not recognise"))
-		}
-
-		// check apakah id dari token sama dengan id dari parm
-		if idToken != id {
-			return c.JSON(http.StatusUnauthorized, helper.ResponseFailed("unauthorized"))
-		}
-
 		var updateArtist entities.Artist
 		errBind := c.Bind(&updateArtist)
 		if errBind != nil {
@@ -309,18 +298,7 @@ func (ah *ArtistHandler) DeleteArtistHandler() echo.HandlerFunc {
 			return c.JSON(http.StatusUnauthorized, helper.ResponseFailed("unauthorized"))
 		}
 
-		idStr := c.Param("id")
-		id, err := strconv.Atoi(idStr)
-		if err != nil {
-			return c.JSON(http.StatusInternalServerError, helper.ResponseFailed("id not recognise"))
-		}
-
-		// check apakah id dari token sama dengan id dari parm
-		if idToken != id {
-			return c.JSON(http.StatusUnauthorized, helper.ResponseFailed("unauthorized"))
-		}
-
-		rows, err := ah.artistUseCase.DeleteArtist(uint(id))
+		rows, err := ah.artistUseCase.DeleteArtist(uint(idToken))
 		if err != nil {
 			return c.JSON(http.StatusInternalServerError, helper.ResponseFailed(err.Error()))
 		}
