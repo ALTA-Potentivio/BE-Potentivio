@@ -12,3 +12,14 @@ potentivio-app/usecase/imageCafe/imageCafe.go:12.117,16.2 1 1
 potentivio-app/usecase/imageCafe/imageCafe.go:18.107,21.2 2 1
 potentivio-app/usecase/imageCafe/imageCafe.go:23.62,26.2 2 1
 potentivio-app/usecase/imageCafe/imageCafe.go:28.84,31.2 2 1
+potentivio-app/usecase/notification/notification.go:13.97,17.2 1 1
+potentivio-app/usecase/notification/notification.go:19.127,22.37 2 1
+potentivio-app/usecase/notification/notification.go:28.2,31.25 4 1
+potentivio-app/usecase/notification/notification.go:22.37,23.70 1 1
+potentivio-app/usecase/notification/notification.go:23.70,25.4 1 1
+potentivio-app/usecase/notification/notification.go:34.100,37.2 2 1
+potentivio-app/usecase/notification/notification.go:39.102,42.2 2 1
+potentivio-app/usecase/notification/notification.go:44.85,47.2 2 1
+potentivio-app/usecase/notification/notification.go:49.75,51.29 2 1
+potentivio-app/usecase/notification/notification.go:54.2,55.18 2 1
+potentivio-app/usecase/notification/notification.go:51.29,53.3 1 1
