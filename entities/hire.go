@@ -19,7 +19,7 @@ type Hire struct {
 	Price               float64   `gorm:"not null" json:"price" form:"price"`
 	AccountNumberArtist *string   `gorm:"not null" json:"account_number_artist" form:"account_number_artist"`
 	AccountNumberCafe   *string   `gorm:"not null" json:"account_number_cafe" form:"account_number_cafe"`
-	PaymentUrl          *string   `json:"payment_url" form:"payment_url"`
+	PaymentUrl          string    `json:"payment_url" form:"payment_url"`
 	IDXendit            string    `json:"id_xendit"`
 	Artist              Artist    `gorm:"foreignKey:IdArtist;references:ID"`
 	Cafe                Cafe      `gorm:"foreignKey:IdCafe;references:ID"`
