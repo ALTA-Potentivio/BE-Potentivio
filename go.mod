@@ -4,7 +4,6 @@ go 1.17
 
 require (
 	github.com/aws/aws-sdk-go v1.43.43
-	github.com/go-playground/assert/v2 v2.0.1
 	github.com/golang-jwt/jwt v3.2.2+incompatible
 	github.com/joho/godotenv v1.4.0
 	github.com/labstack/echo/v4 v4.7.2
