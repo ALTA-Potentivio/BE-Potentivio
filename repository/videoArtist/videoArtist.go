@@ -43,7 +43,7 @@ func (cr *VideoRepository) DeleteVideo(id int, idToken int, name string) error {
 	var artist _entities.Artist
 	find := cr.database.Where("name = ?", name).Where("id = ?", video.IdArtist).Find(artist)
 	if find.RowsAffected == 0 {
-		return errors.New("unauthorized")
+		return errors.New("unauthorized or id not match with name")
 	}
 
 	txFind := cr.database.Find(&video, id)
