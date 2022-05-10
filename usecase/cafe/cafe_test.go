@@ -16,13 +16,48 @@ func TestPostCafe(t *testing.T) {
 		assert.Nil(t, err)
 	})
 
-	t.Run("TestPostCafeError", func(t *testing.T) {
+	t.Run("TestPostCafeErrorNameRequired", func(t *testing.T) {
 		cafeUseCase := NewCafeUseCase(mockCafeRepositoryError{})
 		err := cafeUseCase.PostCafe(_entities.Cafe{})
 		if assert.Error(t, err) {
 			assert.Equal(t, errors.New("name is required"), err)
 		}
-		assert.ErrorContains(t, err, "error hashing password")
+		assert.NotNil(t, err)
+	})
+
+	t.Run("TestPostCafeErrorEmailRequired", func(t *testing.T) {
+		cafeUseCase := NewCafeUseCase(mockCafeRepositoryError{})
+		err := cafeUseCase.PostCafe(_entities.Cafe{Name: "satria"})
+		if assert.Error(t, err) {
+			assert.Equal(t, errors.New("email is required"), err)
+		}
+		assert.NotNil(t, err)
+	})
+
+	t.Run("TestPostCafeErrorAddressRequired", func(t *testing.T) {
+		cafeUseCase := NewCafeUseCase(mockCafeRepositoryError{})
+		err := cafeUseCase.PostCafe(_entities.Cafe{Name: "satria", Email: "satria@mail.com"})
+		if assert.Error(t, err) {
+			assert.Equal(t, errors.New("address is required"), err)
+		}
+		assert.NotNil(t, err)
+	})
+
+	t.Run("TestPostCafeErrorPasswordRequired", func(t *testing.T) {
+		cafeUseCase := NewCafeUseCase(mockCafeRepositoryError{})
+		err := cafeUseCase.PostCafe(_entities.Cafe{Name: "satria", Email: "satria@mail.com", Address: "jakarta"})
+		if assert.Error(t, err) {
+			assert.Equal(t, errors.New("failed"), err)
+		}
+		assert.NotNil(t, err)
+	})
+
+	t.Run("TestPostCafeErrorPasswordRequired", func(t *testing.T) {
+		cafeUseCase := NewCafeUseCase(mockCafeRepositoryError{})
+		err := cafeUseCase.PostCafe(_entities.Cafe{Name: "satria", Email: "satria@mail.com", Address: "jakarta"})
+		if assert.Error(t, err) {
+			assert.Equal(t, errors.New("failed"), err)
+		}
 		assert.NotNil(t, err)
 	})
 }
