@@ -21,5 +21,6 @@ jobs:
           git pull origin main
           docker stop potentivio_app_cont
           docker rm potentivio_app_cont
+          docker rmi image_potentivio_app
           docker build -t image_potentivio_app:latest .
           docker run -d -p 80:80 --name potentivio_app_cont image_potentivio_app:latest

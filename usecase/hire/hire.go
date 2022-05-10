@@ -129,7 +129,7 @@ func (huc *HireUseCase) AcceptHire(hire entities.Hire) error {
 	}
 
 	var paymentUrl = resp.InvoiceURL
-	hires.PaymentUrl = &paymentUrl
+	hires.PaymentUrl = paymentUrl
 	hires.StatusArtist = "waiting payment"
 	hires.StatusCafe = "waiting payment"
 	hires.IDXendit = resp.ID
@@ -265,8 +265,8 @@ func (huc *HireUseCase) CallBack(hire entities.Hire) error {
 func (huc *HireUseCase) Done(hire entities.Hire) error {
 	hires, err := huc.HireRepository.GetHireById(int(hire.ID))
 
-	if hires.StatusArtist != "PAID" || hires.IdArtist != hire.IdArtist {
-		return errors.New("Failed to cancel")
+	if hires.StatusArtist != "PAID" || hires.IdCafe != hire.IdCafe {
+		return errors.New("Failed to done")
 
 	}
 

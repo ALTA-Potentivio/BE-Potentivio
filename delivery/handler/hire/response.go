@@ -13,4 +13,5 @@ type HireCafeResponse struct {
 	ArtisName  string `json:"artis_name"`
 	Date       string `json:"date"`
 	StatusCafe string `json:"status_cafe"`
+	PaymentUrl string `json:"paymentUrl"`
 }

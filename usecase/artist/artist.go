@@ -59,13 +59,12 @@ func (auc *ArtistUseCase) GetProfileArtist(idToken uint) (_entities.Artist, uint
 }
 
 func (auc *ArtistUseCase) UpdateArtist(updateArtist _entities.Artist, idToken uint) (_entities.Artist, uint, error) {
-
 	updateArtist, updateRows, updateErr := auc.artistRepository.UpdateArtist(updateArtist, idToken)
 	return updateArtist, updateRows, updateErr
 }
 
-func (auc *ArtistUseCase) DeleteArtist(id uint) (uint, error) {
-	rows, err := auc.artistRepository.DeleteArtist(id)
+func (auc *ArtistUseCase) DeleteArtist(idToken uint) (uint, error) {
+	rows, err := auc.artistRepository.DeleteArtist(idToken)
 	return rows, err
 }
 
