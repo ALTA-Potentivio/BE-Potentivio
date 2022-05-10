@@ -228,9 +228,9 @@ func (hh *HireHandler) Done() echo.HandlerFunc {
 		var hires entities.Hire
 		var id, _ = strconv.Atoi(c.Param("id"))
 
-		idArtist, _ := middlewares.ExtractToken(c)
+		idCafe, _ := middlewares.ExtractToken(c)
 		hires.ID = uint(id)
-		hires.IdArtist = uint(idArtist)
+		hires.IdCafe = uint(idCafe)
 		err := hh.hireUseCase.Done(hires)
 
 		if err != nil {

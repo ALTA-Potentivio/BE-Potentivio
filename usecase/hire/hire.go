@@ -265,8 +265,8 @@ func (huc *HireUseCase) CallBack(hire entities.Hire) error {
 func (huc *HireUseCase) Done(hire entities.Hire) error {
 	hires, err := huc.HireRepository.GetHireById(int(hire.ID))
 
-	if hires.StatusArtist != "PAID" || hires.IdArtist != hire.IdArtist {
-		return errors.New("Failed to cancel")
+	if hires.StatusArtist != "PAID" || hires.IdCafe != hire.IdCafe {
+		return errors.New("Failed to done")
 
 	}
 
