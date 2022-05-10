@@ -129,7 +129,7 @@ func (huc *HireUseCase) AcceptHire(hire entities.Hire) error {
 	}
 
 	var paymentUrl = resp.InvoiceURL
-	hires.PaymentUrl = &paymentUrl
+	hires.PaymentUrl = paymentUrl
 	hires.StatusArtist = "waiting payment"
 	hires.StatusCafe = "waiting payment"
 	hires.IDXendit = resp.ID

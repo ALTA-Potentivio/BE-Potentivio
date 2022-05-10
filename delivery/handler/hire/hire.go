@@ -90,6 +90,7 @@ func (hh *HireHandler) GetHireByIdCafe() echo.HandlerFunc {
 				ArtisName:  hires[i].Artist.Name,
 				Date:       fmt.Sprint(hires[i].Date),
 				StatusCafe: hires[i].StatusCafe,
+				PaymentUrl: hires[i].PaymentUrl,
 			}
 
 			results = append(results, result)
