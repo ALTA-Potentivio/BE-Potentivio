@@ -21,9 +21,7 @@ func NewVideoRepository(db *gorm.DB) *VideoRepository {
 func (cr *VideoRepository) PostVideo(video _entities.VideoArtist, name string) error {
 
 	var artist _entities.Artist
-	fmt.Println("lewat")
 	find := cr.database.Where("name = ?", name).Where("id = ?", video.IdArtist).Find(&artist)
-	fmt.Println(artist)
 	if find.RowsAffected == 0 {
 		return errors.New("unauthorized")
 	}
@@ -36,7 +34,7 @@ func (cr *VideoRepository) PostVideo(video _entities.VideoArtist, name string) e
 	if tx.Error != nil {
 		return tx.Error
 	}
-	return tx.Error
+	return nil
 }
 
 func (cr *VideoRepository) DeleteVideo(id int, idToken int, name string) error {
@@ -45,7 +43,7 @@ func (cr *VideoRepository) DeleteVideo(id int, idToken int, name string) error {
 	var artist _entities.Artist
 	find := cr.database.Where("name = ?", name).Where("id = ?", video.IdArtist).Find(artist)
 	if find.RowsAffected == 0 {
-		return errors.New("unauthorized")
+		return errors.New("unauthorized or id not match with name")
 	}
 
 	txFind := cr.database.Find(&video, id)

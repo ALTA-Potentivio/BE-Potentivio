@@ -76,6 +76,7 @@ func (cuc *CafeUseCase) GetAllCafe(filters map[string]string) ([]_entities.GetAl
 	}
 	return GetCafes, error
 }
+
 func (cuc *CafeUseCase) DeleteCafe(id int) error {
 	error := cuc.cafeRepository.DeleteCafe(id)
 	return error

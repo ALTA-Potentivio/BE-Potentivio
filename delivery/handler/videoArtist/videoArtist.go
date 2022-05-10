@@ -31,12 +31,12 @@ func (vh *VideoHandler) PostVideoHandler() echo.HandlerFunc {
 
 		idToken, errToken := _middlewares.ExtractToken(c)
 		if errToken != nil {
-			return c.JSON(http.StatusUnauthorized, helper.ResponseFailed("failed to extract token"))
+			return c.JSON(http.StatusUnauthorized, helper.ResponseFailed("failed to extract token: id"))
 		}
 
 		name, errPrice := _middlewares.ExtractTokenName(c)
 		if errPrice != nil {
-			return c.JSON(http.StatusUnauthorized, helper.ResponseFailed("failed to extract token"))
+			return c.JSON(http.StatusUnauthorized, helper.ResponseFailed("failed to extract token: name"))
 		}
 
 		error := vh.videoUseCase.PostVideo(video, idToken, name)
