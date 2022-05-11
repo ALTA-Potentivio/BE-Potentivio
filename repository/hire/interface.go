@@ -5,7 +5,7 @@ import (
 )
 
 type HireRepositoryInterface interface {
-	CheckHire(hire entities.Hire) error
+	CheckHire(hire entities.Hire) entities.Hire
 	AcceptHire(hire entities.Hire) error
 	CreateHire(hire entities.Hire) error
 	GetHireByIdArtist(IdArtist int) ([]entities.Hire, error)

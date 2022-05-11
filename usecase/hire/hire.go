@@ -41,11 +41,10 @@ func (huc *HireUseCase) CreateHire(hire entities.Hire) error {
 	}
 
 	cafeData, _, _ := huc.CafeRepository.GetCafeById(int(hire.IdCafe))
-	err = huc.HireRepository.CheckHire(hire)
+	hireData := huc.HireRepository.CheckHire(hire)
 
-	if err == nil {
+	if hireData.StatusArtist != "rejected" {
 		return errors.New("Artis not Available")
-
 	}
 
 	if artistData.AccountNumber == nil || artistData.Price == nil {
