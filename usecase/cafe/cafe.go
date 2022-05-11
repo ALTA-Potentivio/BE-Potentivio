@@ -38,11 +38,7 @@ func (cuc *CafeUseCase) GetCafeById(id int) (_entities.GetCafe, int, error) {
 }
 
 func (cuc *CafeUseCase) PostCafe(cafe _entities.Cafe) error {
-	password, errHash := helper.HashPassword(cafe.Password)
-	if errHash != nil {
-		return errors.New("error hashing password")
-	}
-	cafe.Password = password
+
 	if cafe.Name == "" {
 		return errors.New("name is required")
 	}
@@ -55,6 +51,13 @@ func (cuc *CafeUseCase) PostCafe(cafe _entities.Cafe) error {
 	if cafe.Address == "" {
 		return errors.New("address is required")
 	}
+
+	password, errHash := helper.HashPassword(cafe.Password)
+	if errHash != nil {
+		return errors.New("error hashing password")
+	}
+	cafe.Password = password
+
 	error := cuc.cafeRepository.PostCafe(cafe)
 	return error
 }
