@@ -37,6 +37,13 @@ func TestCreateArtist(t *testing.T) {
 		assert.Equal(t, "usamah", createArtist.Name)
 	})
 
+	t.Run("TestCreateArtistSuccessValidation-4", func(t *testing.T) {
+		artistUseCase := NewArtistUseCase(mockArtistRepository{}, mockHireRepository{})
+		createArtist, err := artistUseCase.CreateArtist(_entities.Artist{Name: "usamah", Email: "usamah@gmail.com", Address: "Kota Bogor"})
+		assert.NotNil(t, err)
+		assert.Equal(t, "usamah", createArtist.Name)
+	})
+
 	t.Run("TestCreateArtistError", func(t *testing.T) {
 		artistUseCase := NewArtistUseCase(mockArtistRepositoryError{}, mockHireRepository{})
 		createArtist, err := artistUseCase.CreateArtist(_entities.Artist{Name: "usamah", Email: "usamah@gmail.com", Password: "usamah", Address: "Kota Bogor"})
@@ -199,8 +206,8 @@ func (m mockHireRepository) AcceptHire(hire _entities.Hire) error {
 	return nil
 }
 
-func (m mockHireRepository) CheckHire(hire _entities.Hire) error {
-	return nil
+func (m mockHireRepository) CheckHire(hire _entities.Hire) _entities.Hire {
+	return _entities.Hire{}
 }
 
 func (m mockHireRepository) CallBack(hire _entities.Hire) error {
