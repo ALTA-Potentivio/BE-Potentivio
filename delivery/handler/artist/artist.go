@@ -39,31 +39,31 @@ func (ah *ArtistHandler) CreateArtistHandler() echo.HandlerFunc {
 func (ah *ArtistHandler) GetAllArtistHandler() echo.HandlerFunc {
 	return func(c echo.Context) error {
 
-		id_catagory, _ := strconv.Atoi(c.QueryParam("id_catagory"))
-		id_genre, _ := strconv.Atoi(c.QueryParam("id_genre"))
+		idCatagory, _ := strconv.Atoi(c.QueryParam("id_catagory"))
+		idGenre, _ := strconv.Atoi(c.QueryParam("id_genre"))
 
-		filters_catagory_genre := map[string]int{}
-		if id_catagory != 0 {
-			filters_catagory_genre["id_catagory"] = id_catagory
+		filtersCatagoryGenre := map[string]int{}
+		if idCatagory != 0 {
+			filtersCatagoryGenre["id_catagory"] = idCatagory
 		}
-		if id_genre != 0 {
-			filters_catagory_genre["id_genre"] = id_genre
+		if idGenre != 0 {
+			filtersCatagoryGenre["id_genre"] = idGenre
 		}
 
-		filters_address := map[string]string{}
+		filtersAddress := map[string]string{}
 		if c.QueryParam("address") != "" {
-			filters_address["address"] = c.QueryParam("address")
+			filtersAddress["address"] = c.QueryParam("address")
 		}
 		if c.QueryParam("name") != "" {
-			filters_address["name"] = c.QueryParam("name")
+			filtersAddress["name"] = c.QueryParam("name")
 		}
 
-		filters_price := map[string]string{}
+		filtersPrice := map[string]string{}
 		if c.QueryParam("price") != "" {
-			filters_price["price"] = c.QueryParam("price")
+			filtersPrice["price"] = c.QueryParam("price")
 		}
 
-		artists, rows, err := ah.artistUseCase.GetAllArtist(filters_catagory_genre, filters_price, filters_address)
+		artists, rows, err := ah.artistUseCase.GetAllArtist(filtersCatagoryGenre, filtersPrice, filtersAddress)
 		if err != nil {
 			return c.JSON(http.StatusInternalServerError, helper.ResponseFailed(err.Error()))
 		}

@@ -25,12 +25,12 @@ func (ar *ArtistRepository) CreateArtist(artist _entities.Artist) (_entities.Art
 	return artist, nil
 }
 
-func (ar *ArtistRepository) GetAllArtist(filters_catagory_genre map[string]int, filters_price map[string]string, filters_address map[string]string) ([]_entities.Artist, uint, error) {
+func (ar *ArtistRepository) GetAllArtist(filtersCatagoryGenre map[string]int, filtersPrice map[string]string, filtersAddress map[string]string) ([]_entities.Artist, uint, error) {
 	var artists []_entities.Artist
 
 	builder := ar.database.Order("Name ASC")
 
-	for key, value := range filters_price {
+	for key, value := range filtersPrice {
 		if value == "asc" {
 			builder = ar.database.Order(key + " " + value)
 		}
@@ -39,11 +39,11 @@ func (ar *ArtistRepository) GetAllArtist(filters_catagory_genre map[string]int, 
 		}
 	}
 
-	for key, value := range filters_catagory_genre {
+	for key, value := range filtersCatagoryGenre {
 		builder.Where(key+" = ?", value)
 	}
 
-	for key, value := range filters_address {
+	for key, value := range filtersAddress {
 		builder.Where(key+" LIKE ?", "%"+value+"%")
 	}
 
