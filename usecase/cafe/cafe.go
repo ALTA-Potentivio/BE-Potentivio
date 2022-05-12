@@ -52,10 +52,7 @@ func (cuc *CafeUseCase) PostCafe(cafe _entities.Cafe) error {
 		return errors.New("address is required")
 	}
 
-	password, errHash := helper.HashPassword(cafe.Password)
-	if errHash != nil {
-		return errors.New("error hashing password")
-	}
+	password, _ := helper.HashPassword(cafe.Password)
 	cafe.Password = password
 
 	error := cuc.cafeRepository.PostCafe(cafe)

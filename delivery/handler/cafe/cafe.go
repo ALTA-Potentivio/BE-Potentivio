@@ -50,7 +50,7 @@ func (ch *CafeHandler) GetCafeProfileHandler() echo.HandlerFunc {
 
 		var id = idToken
 		if idToken != id {
-			return c.JSON(http.StatusUnauthorized, helper.ResponseFailed("Unauthorized"))
+			return c.JSON(http.StatusUnauthorized, helper.ResponseFailed("unauthorized"))
 		}
 
 		cafes, rows, err := ch.cafeUseCase.GetCafeById(id)
