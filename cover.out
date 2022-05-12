@@ -1,7 +1,4 @@
 mode: set
-potentivio-app/usecase/auth/auth.go:11.92,15.2 1 1
-potentivio-app/usecase/auth/auth.go:17.98,20.2 2 1
-potentivio-app/usecase/auth/auth.go:22.96,25.2 2 1
 potentivio-app/usecase/artist/artist.go:16.152,21.2 1 1
 potentivio-app/usecase/artist/artist.go:23.91,25.23 1 1
 potentivio-app/usecase/artist/artist.go:28.2,28.24 1 1
@@ -18,9 +15,9 @@ potentivio-app/usecase/artist/artist.go:57.90,60.2 2 1
 potentivio-app/usecase/artist/artist.go:62.117,65.2 2 1
 potentivio-app/usecase/artist/artist.go:67.68,70.2 2 1
 potentivio-app/usecase/artist/artist.go:72.77,75.2 2 1
-potentivio-app/usecase/catagory/catagory.go:12.112,16.2 1 1
-potentivio-app/usecase/catagory/catagory.go:18.101,21.2 2 1
-potentivio-app/usecase/catagory/catagory.go:23.76,26.2 2 1
+potentivio-app/usecase/auth/auth.go:11.92,15.2 1 1
+potentivio-app/usecase/auth/auth.go:17.98,20.2 2 1
+potentivio-app/usecase/auth/auth.go:22.96,25.2 2 1
 potentivio-app/usecase/cafe/cafe.go:14.92,18.2 1 1
 potentivio-app/usecase/cafe/cafe.go:19.77,38.2 16 1
 potentivio-app/usecase/cafe/cafe.go:40.61,42.21 1 1
@@ -39,6 +36,9 @@ potentivio-app/usecase/cafe/cafe.go:80.2,80.24 1 1
 potentivio-app/usecase/cafe/cafe.go:70.33,79.3 6 1
 potentivio-app/usecase/cafe/cafe.go:83.50,86.2 2 1
 potentivio-app/usecase/cafe/cafe.go:88.69,91.2 2 1
+potentivio-app/usecase/catagory/catagory.go:12.112,16.2 1 1
+potentivio-app/usecase/catagory/catagory.go:18.101,21.2 2 1
+potentivio-app/usecase/catagory/catagory.go:23.76,26.2 2 1
 potentivio-app/usecase/genre/genre.go:12.97,16.2 1 1
 potentivio-app/usecase/genre/genre.go:18.86,21.2 2 1
 potentivio-app/usecase/genre/genre.go:23.67,26.2 2 1
