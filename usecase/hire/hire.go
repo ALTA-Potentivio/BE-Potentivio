@@ -42,7 +42,7 @@ func (huc *HireUseCase) CreateHire(hire entities.Hire) error {
 
 	cafeData, _, _ := huc.CafeRepository.GetCafeById(int(hire.IdCafe))
 	hireData := huc.HireRepository.CheckHire(hire)
-	
+
 	if hireData.StatusArtist == "waiting" || hireData.StatusArtist == "waiting payment" || hireData.StatusArtist == "PAID" {
 		return errors.New("Artis not Available")
 	}
@@ -121,11 +121,11 @@ func (huc *HireUseCase) AcceptHire(hire entities.Hire) error {
 		Currency:                       "IDR",
 	}
 
-	resp, err := invoice.Create(&data)
+	resp, _ := invoice.Create(&data)
 
-	if err != nil {
-		log.Info(err)
-	}
+	//if err != nil {
+	//	log.Info(err)
+	//}
 
 	var paymentUrl = resp.InvoiceURL
 	hires.PaymentUrl = paymentUrl
