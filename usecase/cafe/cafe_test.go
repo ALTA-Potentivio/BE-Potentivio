@@ -3,6 +3,7 @@ package cafe
 import (
 	"errors"
 	"fmt"
+
 	_entities "potentivio-app/entities"
 	"testing"
 
@@ -60,6 +61,7 @@ func TestPostCafe(t *testing.T) {
 		}
 		assert.NotNil(t, err)
 	})
+
 }
 
 func TestGetAllCafe(t *testing.T) {
