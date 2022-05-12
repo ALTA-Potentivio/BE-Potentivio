@@ -21,8 +21,6 @@ func NewArtistUseCase(artistRepo _artistRepository.ArtistRepositoryInterface, hi
 }
 
 func (auc *ArtistUseCase) CreateArtist(artist _entities.Artist) (_entities.Artist, error) {
-	password, _ := helper.HashPassword(artist.Password)
-	artist.Password = password
 	//validasi saat registrasi
 	if artist.Name == "" {
 		return artist, errors.New("name is required")
@@ -36,6 +34,9 @@ func (auc *ArtistUseCase) CreateArtist(artist _entities.Artist) (_entities.Artis
 	if artist.Address == "" {
 		return artist, errors.New("address is required")
 	}
+
+	password, _ := helper.HashPassword(artist.Password)
+	artist.Password = password
 
 	createArtist, err := auc.artistRepository.CreateArtist(artist)
 	return createArtist, err
