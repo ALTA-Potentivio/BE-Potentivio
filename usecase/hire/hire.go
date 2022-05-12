@@ -42,7 +42,7 @@ func (huc *HireUseCase) CreateHire(hire entities.Hire) error {
 
 	cafeData, _, _ := huc.CafeRepository.GetCafeById(int(hire.IdCafe))
 	hireData := huc.HireRepository.CheckHire(hire)
-	fmt.Println(hireData.StatusArtist)
+	
 	if hireData.StatusArtist == "waiting" || hireData.StatusArtist == "waiting payment" || hireData.StatusArtist == "PAID" {
 		return errors.New("Artis not Available")
 	}

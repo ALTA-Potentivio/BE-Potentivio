@@ -42,8 +42,8 @@ func (auc *ArtistUseCase) CreateArtist(artist _entities.Artist) (_entities.Artis
 	return createArtist, err
 }
 
-func (auc *ArtistUseCase) GetAllArtist(filters_catagory_genre map[string]int, filters_price map[string]string, filters_address map[string]string) ([]_entities.Artist, uint, error) {
-	artists, rows, err := auc.artistRepository.GetAllArtist(filters_catagory_genre, filters_price, filters_address)
+func (auc *ArtistUseCase) GetAllArtist(filtersCatagoryGenre map[string]int, filtersPrice map[string]string, filtersAddress map[string]string) ([]_entities.Artist, uint, error) {
+	artists, rows, err := auc.artistRepository.GetAllArtist(filtersCatagoryGenre, filtersPrice, filtersAddress)
 	return artists, rows, err
 }
 
