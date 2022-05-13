@@ -33,9 +33,9 @@ tags:
   - name: notification
     description: notification offer from cafe to artist
   - name: hire as cafe
-    description: Operation about hire
-  - name: hire artist
-    description: Operation about hire
+    description: Operation about hire from cafe
+  - name: hire as artist
+    description: Operation about hire from artist
   - name: category  
     description: Operation for create and get category
   - name: genre
@@ -861,7 +861,7 @@ paths:
       security:
       - bearerAuth: []
       tags:
-        - hire
+        - hire as artist
       summary: get all hiring in user artist 
       responses:
         "200":
@@ -900,7 +900,7 @@ paths:
       security:
       - bearerAuth: []
       tags:
-        - hire
+        - hire as cafe
       summary: get all hiring in user cafe 
       responses:
         "200":
@@ -939,7 +939,7 @@ paths:
       security:
       - bearerAuth: []
       tags:
-        - hire
+        - hire as artist
       summary: accept job   
       parameters:
         - name: id
@@ -986,7 +986,7 @@ paths:
       security:
       - bearerAuth: []
       tags:
-        - hire
+        - hire as artist
       summary: rejected job 
       parameters:
         - name: id
@@ -1032,8 +1032,8 @@ paths:
     put:
       security:
       - bearerAuth: []
-      tags: 
-      - hire
+      tags:
+      - hire as cafe
       summary: canceled job
       parameters:
         - name: id
@@ -1080,7 +1080,7 @@ paths:
       security:
       - bearerAuth: []
       tags:
-        - hire
+        - hire as cafe
       summary: give ratting artist 
       parameters:
         - name: id
@@ -1140,7 +1140,7 @@ paths:
       security:
       - bearerAuth: []
       tags:
-        - hire
+        - hire as cafe
       summary: payment to artist
       parameters:
         - name: id
