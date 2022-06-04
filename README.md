@@ -30,7 +30,7 @@ Potentivio apps adalah sebuah aplikasi yang menjembatani antara artist dengan ca
 
 ## Open APIs
 
-Untuk Open API bisa lihat selengkapnya [disini](https://app.swaggerhub.com/apis-docs/satriacening/project_group3/1.0.0#/)
+Untuk Open API bisa lihat selengkapnya [disini](https://app.swaggerhub.com/apis-docs/satriacening/potentivio/1.0.0)
 
 
 ## Menjalankan Lokal
