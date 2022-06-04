@@ -29,7 +29,7 @@ Potentivio-apps is a platform used for cafe owners to find artists to appear on 
 
 ## Open APIs
 
-For Open API, see more [click here](https://app.swaggerhub.com/apis-docs/satriacening/project_group3/1.0.0#/)
+For Open API, see more [click here]([https://app.swaggerhub.com/apis-docs/satriacening/project_group3/1.0.0#/](https://app.swaggerhub.com/apis-docs/satriacening/potentivio/1.0.0))
 
 
 ## Run Local
